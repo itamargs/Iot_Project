@@ -9,3 +9,5 @@ Stay tuned.
 </p>
 
 Meanwhile you can check our [WIki.](https://github.com/itamargs/Iot_Project/wiki)
+
+Update 11.01.18 -> Initial code added to a sub branch of Alpha release.
