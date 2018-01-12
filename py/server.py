@@ -1,6 +1,7 @@
 #!/usr/bin/python
 #-*- coding: utf-8 -*-
 
+
 class Server:
     def __init__(self):
         self.devicesOnline = None
@@ -24,3 +25,8 @@ class Server:
     def addDevice(self, ):
         pass
 
+
+def main():
+    print("gh")
+
+main()

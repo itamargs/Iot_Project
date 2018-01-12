@@ -1,16 +1,27 @@
 #!/usr/bin/python
 #-*- coding: utf-8 -*-
 
-class tensiometer:
-    def __init__(self):
-        pass
 
+
+from abc import ABC, abstractmethod
+
+class tensiometer(ABC):
+
+    Type = "Tensiometer"
+    dataType = "text"
+
+    @abstractmethod
     def getHumidity(self, ):
         pass
 
+    @abstractmethod
     def needToClean(self, ):
         pass
 
-    def dataType(self, text):
-        pass
+
+    def getDataType(self):
+        return "text"
+
+    def printMyType(self):
+        print("Device type: Tensiometer")
 

@@ -1,41 +1,63 @@
 #!/usr/bin/python
 #-*- coding: utf-8 -*-
 from abc import ABC, abstractmethod
-class Device(ABC):
-    @abstractmethod
-    def __init__(self):
-        self.interval = None
-        self.ID = None
-        self.description = None
+
+
+class device(ABC):
+
+
+
+    def __init__(self, interval, ID, description):
+        self.interval = interval
+        self.ID = ID
+        self.description = description
+        self.dataType = "my data type"
+        print("\ninit device:", description)
+
 
     @abstractmethod
-    def setInterval(self, interval):
-        pass
-
-    @abstractmethod
-    def compress(self, ):
-        pass
-
-    @abstractmethod
-    def analyze(self, data):
-        pass
-
-    def sendData(self, ):
-        pass
-
-    def pulseBroadCast(self, ):
+    def setInterval(self, interval):   # interval for heart beat send
         pass
 
     @abstractmethod
-    def getData(self, ):
+    def compress(self):  #   generic compression method by the data type of the device
         pass
 
-    def isReady(self, false):
+    @abstractmethod
+    def analyze(self, data):  # make data ready to read by the protocol
         pass
 
-    def createData(self, dataType):
+    @abstractmethod
+    def getData(self): # get data from sensor
         pass
 
-    def setDescription(self, description):
+    def sendData(self): # send data to cloud
         pass
+
+    def getReady(self):   # final initializaion of device
+        print("Getting ready")
+        # check connection to sensor
+        # get data from sensor
+        # analyze data from sensor
+        # connect to cloud
+        pass
+
+    def pulseBroadCast(self): # pulse heart beat to the server
+        pass
+
+    def isReady(self, false): #is the device ready to send data amd etc?
+        pass
+
+    def createData(self, dataType): #create the data file
+        pass
+
+    def setDescription(self, description): # set a new (textual) description to the device
+        pass
+
+
+    def printDetails(self):
+        print("ID:", self.ID)
+        print("Interval:", self.interval)
+        print("Description:", self.description)
+        print("Data Type:", self.dataType)
 
