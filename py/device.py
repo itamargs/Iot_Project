@@ -23,19 +23,20 @@ class device(ABC):
     def compress(self):  #   generic compression method by the data type of the device
         pass
 
-    @abstractmethod
-    def analyze(self, data):  # make data ready to read by the protocol
-        pass
 
-    @abstractmethod
-    def getData(self): # get data from sensor
-        pass
+    # @abstractmethod
+    # def getData(self): # get data from sensor
+    #     pass
 
     def sendData(self): # send data to cloud
         pass
 
     def getReady(self):   # final initializaion of device
-        print("Getting ready")
+        print("Getting ready...\n" )
+        self.getData()  #get data from device (data depends on device type)
+        self.getSettings() #get settings from device (settings depends on device type)
+        self.analyze() # insert values from sensor uoutput into device data members
+
         # check connection to sensor
         # get data from sensor
         # analyze data from sensor

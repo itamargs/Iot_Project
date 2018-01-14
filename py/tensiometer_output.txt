@@ -1,0 +1,4 @@
+type: tensiometer
+humidity: 40
+battery: 80
+

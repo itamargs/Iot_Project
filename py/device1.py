@@ -17,10 +17,17 @@ class device1(device.device, tensiometer.tensiometer):
      # make data ready to read by the protocol
      pass
 
-    def getData(self):
+    def getData(self):  #get the data from sensor according to his type
      # get data from sensor
-     pass
+        super(device1,self).getData()
 
+    def getSettings(self):  #get settings from file
+     # get data from sensor
+        super(device1,self).getSettings()
+
+    def analyze(self):  #get settings from file
+        # analyze data in sensor, isert values to class values
+        super(device1,self).analyze()
 
     def getHumidity(self, ):
      # get humidity from tensiometer
