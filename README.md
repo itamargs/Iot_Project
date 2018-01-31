@@ -5,7 +5,7 @@
   <img src="https://mspalliance.com/wp-content/uploads/2017/03/IoT.png">
 </p>
 
-This project is developed as part of the requirements for our B.Sc studying at Azrieli College of Engineering, Jerusalem, Israel.
+This project is developed as part of the requirements for our B.Sc studying at [Azrieli College of Engineering, Jerusalem, Israel](https://www.jce.ac.il/).
 The project is advisored by Dr. Guy Leshem
 
 Relevant Links:
