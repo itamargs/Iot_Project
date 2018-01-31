@@ -6,6 +6,7 @@
 </p>
 
 This project is developed as part of the requirements for our B.Sc studying at Azrieli College of Engineering, Jerusalem, Israel.
+The project is advisored by Dr. Guy Leshem
 
 Relevant Links:
 
