@@ -22,8 +22,3 @@ Relevant Links:
 
 
 
-## [Iterations](https://github.com/meitarsh/m.s-aluminium-manager-app/wiki/Iterations)
-
-
-
-Update 11.01.18 -> Initial code added to a sub branch of Alpha release.
