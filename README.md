@@ -19,5 +19,6 @@ Relevant Links:
 | Documnetation | [![Inline docs](http://inch-ci.org/github/meitarsh/m.s-aluminium-manager-app.svg?branch=master)](https://github.com/itamargs/Iot_Project/wiki/Documents) |
 | Diary |  [![link](https://img.shields.io/badge/Diary-On%20demand-blue.svg)](https://calendar.google.com/calendar/embed?src=e0luturcbaalb57knbt17hq83k%40group.calendar.google.com&ctz=Asia%2FJerusalem) |
 | Releases |  [![release](http://github-release-version.herokuapp.com/github/meitarsh/m.s-aluminium-manager-app/release.svg?style=flat)](https://github.com/itamargs/Iot_Project/releases) |
+| License | [![Open Source Love](https://github.com/itamargs/Iot_Project/blob/master/LICENSE) |
 
 
