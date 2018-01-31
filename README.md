@@ -19,6 +19,5 @@ Relevant Links:
 | Diary |  [![link](https://img.shields.io/badge/Diary-On%20demand-blue.svg)](https://calendar.google.com/calendar/embed?src=e0luturcbaalb57knbt17hq83k%40group.calendar.google.com&ctz=Asia%2FJerusalem) |
 | Releases |  [![release](http://github-release-version.herokuapp.com/github/meitarsh/m.s-aluminium-manager-app/release.svg?style=flat)](https://github.com/itamargs/Iot_Project/releases) |
 
-
-
+you can read about [our team](https://github.com/itamargs/Iot_Project/wiki/Our-Team) as well
 
