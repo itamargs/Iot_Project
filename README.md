@@ -5,7 +5,7 @@ it's empty now but it's going to be awesome later.
 Stay tuned.
 
 <p align="center">
-  <img src="https://vignette.wikia.nocookie.net/marvelcinematicuniverse/images/4/4b/H_alternate_3.png/revision/latest/scale-to-width-down/350?cb=20160331154244">
+  <img src="https://mspalliance.com/wp-content/uploads/2017/03/IoT.png">
 </p>
 
 Meanwhile you can check our [WIki.](https://github.com/itamargs/Iot_Project/wiki)
