@@ -1,5 +1,5 @@
 
-# Welcome to our IoT Project! (Alpha Version)
+# Welcome to our IoT Project!
 
 <p align="center">
   <img src="https://mspalliance.com/wp-content/uploads/2017/03/IoT.png">
