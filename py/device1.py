@@ -43,12 +43,8 @@ class device1(device.device, tensiometer.tensiometer):
 
 
 
-myDevice = device1(10, 1234567, "my first device")
+myDevice = device1(10, 5645656656, "my IoT device")
 myDevice.getReady()
 
-
-# myDevice.printMyType()
-# myDevice.printDetails()
-# print(myDevice.getDataType())
 
 

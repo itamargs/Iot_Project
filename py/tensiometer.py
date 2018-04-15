@@ -1,7 +1,8 @@
 #!/usr/bin/python
 #-*- coding: utf-8 -*-
 
-
+# Interface
+# import this to device to make the device support tensiometer sensor and behavior
 
 from abc import ABC, abstractmethod
 
@@ -31,7 +32,7 @@ class tensiometer(ABC):
     @abstractmethod
     def getData(self):
         print("\nGet Data:\n---------------")
-        # 1. Alpha -> get text dummy file. Beta-> getreal data from sensor and convert it to text file
+        # 1. Alpha -> get text dummy file. Beta-> get real data from sensor and convert it to text file
         my_dict = {}
         file = open("tensiometer_output.txt", "r")
         for line in file:

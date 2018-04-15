@@ -1,5 +1,5 @@
 #name - value - description
-Humidity delta : 2 : a change in humidity PRECENT considered a change
+Humidity delta : 3 : a change in humidity PRECENT considered a change
 To clean: 2 : time interval to clean device in MONTHES
 Data type: text : the data type for the compressing protocol flow TEXT/VIDEO/PICTURE
 update interval: 2 : time to check if there is any new data in MINUTES
