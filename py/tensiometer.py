@@ -2,7 +2,7 @@
 #-*- coding: utf-8 -*-
 
 # Interface
-# import this to device to make the device support tensiometer sensor and behavior
+# import this to device to make the device support tensiometer sensor and behavior.
 
 from abc import ABC, abstractmethod
 

@@ -1,7 +1,10 @@
-#!/usr/bin/python
-#-*- coding: utf-8 -*-
 # interface
 # import this to you class so it can be a device
+
+
+#!/usr/bin/python
+#-*- coding: utf-8 -*-
+
 
 from abc import ABC, abstractmethod
 

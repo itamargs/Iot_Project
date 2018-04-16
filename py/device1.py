@@ -1,4 +1,4 @@
-# this is a device. import here the interface "device" to make it usable.
+# this is a device. import here the interface "device" to make it usable
 import device
 import tensiometer
 
