@@ -1,0 +1,5 @@
+the *relevant* output of the tensiometer after procecing. this dosent include raw data
+type: tensiometer
+humidity: 40
+battery: 80
+
