@@ -1,7 +1,5 @@
 
-
-# Welcome to our IoT Project! (Master)
-0.1 >>>>>>> master
+master >>>>>>> Alpha
 
 <p align="center">
   <img src="https://mspalliance.com/wp-content/uploads/2017/03/IoT.png">
