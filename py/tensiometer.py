@@ -82,3 +82,14 @@ class tensiometer(ABC):
         m_humidity = my_dict.get('humidity', 'None')
         m_buttery = my_dict.get('buttery', 'None')
 
+    # override from tensiometer
+    @abstractmethod
+    def compareData(self):
+        print("\nCompare data in tensiometer:\n-------")
+        #todo: implement code for comparing old data from sensor to new data from sensor
+
+    # override from tensiometer
+    @abstractmethod
+    def dataReduction(self):
+        print("\nMake Reduction to data:\n-------")
+        #todo: implement code for the data reduction
