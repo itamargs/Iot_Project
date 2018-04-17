@@ -3,6 +3,8 @@
 
 # Interface
 # import this to device to make the device support tensiometer sensor and behavior.
+# all methods with "@abstractmethod" decorators are MUST be implementer into the sub class of this.
+# please copy the comment "override from ***"  to the subclass to make the code more readable
 
 from abc import ABC, abstractmethod
 
@@ -14,11 +16,12 @@ class tensiometer(ABC):
     Type = "Tensiometer"
     dataType = "text"
 
-
+    # override from tensiometer
     @abstractmethod
     def getHumidity(self, ):
         pass
 
+    # override from tensiometer
     @abstractmethod
     def needToClean(self, ):
         pass
@@ -30,6 +33,7 @@ class tensiometer(ABC):
         print("Device type: Tensiometer")
 
     @abstractmethod
+    # override from tensiometer
     def getData(self):
         print("\nGet Data:\n---------------")
         # 1. Alpha -> get text dummy file. Beta-> get real data from sensor and convert it to text file
@@ -47,6 +51,7 @@ class tensiometer(ABC):
 
 
     @abstractmethod
+    #override from tensiometer
     def getSettings(self):
         print("\nGet Settings:\n----------------")
         my_dict = {}
@@ -61,7 +66,7 @@ class tensiometer(ABC):
         for key, value in my_dict.items():
             print(key + ":", value)
 
-
+    # override from tensiometer
     @abstractmethod
     def analyze(self):
         print("\nanalyze:\n-------")

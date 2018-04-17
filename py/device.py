@@ -1,10 +1,9 @@
-# interface
-# import this to you class so it can be a device
-
-
 #!/usr/bin/python
 #-*- coding: utf-8 -*-
-
+# interface
+# import this to you class so it can be a device
+# all methods with "@abstractmethod" decorators are MUST be implementer into the sub class of this.
+# please copy the comment "override from ***"  to the subclass to make the code more readable
 
 from abc import ABC, abstractmethod
 
@@ -22,10 +21,12 @@ class device(ABC):
 
 
     @abstractmethod
+    #override from device
     def setInterval(self, interval):   # interval for heart beat send
         pass
 
     @abstractmethod
+    #override from device
     def compress(self):  #   generic compression method by the data type of the device
         pass
 
