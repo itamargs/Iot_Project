@@ -35,7 +35,7 @@ class tensiometer(ABC):
     @abstractmethod
     # override from tensiometer
     def getData(self):
-        print("\nGet Data:\n---------------")
+        print("\ntensiometer:  Get Data:\n---------------")
         # 1. Alpha -> get text dummy file. Beta-> get real data from sensor and convert it to text file
         my_dict = {}
         file = open("tensiometer_output.txt", "r")
@@ -53,7 +53,7 @@ class tensiometer(ABC):
     @abstractmethod
     #override from tensiometer
     def getSettings(self):
-        print("\nGet Settings:\n----------------")
+        print("\ntensiomete: Get Settings:\n-------------------------")
         my_dict = {}
         file = open("tensiometer_settings.txt", "r")
         for line in file:
@@ -69,7 +69,7 @@ class tensiometer(ABC):
     # override from tensiometer
     @abstractmethod
     def analyze(self):
-        print("\nanalyze:\n-------")
+        print("\ntensiometer: analyze:\n-----------------------")
         my_dict = {}
         file = open("tensiometer_output.txt", "r")
         for line in file:
@@ -85,11 +85,13 @@ class tensiometer(ABC):
     # override from tensiometer
     @abstractmethod
     def compareData(self):
-        print("\nCompare data in tensiometer:\n-------")
+        print("\ntensiometer: compare data\n-------")
+        print("\ntensiometer compareData(): data has changed--> returns true\n-------") #todo: just for test in case its really true
         #todo: implement code for comparing old data from sensor to new data from sensor
+        return False #todo return true only if data has changed- just for test. need to see if its really true
 
     # override from tensiometer
     @abstractmethod
     def dataReduction(self):
-        print("\nMake Reduction to data:\n-------")
+        print("\ntensiometer: Make Reduction to data:\n-------")
         #todo: implement code for the data reduction

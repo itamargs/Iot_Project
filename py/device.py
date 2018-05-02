@@ -20,7 +20,7 @@ class device(ABC):
         self.ID = ID
         self.description = description
         self.dataType = "my data type"
-        print("\ninit device:", description)
+        print("\ndevice: init device:", description)
 
 
     @abstractmethod
@@ -28,22 +28,27 @@ class device(ABC):
     def setInterval(self, interval):   # interval for heart beat send
         pass
 
-    @abstractmethod
-    #override from device
-    def compress(self):  #   generic compression method by the data type of the device
+
+    def compress(self):  #   compress data with some known compress method
+        print("\ndevice: compressing data")
         pass #todo: place holder. need to write the method
 
+    #override from device
+    def doesNeedAnalyzing(self):   # is the data need to be analyzed (example: if only 1 second past from last time there is no need)
+        print("\ndevice: check if need analyze")
+        return True #todo: just place holder, need to check if need analyze
 
     @abstractmethod
     #override from device
-    def doesNeedAnalyzing(self):   # is the device need to be analyzed
+    def deleteOutdatedData(self):   # delete data who isn't nececcery anymore for cleaning space in device memory
         pass
 
     def sendData(self): # send data to cloud
+        print("\ndevice: sending data")
         pass
 
     def getReady(self):   # final initializaion of device
-        print("Getting ready...\n" )
+        print("device: Getting ready...\n" )
         self.getData()  #get data from device (data depends on device type)
         self.getSettings() #get settings from device (settings depends on device type)
         self.analyze() # insert values from sensor uoutput into device data members
@@ -55,12 +60,12 @@ class device(ABC):
         pass
 
     def isTheDataHasChanged(self): #boolean
-        print("Check for change in data...\n" )
-        self.compareData()  #compare the new data from the sensor to the data captured last time
+        print("\ndevice: Check for change in data..." )
+        return self.compareData()  #compare the new data from the sensor to the data captured last time. (return true if data has changed)
 
-        def getChange(self): #get the change from the old data that captured in sensor to the new data captured
-            print("get the change in data...\n")
-            #todo: place holder. need to write the method
+    def getChange(self): #get the change from the old data that captured in sensor to the new data captured
+        print("\ndevice: get the change in data...")
+        #todo: place holder. need to write the method
 
 
         # check connection to sensor
@@ -70,6 +75,7 @@ class device(ABC):
         pass
 
     def sendPulse(self):  # pulse heart beat to the server
+        print("\ndevice: sending pulse")
         pass
 
     def isReady(self, false):  # is the device ready to send data amd etc?
