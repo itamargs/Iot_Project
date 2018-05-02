@@ -2,12 +2,16 @@
 # import here the interface "device" to make it able to act as device who can work with the compressing protocol
 #impot tensiometer to make this device be able to connect to a tensiometer sensor
 
+
 import device
 import tensiometer
 from switch import switch #import class switch from file switch
+import pickle #saving object for other sessions
+import dill as pickle
 
 
 class device1(device.device, tensiometer.tensiometer):
+
 
     # override from device
     def setInterval(self, interval):
@@ -63,13 +67,16 @@ class device1(device.device, tensiometer.tensiometer):
 # This code is generic. it works with all type of devices depends on the device type we imported
 
 
-option = 'first start'  # todo: for test propoose only
+option = 'new data'  # todo: for test propoose only
+# option = 'first start'  # todo: for test propoose only
 
 
 for case in switch(option):
     if case('first start'):
         print("case: first start")
-        myDevice = device1(10, 5645656656, "my IoT device")
+        myDevice = device1(10, 5645656656, "my IoT device") #(self, interval, id, description)create device instance to actually run in background and gather data
+        myDevice_ = myDevice.save('saved') #saving the device values to another sessions
+
         # myDevice.getReady()
         # check if need start analyze data
         if myDevice.doesNeedAnalyzing() is True:
@@ -86,9 +93,11 @@ for case in switch(option):
                     myDevice.sendPulse()
         break
 
-    """
+
     if case('new data'): #need to load the object created in the case of "first start"
         print("case: new data")
+        with open('saved', 'rb') as f:
+            myDevice = pickle.load(f)
         if myDevice.doesNeedAnalyzing() is True:
             myDevice.analyze()
             if myDevice.isTheDataHasChanged() is True:  # if there is a change
@@ -106,6 +115,8 @@ for case in switch(option):
 
     if case('interval activation'):
         print("case: interval activation")
+        with open('saved', 'rb') as f:
+            myDevice = pickle.load(f)
         # todo:pulseCheck()
         if myDevice.isTheDataHasChanged() is True:  # if there is a change
             myDevice.getChange()  # data has been changed so get the new data
@@ -119,7 +130,7 @@ for case in switch(option):
            myDevice.deleteOutdatedData()
            myDevice.sendPulse()
         break
-    """
+
 
     # if case('two'):
     #     print 2

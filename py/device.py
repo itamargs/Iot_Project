@@ -9,8 +9,8 @@
 # example for none abstract:  "sendData()" ALL type of devices need to send data to the cloud no matter what is that data
 # if method is abstract, then the operation of this method IS unique to the specific device type.
 from abc import ABC, abstractmethod
-
-
+import pickle #saving object for other sessions
+import dill as pickle
 class device(ABC):
 
 
@@ -21,6 +21,15 @@ class device(ABC):
         self.description = description
         self.dataType = "my data type"
         print("\ndevice: init device:", description)
+
+
+    def save(self, path):
+        with open(path, 'wb') as f:
+            return pickle.dump(self, f)
+    def load(self, path):
+        with open(path, 'rb') as f:
+            self.__dict__.update(pickle.load(f).__dict__)
+
 
 
     @abstractmethod
