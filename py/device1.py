@@ -9,8 +9,7 @@ from switch import switch #import class switch from file switch
 import pickle #saving object for other sessions
 import dill as pickle
 
-
-class device1(device.device, tensiometer.tensiometer):
+class device1(device.device, tensiometer.tensiometer): #tensionmeter is a placeholder
 
 
     # override from device
@@ -67,7 +66,7 @@ class device1(device.device, tensiometer.tensiometer):
 # This code is generic. it works with all type of devices depends on the device type we imported
 
 
-option = 'new data'  # todo: for test propoose only
+option = 'first start'  # todo: for test propoose only
 # option = 'first start'  # todo: for test propoose only
 
 
