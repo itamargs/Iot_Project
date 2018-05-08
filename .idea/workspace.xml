@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="830bbfb4-fd2a-40f2-a5aa-5aed04824d21" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/py/device1.py" afterPath="$PROJECT_DIR$/py/device1.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -322,7 +321,14 @@
       <option name="project" value="LOCAL" />
       <updated>1525290616329</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="little comment">
+      <created>1525799728707</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1525799728707</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -377,7 +383,8 @@
     <MESSAGE value="MAJOR UPDATE: finish first iteration on the core protocol.&#10;ADD: implement the sequence diagram into device1.py&#10;ADD: new methods in &quot;tensiometer&quot; and &quot;device&quot; for the sequence diagram &#10;ADD: switch class for like java &quot;switch&quot; functionality&#10;ADD: todo staff" />
     <MESSAGE value="FIX: myDevice.isTheDataHasChanged() now return true as expected" />
     <MESSAGE value="ADD: now session are saved to file for later use&#10;FIX: protocol flow fixed&#10;NOTE: protocol core seems to be done :)" />
-    <option name="LAST_COMMIT_MESSAGE" value="ADD: now session are saved to file for later use&#10;FIX: protocol flow fixed&#10;NOTE: protocol core seems to be done :)" />
+    <MESSAGE value="little comment" />
+    <option name="LAST_COMMIT_MESSAGE" value="little comment" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
