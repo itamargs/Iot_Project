@@ -328,7 +328,14 @@
       <option name="project" value="LOCAL" />
       <updated>1525799728707</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="add saved file to repository">
+      <created>1525800365474</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1525800365474</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -384,7 +391,8 @@
     <MESSAGE value="FIX: myDevice.isTheDataHasChanged() now return true as expected" />
     <MESSAGE value="ADD: now session are saved to file for later use&#10;FIX: protocol flow fixed&#10;NOTE: protocol core seems to be done :)" />
     <MESSAGE value="little comment" />
-    <option name="LAST_COMMIT_MESSAGE" value="little comment" />
+    <MESSAGE value="add saved file to repository" />
+    <option name="LAST_COMMIT_MESSAGE" value="add saved file to repository" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
