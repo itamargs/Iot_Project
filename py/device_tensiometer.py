@@ -106,7 +106,7 @@ for case in switch(option):
                     myDevice.sendPulse()
         break
 
-
+#todo: recheck if need to remove "#" from part of the methods
     if case('new data'): #need to load the object created in the case of "first start"
         print("case: new data")
         with open('saved', 'rb') as f:
@@ -114,8 +114,8 @@ for case in switch(option):
         if myDevice.doesNeedAnalyzing() is True:
             myDevice.analyze()
             if myDevice.isTheDataHasChanged() is True:  # if there is a change
-                myDevice.getChange()  # data has been changed so get the new data
-                myDevice.compareData()
+                # myDevice.getChange()  # data has been changed so get the new data
+                # myDevice.compareData()
                 myDevice.dataReduction()
                 myDevice.compress()
                 myDevice.deleteOutdatedData()
