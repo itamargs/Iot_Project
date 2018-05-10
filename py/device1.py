@@ -65,9 +65,23 @@ class device1(device.device, tensiometer.tensiometer): #tensionmeter is a placeh
 
 # This code is generic. it works with all type of devices depends on the device type we imported
 
-
-option = 'first start'  # todo: for test propoose only
+#todo: remove this testing section
+#----------------------  TESTING ONLY ----------------------------
 # option = 'first start'  # todo: for test propoose only
+# option = 'first start'  # todo: for test propoose only
+
+print("Insert case NUM:\n"
+      " 1: first start\n"
+      " 2: new data\n"
+      " 3: interval activation\n")
+option = input("insert NUM: ")
+if option == "1":
+    option = "first start"
+if option == "2":
+    option = "new data"
+if option == "3":
+    option = "interval activation"
+#----------------------  END OF TESTING ONLY ----------------------------
 
 
 for case in switch(option):

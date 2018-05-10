@@ -20,7 +20,7 @@ class device(ABC):
         self.ID = ID
         self.description = description
         self.dataType = "my data type"
-        print("\ndevice: init device:", description)
+        print("device: init device:", description)
 
 
     def save(self, path):
@@ -39,12 +39,12 @@ class device(ABC):
 
 
     def compress(self):  #   compress data with some known compress method
-        print("\ndevice: compressing data")
+        print("device: compressing data")
         pass #todo: place holder. need to write the method
 
     #override from device
     def doesNeedAnalyzing(self):   # is the data need to be analyzed (example: if only 1 second past from last time there is no need)
-        print("\ndevice: check if need analyze")
+        print("device: check if need analyze")
         return True #todo: just place holder, need to check if need analyze
 
     @abstractmethod
@@ -53,7 +53,7 @@ class device(ABC):
         pass
 
     def sendData(self): # send data to cloud
-        print("\ndevice: sending data")
+        print("device: sending data")
         pass
 
     def getReady(self):   # final initializaion of device
@@ -69,11 +69,11 @@ class device(ABC):
         pass
 
     def isTheDataHasChanged(self): #boolean
-        print("\ndevice: Check for change in data..." )
+        print("device: Check for change in data..." )
         return self.compareData()  #compare the new data from the sensor to the data captured last time. (return true if data has changed)
 
     def getChange(self): #get the change from the old data that captured in sensor to the new data captured
-        print("\ndevice: get the change in data...")
+        print("device: get the change in data...")
         #todo: place holder. need to write the method
 
 
@@ -84,7 +84,7 @@ class device(ABC):
         pass
 
     def sendPulse(self):  # pulse heart beat to the server
-        print("\ndevice: sending pulse")
+        print("device: sending pulse")
         pass
 
     def isReady(self, false):  # is the device ready to send data amd etc?

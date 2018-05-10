@@ -85,13 +85,13 @@ class tensiometer(ABC):
     # override from tensiometer
     @abstractmethod
     def compareData(self):
-        print("\ntensiometer: compare data\n-------")
-        print("\ntensiometer compareData(): data has changed--> returns true\n-------") #todo: just for test in case its really true
+        print("tensiometer: compare data\n-------")
+        print("tensiometer compareData(): data has changed--> returns true\n-------") #todo: just for test in case its really true
         #todo: implement code for comparing old data from sensor to new data from sensor
         return False #todo return true only if data has changed- just for test. need to see if its really true
 
     # override from tensiometer
     @abstractmethod
     def dataReduction(self):
-        print("\ntensiometer: Make Reduction to data:\n-------")
+        print("tensiometer: Make Reduction to data:\n-------")
         #todo: implement code for the data reduction
