@@ -20,7 +20,7 @@ class device1(device.device, tensiometer.tensiometer): #tensionmeter is a placeh
 
     #override from device
     def deleteOutdatedData(self):   # delete data who isn't nececcery anymore for cleaning space in device memory
-        print("\ndevice1: delete autdated data")
+        super(device1, self).deleteOutdatedData()
         pass
 
     # override from tensiometer
@@ -72,7 +72,7 @@ class device1(device.device, tensiometer.tensiometer): #tensionmeter is a placeh
 
 print("Insert case NUM:\n"
       " 1: first start\n"
-      " 2: new data\n"
+      " 2: new data (triger recived)\n"
       " 3: interval activation\n")
 option = input("insert NUM: ")
 if option == "1":
@@ -127,7 +127,7 @@ for case in switch(option):
         break
 
     if case('interval activation'):
-        print("case: interval activation")
+        print("case: Interval activation")
         with open('saved', 'rb') as f:
             myDevice = pickle.load(f)
         # todo:pulseCheck()
@@ -143,6 +143,7 @@ for case in switch(option):
            myDevice.deleteOutdatedData()
            myDevice.sendPulse()
         break
+
 
 
     # if case('two'):

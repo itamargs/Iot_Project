@@ -50,6 +50,7 @@ class device(ABC):
     @abstractmethod
     #override from device
     def deleteOutdatedData(self):   # delete data who isn't nececcery anymore for cleaning space in device memory
+        print("device: deleteOutdatedData")
         pass
 
     def sendData(self): # send data to cloud
@@ -57,7 +58,7 @@ class device(ABC):
         pass
 
     def getReady(self):   # final initializaion of device
-        print("device: Getting ready...\n" )
+        print("device: Getting ready...")
         self.getData()  #get data from device (data depends on device type)
         self.getSettings() #get settings from device (settings depends on device type)
         self.analyze() # insert values from sensor uoutput into device data members

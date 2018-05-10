@@ -35,7 +35,7 @@ class tensiometer(ABC):
     @abstractmethod
     # override from tensiometer
     def getData(self):
-        print("\ntensiometer:  Get Data:\n---------------")
+        print("tensiometer:  Get Data:")
         # 1. Alpha -> get text dummy file. Beta-> get real data from sensor and convert it to text file
         my_dict = {}
         file = open("tensiometer_output.txt", "r")
@@ -53,7 +53,7 @@ class tensiometer(ABC):
     @abstractmethod
     #override from tensiometer
     def getSettings(self):
-        print("\ntensiomete: Get Settings:\n-------------------------")
+        print("tensiomete: Get Settings:")
         my_dict = {}
         file = open("tensiometer_settings.txt", "r")
         for line in file:
@@ -69,7 +69,7 @@ class tensiometer(ABC):
     # override from tensiometer
     @abstractmethod
     def analyze(self):
-        print("\ntensiometer: analyze:\n-----------------------")
+        print("tensiometer: analyze:")
         my_dict = {}
         file = open("tensiometer_output.txt", "r")
         for line in file:
@@ -85,13 +85,13 @@ class tensiometer(ABC):
     # override from tensiometer
     @abstractmethod
     def compareData(self):
-        print("tensiometer: compare data\n-------")
-        print("tensiometer compareData(): data has changed--> returns true\n-------") #todo: just for test in case its really true
+        print("tensiometer: compare data")
+        print("tensiometer compareData(): data has changed--> returns true") #todo: just for test in case its really true
         #todo: implement code for comparing old data from sensor to new data from sensor
-        return False #todo return true only if data has changed- just for test. need to see if its really true
+        return True #todo return true only if data has changed- just for test. need to see if its really true
 
     # override from tensiometer
     @abstractmethod
     def dataReduction(self):
-        print("tensiometer: Make Reduction to data:\n-------")
+        print("tensiometer: Make Reduction to data:")
         #todo: implement code for the data reduction
