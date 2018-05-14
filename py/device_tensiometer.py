@@ -87,7 +87,7 @@ if option == "3":
 for case in switch(option):
     if case('first start'):
         print("case: first start")
-        myDevice = device1(10, 5645656656, "my IoT device") #(self, interval, id, description)create device instance to actually run in background and gather data
+        myDevice = device1(10, 5645656656, "my Tensiometer IoT device") #(self, interval, id, description)create device instance to actually run in background and gather data
         myDevice_ = myDevice.save('saved') #saving the device values to another sessions
 
         # myDevice.getReady()

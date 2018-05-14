@@ -8,6 +8,7 @@ import microphone
 from switch import switch #import class switch from file switch
 import pickle #saving object for other sessions
 import dill as pickle
+from pydub import AudioSegment
 
 class device1(device.device, microphone.microphone): #tensionmeter is a placeholder
 
@@ -77,7 +78,7 @@ if option == "3":
 for case in switch(option):
     if case('first start'):
         print("case: first start")
-        myDevice = device1(10, 5645656656, "my IoT device") #(self, interval, id, description)create device instance to actually run in background and gather data
+        myDevice = device1(10, 5645656656, "my  Microphone IoT device") #(self, interval, id, description)create device instance to actually run in background and gather data
         myDevice_ = myDevice.save('saved') #saving the device values to another sessions
 
         # myDevice.getReady()
@@ -102,8 +103,8 @@ for case in switch(option):
         with open('saved', 'rb') as f:
             myDevice = pickle.load(f)
         if myDevice.doesNeedAnalyzing() is True:
-            myDevice.analyze()
-            if myDevice.isTheDataHasChanged() is True:  # if there is a change
+            # myDevice.analyze()
+            # if myDevice.isTheDataHasChanged() is True:  # if there is a change
                 # myDevice.getChange()  # data has been changed so get the new data
                 # myDevice.compareData()
                 myDevice.dataReduction()
@@ -111,6 +112,7 @@ for case in switch(option):
                 myDevice.deleteOutdatedData()
                 myDevice.sendPulse()
                 myDevice.sendData()
+                song = AudioSegment.from_wav("filesToReduce\sample.wav")
         else:  # if there is NO change
             myDevice.deleteOutdatedData()
             myDevice.sendPulse()
