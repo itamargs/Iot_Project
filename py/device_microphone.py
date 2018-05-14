@@ -10,6 +10,10 @@ import pickle #saving object for other sessions
 import dill as pickle
 from pydub import AudioSegment
 import pydub
+import os.path
+import time
+import glob
+import shutil
 
 class device1(device.device, microphone.microphone): #tensionmeter is a placeholder
 
@@ -76,6 +80,20 @@ if option == "3":
 #----------------------  END OF TESTING ONLY ----------------------------
 
 
+def waitForFileCreation():
+    print("Searching for files in input directory...")
+    files = glob.glob("filesToReduce/*.*")  # create list of files in directory
+    print(files)
+    while not files:
+        time.sleep(1)
+        files = glob.glob("filesToReduce/*.*")
+    else: #then list (actually the directory) isn't empty
+        print("File detected! Start converting")
+        song = AudioSegment.from_wav(files[0]).export("filesAfterReduce/convertedFile.mp3", format="mp3") #convert wav to mp3
+        print("file converted suceccfuly")
+        shutil.move(files[0], "filesAlreadyReduced/") #move files to "filesAlreadyReduced
+
+
 for case in switch(option):
     if case('first start'):
         print("case: first start")
@@ -86,7 +104,7 @@ for case in switch(option):
         # check if need start analyze data
         if myDevice.doesNeedAnalyzing() is True:
                 myDevice.analyze()
-                if myDevice.isTheDataHasChanged() is True:  # if there is a change #todo: why its not return true???
+                if myDevice.isTheDataHasChanged() is True:  # if there is a change
                     myDevice.getChange()  # data has been changed so get the new data
                     myDevice.dataReduction()
                     myDevice.compress()
@@ -113,8 +131,7 @@ for case in switch(option):
                 myDevice.deleteOutdatedData()
                 myDevice.sendPulse()
                 myDevice.sendData()
-                print("load wav file...")
-                song = AudioSegment.from_wav("filesToReduce/sample.wav").export("convertedFile.mp3", format="mp3")
+                waitForFileCreation()
         else:  # if there is NO change
             myDevice.deleteOutdatedData()
             myDevice.sendPulse()
