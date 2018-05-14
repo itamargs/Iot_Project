@@ -9,6 +9,7 @@ from switch import switch #import class switch from file switch
 import pickle #saving object for other sessions
 import dill as pickle
 from pydub import AudioSegment
+import pydub
 
 class device1(device.device, microphone.microphone): #tensionmeter is a placeholder
 
@@ -112,7 +113,8 @@ for case in switch(option):
                 myDevice.deleteOutdatedData()
                 myDevice.sendPulse()
                 myDevice.sendData()
-                song = AudioSegment.from_wav("filesToReduce\sample.wav")
+                print("load wav file...")
+                song = AudioSegment.from_wav("filesToReduce/sample.wav").export("convertedFile.mp3", format="mp3")
         else:  # if there is NO change
             myDevice.deleteOutdatedData()
             myDevice.sendPulse()
