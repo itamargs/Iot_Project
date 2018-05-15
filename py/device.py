@@ -20,6 +20,7 @@ class device(ABC):
         self.ID = ID
         self.description = description
         self.dataType = "my data type"
+        self.mode = "standBy"  #device state: standby= regular mode (waiting for something to happen)
         print("device: init device:", description)
 
 
@@ -97,7 +98,7 @@ class device(ABC):
     def setDescription(self, description):  # set a new (textual) description to the device
         pass
 
-    def sdeleteOutDatedData(self):
+    def deleteOutDatedData(self):
         pass    #todo: place holder. need to write the method
 
     def printDetails(self):
