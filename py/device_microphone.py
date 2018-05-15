@@ -55,7 +55,7 @@ class Device(device.device, microphone.microphone): #microphone is a placeholder
 
     # override from microphone
     def dataReduction(self):
-        super(Device, self).dataReduction()
+        super(Device, self).dataReduction() #
 
 
 

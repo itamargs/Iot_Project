@@ -3,9 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="830bbfb4-fd2a-40f2-a5aa-5aed04824d21" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/py/device.py" beforeDir="false" afterPath="$PROJECT_DIR$/py/device.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/py/device_microphone.py" beforeDir="false" afterPath="$PROJECT_DIR$/py/device_microphone.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/py/saved" beforeDir="false" afterPath="$PROJECT_DIR$/py/saved" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -27,7 +25,7 @@
         <entry file="file://$PROJECT_DIR$/py/device_microphone.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="450">
-              <caret line="57" column="8" lean-forward="true" selection-start-line="57" selection-start-column="8" selection-end-line="57" selection-end-column="8" />
+              <caret line="57" column="45" selection-start-line="57" selection-start-column="45" selection-end-line="57" selection-end-column="45" />
               <folding>
                 <element signature="e#215#230#0" expanded="true" />
               </folding>
@@ -439,7 +437,14 @@
       <option name="project" value="LOCAL" />
       <updated>1526338027506</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="REFACTORING: BEFORE making dataReductio() generic">
+      <created>1526343210242</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1526343210242</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -489,7 +494,8 @@
     <MESSAGE value="REFACTORING: creates &quot;microphone_device&quot; class and changing &quot;device1&quot; to &quot;tensiometer_device&quot;" />
     <MESSAGE value="ADD: &quot;experiamental&quot; converting wav fole to mp3" />
     <MESSAGE value="ADD: Detecting new file, compress and move it to new folder" />
-    <option name="LAST_COMMIT_MESSAGE" value="ADD: Detecting new file, compress and move it to new folder" />
+    <MESSAGE value="REFACTORING: BEFORE making dataReductio() generic" />
+    <option name="LAST_COMMIT_MESSAGE" value="REFACTORING: BEFORE making dataReductio() generic" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -863,7 +869,7 @@
     <entry file="file://$PROJECT_DIR$/py/device_microphone.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="450">
-          <caret line="57" column="8" lean-forward="true" selection-start-line="57" selection-start-column="8" selection-end-line="57" selection-end-column="8" />
+          <caret line="57" column="45" selection-start-line="57" selection-start-column="45" selection-end-line="57" selection-end-column="45" />
           <folding>
             <element signature="e#215#230#0" expanded="true" />
           </folding>
