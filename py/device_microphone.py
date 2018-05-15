@@ -73,7 +73,7 @@ class Device(device.device, microphone.microphone): #microphone is a placeholder
 
 
 
-option = None
+option = None # :)
 
 while(True):
     if option == None:
