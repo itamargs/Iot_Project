@@ -73,40 +73,45 @@ class Device(device.device, microphone.microphone): #microphone is a placeholder
 
 
 # def waitForFileCreation():
-    # print("Searching for files in input directory...")
-    # files = glob.glob("filesToReduce/*.*")  # create list of files in directory
-    # print(files)
-    # try:
-    #     while not files:
-    #         time.sleep(1)
-    #         files = glob.glob("filesToReduce/*.*")
-    #     else: #then list (actually the directory) isn't empty
-    #         print("File detected! Start converting")
-    #         date = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
-    #         song = AudioSegment.from_wav(files[0]).export("filesAfterReduce/convertedFile-"  +date+".mp3", format="mp3") #convert wav to mp3
-    #         print("file converted suceccfuly")
-    #         shutil.move(files[0], "filesAlreadyReduced/original-"  +date+".wav")  # rename and move file to new folder
-    # except KeyboardInterrupt:
-    #     print("Exit Stand By mode")
-    #     pass
+# print("Searching for files in input directory...")
+# files = glob.glob("filesToReduce/*.*")  # create list of files in directory
+# print(files)
+# try:
+#     while not files:
+#         time.sleep(1)
+#         files = glob.glob("filesToReduce/*.*")
+#     else: #then list (actually the directory) isn't empty
+#         print("File detected! Start converting")
+#         date = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
+#         song = AudioSegment.from_wav(files[0]).export("filesAfterReduce/convertedFile-"  +date+".mp3", format="mp3") #convert wav to mp3
+#         print("file converted suceccfuly")
+#         shutil.move(files[0], "filesAlreadyReduced/original-"  +date+".wav")  # rename and move file to new folder
+# except KeyboardInterrupt:
+#     print("Exit Stand By mode")
+#     pass
 
+option = None
 
 while(True):
+    if option == None:
+        print("\nInsert case NUM:\n"
+              " 1: first start\n"
+              " 2: new data (triger recived)\n"
+              " 3: interval activation\n"
+              " 4: Stand By Mode")
+        option = input("insert NUM: ")
+        if option == "1":
+            option = "first start"
+        if option == "2":
+            option = "new data"
+        if option == "3":
+            option = "interval activation"
+        if option == "4":
+            option = "standBy"
 
-    print("Insert case NUM:\n"
-          " 1: first start\n"
-          " 2: new data (triger recived)\n"
-          " 3: interval activation\n")
-    option = input("insert NUM: ")
-    if option == "1":
-        option = "first start"
-    if option == "2":
-        option = "new data"
-    if option == "3":
-        option = "interval activation"
     for case in switch(option):
-        if case('first start'):
 
+        if case('first start'):
             print("case: first start")
             myDevice = Device(10, 5645656656, "my  Microphone IoT device") #(self, interval, id, description)create device instance to actually run in background and gather data
             myDevice_ = myDevice.save('saved') #saving the device values to another sessions
@@ -114,41 +119,43 @@ while(True):
             # myDevice.getReady()
             # check if need start analyze data
             if myDevice.doesNeedAnalyzing() is True:
-                    myDevice.analyze()
-                    if myDevice.isTheDataHasChanged() is True:  # if there is a change
-                        myDevice.getChange()  # data has been changed so get the new data
-                        myDevice.dataReduction()
-                        myDevice.compress()
-                        myDevice.deleteOutdatedData()
-                        myDevice.sendPulse()
-                        myDevice.sendData()
-                    else:  # if there is NO change
-                        myDevice.deleteOutdatedData()
-                        myDevice.sendPulse()
+                myDevice.analyze()
+                if myDevice.isTheDataHasChanged() is True:  # if there is a change
+                    # myDevice.getChange()  # data has been changed so get the new data
+                    # myDevice.dataReduction()
+                    # myDevice.compress()
+                    # myDevice.deleteOutdatedData()
+                    myDevice.sendPulse()
+                    # myDevice.sendData()
+                else:  # if there is NO change
+                    # myDevice.deleteOutdatedData()
+                    myDevice.sendPulse()
+            option = None
             break
 
-    #todo: recheck if need to remove "#" from part of the methods
+        #todo: recheck if need to remove "#" from part of the methods
         if case('new data'): #need to load the object created in the case of "first start"
             print("case: new data")
             with open('saved', 'rb') as f:
                 myDevice = pickle.load(f)
             if myDevice.doesNeedAnalyzing() is True:
-                    files = myDevice.getDataFromInputFolder() #get pointer to the files in the input folder
-                    # myDevice.analyze()
-                    # if myDevice.isTheDataHasChanged() is True:  # if there is a change
-                    # myDevice.getChange()  # data has been changed so get the new data
-                    # myDevice.compareData()
-                    myDevice.dataReduction(files)
-                    date = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
-                    shutil.move(files[0],"filesAlreadyReduced/original-" + date + "." + myDevice.fileExtension)  # rename and move file to new folder with the device supported file extension
-                    myDevice.compress()
-                    # myDevice.deleteOutdatedData()
-                    myDevice.sendPulse()
-                    myDevice.sendData()
-                    # waitForFileCreation()
+                files = myDevice.getDataFromInputFolder() #get pointer to the files in the input folder
+                # myDevice.analyze()
+                # if myDevice.isTheDataHasChanged() is True:  # if there is a change
+                # myDevice.getChange()  # data has been changed so get the new data
+                # myDevice.compareData()
+                myDevice.dataReduction(files)
+                date = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
+                shutil.move(files[0],"filesAlreadyReduced/original-" + date + "." + myDevice.fileExtension)  # rename and move file to new folder with the device supported file extension
+                myDevice.compress()
+                # myDevice.deleteOutdatedData()
+                myDevice.sendPulse()
+                myDevice.sendData()
+                # waitForFileCreation()
             else:  # if there is NO change
                 myDevice.deleteOutdatedData()
                 myDevice.sendPulse()
+            option = "standBy"
             break
 
         if case('interval activation'):
@@ -157,23 +164,38 @@ while(True):
                 myDevice = pickle.load(f)
             # todo:pulseCheck()
             if myDevice.isTheDataHasChanged() is True:  # if there is a change
-                myDevice.getChange()  # data has been changed so get the new data
-                myDevice.compareData()
-                myDevice.dataReduction()
-                myDevice.compress()
-                myDevice.deleteOutdatedData()
+                # myDevice.getChange()  # data has been changed so get the new data
+                # myDevice.compareData()
+                # myDevice.dataReduction()
+                # myDevice.compress()
+                # myDevice.deleteOutdatedData()
                 myDevice.sendPulse()
                 myDevice.sendData()
             else:  # if there is NO change
-               myDevice.deleteOutdatedData()
-               myDevice.sendPulse()
+                myDevice.deleteOutdatedData()
+                myDevice.sendPulse()
+            option = None
             break
 
 
 
-        # if case('two'):
-        #     print 2
-        #     break
+        if case('standBy'):
+            print("\nWelcome to project Ultron.\nStand by, We R Waiting for a trigger\n.")
+            while (True):
+                print("Searching for files in input directory...")
+                filesExist = glob.glob("filesToReduce/*.*")  # create list of files in directory
+                try:
+                    while not filesExist:
+                        time.sleep(2)
+                        filesExist = glob.glob("filesToReduce/*.*")
+                    else:  # then list (actually the directory) isn't empty
+                        print("File detected!")
+                        option = "new data"
+                        break
+                except KeyboardInterrupt:
+                    print("Exit Stand By mode")
+                    pass
+
 
         if case(): # default, could also just omit condition or 'if True'
             print("something else!")

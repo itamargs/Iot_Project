@@ -5,7 +5,9 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/py/device.py" beforeDir="false" afterPath="$PROJECT_DIR$/py/device.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/py/device_microphone.py" beforeDir="false" afterPath="$PROJECT_DIR$/py/device_microphone.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/py/microphone.py" beforeDir="false" afterPath="$PROJECT_DIR$/py/microphone.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/py/filesAfterReduce/convertedFile-20180514-182017.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/py/filesAfterReduce/convertedFile-20180514-182402.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/py/saved" beforeDir="false" afterPath="$PROJECT_DIR$/py/saved" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -15,7 +17,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/Iot_Project$device_microphone.coverage" NAME="device_microphone Coverage Results" MODIFIED="1526347431603" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/py" />
+    <SUITE FILE_PATH="coverage/Iot_Project$device_microphone.coverage" NAME="device_microphone Coverage Results" MODIFIED="1526350944907" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/py" />
     <SUITE FILE_PATH="coverage/Iot_Project$device_tensiometer.coverage" NAME="device_tensiometer Coverage Results" MODIFIED="1526291698850" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/py" />
   </component>
   <component name="CreatePatchCommitExecutor">
@@ -26,8 +28,8 @@
       <file leaf-file-name="device_microphone.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/py/device_microphone.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="384">
-              <caret line="150" column="36" lean-forward="true" selection-start-line="150" selection-start-column="36" selection-end-line="150" selection-end-column="36" />
+            <state relative-caret-position="181">
+              <caret line="119" column="46" lean-forward="true" selection-start-line="119" selection-start-column="46" selection-end-line="119" selection-end-column="46" />
               <folding>
                 <element signature="e#215#230#0" expanded="true" />
               </folding>
@@ -72,7 +74,7 @@
         <entry file="file://$PROJECT_DIR$/py/device.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="509">
-              <caret line="127" column="16" selection-start-line="127" selection-start-column="16" selection-end-line="127" selection-end-column="16" />
+              <caret line="127" column="16" selection-start-line="115" selection-start-column="8" selection-end-line="127" selection-end-column="16" />
               <folding>
                 <element signature="e#755#770#0" expanded="true" />
               </folding>
@@ -131,8 +133,8 @@
         <option value="$PROJECT_DIR$/py/tensiometer.py" />
         <option value="$PROJECT_DIR$/py/device1.py" />
         <option value="$PROJECT_DIR$/py/device_tensiometer.py" />
-        <option value="$PROJECT_DIR$/py/device.py" />
         <option value="$PROJECT_DIR$/py/microphone.py" />
+        <option value="$PROJECT_DIR$/py/device.py" />
         <option value="$PROJECT_DIR$/py/device_microphone.py" />
       </list>
     </option>
@@ -460,7 +462,14 @@
       <option name="project" value="LOCAL" />
       <updated>1526343238736</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="REFACTORING: AFTER making dataReduction() generic&#10;now can read files from input folder and detect what type of reduction needed depends on device type (supporting only wav to mp3 now)">
+      <created>1526347656493</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1526347656494</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -511,7 +520,8 @@
     <MESSAGE value="ADD: &quot;experiamental&quot; converting wav fole to mp3" />
     <MESSAGE value="ADD: Detecting new file, compress and move it to new folder" />
     <MESSAGE value="REFACTORING: BEFORE making dataReductio() generic" />
-    <option name="LAST_COMMIT_MESSAGE" value="REFACTORING: BEFORE making dataReductio() generic" />
+    <MESSAGE value="REFACTORING: AFTER making dataReduction() generic&#10;now can read files from input folder and detect what type of reduction needed depends on device type (supporting only wav to mp3 now)" />
+    <option name="LAST_COMMIT_MESSAGE" value="REFACTORING: AFTER making dataReduction() generic&#10;now can read files from input folder and detect what type of reduction needed depends on device type (supporting only wav to mp3 now)" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -844,13 +854,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/anaconda3/lib/python3.6/site-packages/dill/dill.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1513">
-          <caret line="302" column="33" lean-forward="true" selection-start-line="302" selection-start-column="33" selection-end-line="302" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/py/tensiometer.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="479">
@@ -868,6 +871,23 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/py/device.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="509">
+          <caret line="127" column="16" selection-start-line="115" selection-start-column="8" selection-end-line="127" selection-end-column="16" />
+          <folding>
+            <element signature="e#755#770#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/anaconda3/lib/python3.6/site-packages/dill/dill.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="594">
+          <caret line="444" selection-start-line="444" selection-end-line="444" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/py/microphone.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="299">
@@ -878,20 +898,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/py/device.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="509">
-          <caret line="127" column="16" selection-start-line="127" selection-start-column="16" selection-end-line="127" selection-end-column="16" />
-          <folding>
-            <element signature="e#755#770#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/py/device_microphone.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="384">
-          <caret line="150" column="36" lean-forward="true" selection-start-line="150" selection-start-column="36" selection-end-line="150" selection-end-column="36" />
+        <state relative-caret-position="181">
+          <caret line="119" column="46" lean-forward="true" selection-start-line="119" selection-start-column="46" selection-end-line="119" selection-end-column="46" />
           <folding>
             <element signature="e#215#230#0" expanded="true" />
           </folding>

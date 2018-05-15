@@ -118,7 +118,7 @@ class device(ABC):
         print(files)
         try:
             while not files:
-                sleep(1)
+                sleep(10)
                 files = glob.glob("filesToReduce/*.*")
             else:  # then list (actually the directory) isn't empty
                 print("File detected!")
