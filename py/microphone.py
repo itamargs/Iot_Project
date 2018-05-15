@@ -5,15 +5,18 @@
 # import this to device to make the device support tensiometer sensor and behavior.
 # all methods with "@abstractmethod" decorators are MUST be implementer into the sub class of this.
 # please copy the comment "override from ***"  to the subclass to make the code more readable
-
+import datetime
 from abc import ABC, abstractmethod
+
+from pydub import AudioSegment
+
 
 class microphone(ABC):
 
 
     Type = "Microphone"
     dataType = "audio"
-
+    fileExtension = "wav"
 
 
     def getDataType(self):
@@ -51,6 +54,8 @@ class microphone(ABC):
 
     # override from microphone
     @abstractmethod
-    def dataReduction(self):
+    def dataReduction(self, files):
         print("microphone: Make Reduction to data:")
-        #todo: implement code for the data reduction
+        date = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
+        song = AudioSegment.from_wav(files[0]).export("filesAfterReduce/convertedFile-" + date + ".mp3",format="mp3")  # convert wav to mp3
+        print("microphone: Audio file converted to mp3 successfully:")
