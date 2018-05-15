@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="830bbfb4-fd2a-40f2-a5aa-5aed04824d21" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="830bbfb4-fd2a-40f2-a5aa-5aed04824d21" name="Default" comment="VC">
       <change beforePath="$PROJECT_DIR$/py/device_microphone.py" beforeDir="false" afterPath="$PROJECT_DIR$/py/device_microphone.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -13,7 +12,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/Iot_Project$device_microphone.coverage" NAME="device_microphone Coverage Results" MODIFIED="1526355617172" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/py" />
+    <SUITE FILE_PATH="coverage/Iot_Project$device_microphone.coverage" NAME="device_microphone Coverage Results" MODIFIED="1526357912491" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/py" />
     <SUITE FILE_PATH="coverage/Iot_Project$device_tensiometer.coverage" NAME="device_tensiometer Coverage Results" MODIFIED="1526291698850" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/py" />
   </component>
   <component name="CreatePatchCommitExecutor">
@@ -24,8 +23,8 @@
       <file leaf-file-name="device_microphone.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/py/device_microphone.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="212">
-              <caret line="160" column="17" lean-forward="true" selection-start-line="160" selection-start-column="17" selection-end-line="160" selection-end-column="17" />
+            <state relative-caret-position="90">
+              <caret line="75" column="18" selection-start-line="75" selection-start-column="18" selection-end-line="75" selection-end-column="18" />
               <folding>
                 <element signature="e#215#230#0" expanded="true" />
               </folding>
@@ -472,19 +471,32 @@
       <option name="project" value="LOCAL" />
       <updated>1526351218522</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="VC">
+      <created>1526357295163</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1526357295163</updated>
+    </task>
+    <task id="LOCAL-00021" summary="VC">
+      <created>1526357419572</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1526357419572</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="67" y="25" width="1613" height="1025" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info anchor="bottom" id="TODO" order="11" />
       <window_info anchor="bottom" id="Event Log" order="13" side_tool="true" />
       <window_info anchor="bottom" id="Database Changes" order="14" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="14" />
       <window_info anchor="bottom" id="Python Console" order="15" />
-      <window_info active="true" anchor="bottom" id="Run" order="4" visible="true" weight="0.08961748" />
+      <window_info active="true" anchor="bottom" id="Run" order="4" visible="true" weight="0.3759563" />
       <window_info anchor="bottom" id="Terminal" order="16" weight="0.32941177" />
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.1599504" />
       <window_info anchor="bottom" id="Docker" order="14" show_stripe_button="false" />
@@ -525,7 +537,8 @@
     <MESSAGE value="REFACTORING: BEFORE making dataReductio() generic" />
     <MESSAGE value="REFACTORING: AFTER making dataReduction() generic&#10;now can read files from input folder and detect what type of reduction needed depends on device type (supporting only wav to mp3 now)" />
     <MESSAGE value="ADD: now device default is waiting for trigger (support only file detection for now).&#10;Go back to standby after manipulating files" />
-    <option name="LAST_COMMIT_MESSAGE" value="ADD: now device default is waiting for trigger (support only file detection for now).&#10;Go back to standby after manipulating files" />
+    <MESSAGE value="VC" />
+    <option name="LAST_COMMIT_MESSAGE" value="VC" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -904,8 +917,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/py/device_microphone.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="212">
-          <caret line="160" column="17" lean-forward="true" selection-start-line="160" selection-start-column="17" selection-end-line="160" selection-end-column="17" />
+        <state relative-caret-position="90">
+          <caret line="75" column="18" selection-start-line="75" selection-start-column="18" selection-end-line="75" selection-end-column="18" />
           <folding>
             <element signature="e#215#230#0" expanded="true" />
           </folding>
