@@ -54,8 +54,8 @@ class Device(device.device, microphone.microphone): #microphone is a placeholder
         return super(Device, self).compareData() #return tu super cause result should RETURN "False" or "True"
 
     # override from microphone
-    def dataReduction(self):
-        super(Device, self).dataReduction() #
+    def dataReduction(self, files):
+        super(Device, self).dataReduction(files)
 
 
 
@@ -72,23 +72,23 @@ class Device(device.device, microphone.microphone): #microphone is a placeholder
 #----------------------  END OF TESTING ONLY ----------------------------
 
 
-def waitForFileCreation():
-    print("Searching for files in input directory...")
-    files = glob.glob("filesToReduce/*.*")  # create list of files in directory
-    print(files)
-    try:
-        while not files:
-            time.sleep(1)
-            files = glob.glob("filesToReduce/*.*")
-        else: #then list (actually the directory) isn't empty
-            print("File detected! Start converting")
-            date = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
-            song = AudioSegment.from_wav(files[0]).export("filesAfterReduce/convertedFile-"  +date+".mp3", format="mp3") #convert wav to mp3
-            print("file converted suceccfuly")
-            shutil.move(files[0], "filesAlreadyReduced/original-"  +date+".wav")  # rename and move file to new folder
-    except KeyboardInterrupt:
-        print("Exit Stand By mode")
-        pass
+# def waitForFileCreation():
+    # print("Searching for files in input directory...")
+    # files = glob.glob("filesToReduce/*.*")  # create list of files in directory
+    # print(files)
+    # try:
+    #     while not files:
+    #         time.sleep(1)
+    #         files = glob.glob("filesToReduce/*.*")
+    #     else: #then list (actually the directory) isn't empty
+    #         print("File detected! Start converting")
+    #         date = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
+    #         song = AudioSegment.from_wav(files[0]).export("filesAfterReduce/convertedFile-"  +date+".mp3", format="mp3") #convert wav to mp3
+    #         print("file converted suceccfuly")
+    #         shutil.move(files[0], "filesAlreadyReduced/original-"  +date+".wav")  # rename and move file to new folder
+    # except KeyboardInterrupt:
+    #     print("Exit Stand By mode")
+    #     pass
 
 
 while(True):
@@ -133,16 +133,19 @@ while(True):
             with open('saved', 'rb') as f:
                 myDevice = pickle.load(f)
             if myDevice.doesNeedAnalyzing() is True:
-                # myDevice.analyze()
-                # if myDevice.isTheDataHasChanged() is True:  # if there is a change
+                    files = myDevice.getDataFromInputFolder() #get pointer to the files in the input folder
+                    # myDevice.analyze()
+                    # if myDevice.isTheDataHasChanged() is True:  # if there is a change
                     # myDevice.getChange()  # data has been changed so get the new data
                     # myDevice.compareData()
-                    myDevice.dataReduction()
+                    myDevice.dataReduction(files)
+                    date = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
+                    shutil.move(files[0],"filesAlreadyReduced/original-" + date + "." + myDevice.fileExtension)  # rename and move file to new folder with the device supported file extension
                     myDevice.compress()
-                    myDevice.deleteOutdatedData()
+                    # myDevice.deleteOutdatedData()
                     myDevice.sendPulse()
                     myDevice.sendData()
-                    waitForFileCreation()
+                    # waitForFileCreation()
             else:  # if there is NO change
                 myDevice.deleteOutdatedData()
                 myDevice.sendPulse()

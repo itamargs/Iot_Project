@@ -8,8 +8,12 @@
 # example for abstract:  "setInterval()" ALL type of devices  has interval need to be set but exact interval is depends on device type
 # example for none abstract:  "sendData()" ALL type of devices need to send data to the cloud no matter what is that data
 # if method is abstract, then the operation of this method IS unique to the specific device type.
+import datetime
+import glob
 from abc import ABC, abstractmethod
 import pickle #saving object for other sessions
+from time import sleep
+
 import dill as pickle
 class device(ABC):
 
@@ -107,3 +111,18 @@ class device(ABC):
         print("Description:", self.description)
         print("Data Type:", self.dataType)
 
+
+    def getDataFromInputFolder(self):
+        print("Searching for files in input directory...")
+        files = glob.glob("filesToReduce/*.*")  # create list of files in directory
+        print(files)
+        try:
+            while not files:
+                sleep(1)
+                files = glob.glob("filesToReduce/*.*")
+            else:  # then list (actually the directory) isn't empty
+                print("File detected!")
+                return (files)
+        except KeyboardInterrupt:
+            print("Exit Stand By mode")
+            pass
