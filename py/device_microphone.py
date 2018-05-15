@@ -72,23 +72,6 @@ class Device(device.device, microphone.microphone): #microphone is a placeholder
 #----------------------  END OF TESTING ONLY ----------------------------
 
 
-# def waitForFileCreation():
-# print("Searching for files in input directory...")
-# files = glob.glob("filesToReduce/*.*")  # create list of files in directory
-# print(files)
-# try:
-#     while not files:
-#         time.sleep(1)
-#         files = glob.glob("filesToReduce/*.*")
-#     else: #then list (actually the directory) isn't empty
-#         print("File detected! Start converting")
-#         date = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
-#         song = AudioSegment.from_wav(files[0]).export("filesAfterReduce/convertedFile-"  +date+".mp3", format="mp3") #convert wav to mp3
-#         print("file converted suceccfuly")
-#         shutil.move(files[0], "filesAlreadyReduced/original-"  +date+".wav")  # rename and move file to new folder
-# except KeyboardInterrupt:
-#     print("Exit Stand By mode")
-#     pass
 
 option = None
 
@@ -96,8 +79,8 @@ while(True):
     if option == None:
         print("\nInsert case NUM:\n"
               " 1: first start\n"
-              " 2: new data (triger recived)\n"
-              " 3: interval activation\n"
+              " 2: new data (trigger received)\n"
+              " 3: interval activation (or ping from server)\n"
               " 4: Stand By Mode")
         option = input("insert NUM: ")
         if option == "1":
@@ -182,7 +165,7 @@ while(True):
         if case('standBy'):
             print("\nWelcome to project Ultron.\nStand by, We R Waiting for a trigger\n.")
             while (True):
-                print("Searching for files in input directory...")
+                print("Searching for files in input directory...") #todo: implements other trigers then new file
                 filesExist = glob.glob("filesToReduce/*.*")  # create list of files in directory
                 try:
                     while not filesExist:
