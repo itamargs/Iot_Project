@@ -10,6 +10,3 @@ while True:
     data, addr = sock.recvfrom(1024)
     print(data)
     print(addr)
-    print("hey")
-
-
