@@ -2,11 +2,9 @@
 # import here the interface "device" to make it able to act as device who can work with the compressing protocol
 #impot tensiometer to make this device be able to connect to a tensiometer sensor
 
-import datetime
-
-
-import device
 import microphone
+import datetime
+import device
 from switch import switch #import class switch from file switch
 import pickle #saving object for other sessions
 import dill as pickle

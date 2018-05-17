@@ -5,7 +5,7 @@
 # import this to device to make the device support tensiometer sensor and behavior.
 # all methods with "@abstractmethod" decorators are MUST be implementer into the sub class of this.
 # please copy the comment "override from ***"  to the subclass to make the code more readable
-
+import datetime
 from abc import ABC, abstractmethod
 
 class tensiometer(ABC):
@@ -15,6 +15,8 @@ class tensiometer(ABC):
 
     Type = "Tensiometer"
     dataType = "text"
+    needReduction = False
+    needCompression = True
 
     # override from tensiometer
     @abstractmethod
@@ -92,6 +94,5 @@ class tensiometer(ABC):
 
     # override from tensiometer
     @abstractmethod
-    def dataReduction(self):
-        print("tensiometer: Make Reduction to data:")
-        #todo: implement code for the data reduction
+    def dataReduction(self, files):
+        print("tensiometer: reduction to data")

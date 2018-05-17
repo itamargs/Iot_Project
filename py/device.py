@@ -15,6 +15,7 @@ import pickle #saving object for other sessions
 from time import sleep
 
 import dill as pickle
+import zlib
 class device(ABC):
 
 
@@ -42,10 +43,6 @@ class device(ABC):
     def setInterval(self, interval):   # interval for heart beat send
         pass
 
-
-    def compress(self):  #   compress data with some known compress method
-        print("device: compressing data")
-        pass #todo: place holder. need to write the method
 
     #override from device
     def doesNeedAnalyzing(self):   # is the data need to be analyzed (example: if only 1 second past from last time there is no need)
@@ -126,3 +123,19 @@ class device(ABC):
         except KeyboardInterrupt:
             print("Exit Stand By mode")
             pass
+
+
+    def compress(self, files):  #   compress data with some known compress method
+        #compress the data
+        print("device: compressing data")
+        original_data = open(files[0], 'rb').read()
+        compressed_data = zlib.compress(original_data, zlib.Z_BEST_COMPRESSION)
+
+        # compress_ratio = (float(len(original_data)) - float(len(compressed_data))) / float(len(original_data))
+        # print('Compressed: %d%%' % (100.0 * compress_ratio))
+
+        #save the compressed data to file
+        f = open('filesAfterReduce/compressed', 'wb')
+        f.write(compressed_data)
+        f.close()
+
