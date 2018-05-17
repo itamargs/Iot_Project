@@ -13,7 +13,7 @@ import pickle  # saving object for other sessions
 import dill as pickle
 import socket
 import sys
-import time
+import os
 
 class device(ABC):
 
@@ -99,14 +99,28 @@ class device(ABC):
     def sdeleteOutDatedData(self):
         pass  # todo: place holder. need to write the method
 
-    def sendData(Massage):
-        server_address = ('127.0.0.1', 5002)
-        sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-        (sock.sendto(Massage.encode(), server_address))
+    def sendData(fileName):
 
-    MASSAGE = "hello from the other side"
+        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        host = socket.gethostname()
+        port  = 5002
+        sock.connect((host, port))
+        file_name, file_extension = os.path.splitext(fileName)
+        print(file_name)
+        print(file_extension)
+        sock.sendmsg(file_name)
 
-    sendData(MASSAGE)
+        with open(fileName, 'rb') as f:
+            data = f.read()
+            sock.sendall(data)
+
+        sock.close()
+        f.close()
+
+
+
+
+    sendData('LICENSE.txt')
 
 
 

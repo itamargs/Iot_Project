@@ -2,9 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="830bbfb4-fd2a-40f2-a5aa-5aed04824d21" name="Default" comment="REFACTORING: menu">
-      <change beforePath="$PROJECT_DIR$/.idea/Iot_Project.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Iot_Project.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/py/Sending_server.py" beforeDir="false" afterPath="$PROJECT_DIR$/py/Sending_server.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/py/device.py" beforeDir="false" afterPath="$PROJECT_DIR$/py/device.py" afterDir="false" />
@@ -26,11 +23,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="device.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="device.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/py/device.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="183">
-              <caret line="107" lean-forward="true" selection-start-line="107" selection-end-line="107" />
+            <state relative-caret-position="257">
+              <caret line="116" column="20" lean-forward="true" selection-start-line="116" selection-start-column="20" selection-end-line="116" selection-end-column="20" />
               <folding>
                 <element signature="e#756#791#0" expanded="true" />
               </folding>
@@ -38,11 +35,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Sending_server.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Sending_server.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/py/Sending_server.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="12" lean-forward="true" selection-start-line="12" selection-end-line="12" />
+            <state relative-caret-position="210">
+              <caret line="22" column="11" lean-forward="true" selection-start-line="22" selection-start-column="11" selection-end-line="22" selection-end-column="11" />
             </state>
           </provider>
         </entry>
@@ -82,6 +79,11 @@
     <option name="ONTO" value="refs/remotes/origin/Sending" />
   </component>
   <component name="Git.Settings">
+    <option name="PREVIOUS_COMMIT_AUTHORS">
+      <list>
+        <option value="OriHalyo &lt;orihalyo123@gmail.com&gt;" />
+      </list>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="IdeDocumentHistory">
@@ -104,8 +106,8 @@
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="332" />
-    <option name="y" value="116" />
+    <option name="x" value="310" />
+    <option name="y" value="159" />
     <option name="width" value="959" />
     <option name="height" value="552" />
   </component>
@@ -213,24 +215,6 @@
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
     </configuration>
-    <configuration name="device_microphone" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="Iot_Project" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/py" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/py/device_microphone.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-    </configuration>
     <configuration name="device_tensiometer" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="Iot_Project" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -249,20 +233,38 @@
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
     </configuration>
+    <configuration name="server" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="Iot_Project" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/py" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/py/server.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+    </configuration>
     <list>
-      <item itemvalue="Python.device_microphone" />
       <item itemvalue="Python.device_tensiometer" />
       <item itemvalue="Python.Sending_server" />
       <item itemvalue="Python.clinet-test" />
       <item itemvalue="Python.device" />
+      <item itemvalue="Python.server" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Python.device" />
         <item itemvalue="Python.Sending_server" />
+        <item itemvalue="Python.server" />
         <item itemvalue="Python.clinet-test" />
         <item itemvalue="Python.device_tensiometer" />
-        <item itemvalue="Python.device_microphone" />
       </list>
     </recent_temporary>
   </component>
@@ -369,10 +371,11 @@
     <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.19370079" />
-      <window_info anchor="bottom" id="Version Control" order="14" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32917318" />
+      <window_info anchor="bottom" id="Version Control" order="14" weight="0.32917318" />
       <window_info anchor="bottom" id="Python Console" order="15" />
       <window_info active="true" anchor="bottom" id="Run" order="4" visible="true" weight="0.27925116" />
-      <window_info anchor="bottom" id="Debug" order="5" weight="0.39973786" />
+      <window_info anchor="bottom" id="Debug" order="5" weight="0.39937598" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info id="Structure" order="1" weight="0.25" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
@@ -383,9 +386,27 @@
       <window_info anchor="bottom" id="Inspection" order="7" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="6" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
-      <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="bottom" id="Terminal" order="16" />
     </layout>
+    <layout-to-restore>
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.19370079" />
+      <window_info id="Structure" order="1" weight="0.25" />
+      <window_info anchor="right" id="Commander" order="0" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.27925116" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.39937598" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
+      <window_info anchor="bottom" id="Version Control" order="8" weight="0.32917318" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32917318" />
+      <window_info anchor="bottom" id="Terminal" order="10" />
+      <window_info anchor="bottom" id="Python Console" order="9" />
+    </layout-to-restore>
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
@@ -401,7 +422,8 @@
     <MESSAGE value="add saved file to repository" />
     <MESSAGE value="ADD: testing menu (new data/interval activation/first start)" />
     <MESSAGE value="REFACTORING: menu" />
-    <option name="LAST_COMMIT_MESSAGE" value="REFACTORING: menu" />
+    <MESSAGE value="Updating device, communicate between sockets" />
+    <option name="LAST_COMMIT_MESSAGE" value="Updating device, communicate between sockets" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -412,18 +434,10 @@
           <option name="timeStamp" value="13" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="15" />
+      <option name="time" value="19" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/py/clinet-test.py" />
-    <entry file="file://$PROJECT_DIR$/py/Sending_server.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="16" lean-forward="true" selection-start-line="16" selection-end-line="16" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/py/device_tensiometer.py">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -774,20 +788,28 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/py/clinet-test.py" />
-    <entry file="file://$PROJECT_DIR$/py/Sending_server.py">
+    <entry file="file://$PROJECT_DIR$/py/fileProj.txt">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/py/new_file.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="12" lean-forward="true" selection-start-line="12" selection-end-line="12" />
-        </state>
+        <state relative-caret-position="-9768" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/py/device.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="183">
-          <caret line="107" lean-forward="true" selection-start-line="107" selection-end-line="107" />
+        <state relative-caret-position="257">
+          <caret line="116" column="20" lean-forward="true" selection-start-line="116" selection-start-column="20" selection-end-line="116" selection-end-column="20" />
           <folding>
             <element signature="e#756#791#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/py/Sending_server.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="22" column="11" lean-forward="true" selection-start-line="22" selection-start-column="11" selection-end-line="22" selection-end-column="11" />
         </state>
       </provider>
     </entry>
