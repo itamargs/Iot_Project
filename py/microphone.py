@@ -17,8 +17,8 @@ class microphone(ABC):
     Type = "Microphone"
     dataType = "audio"
     fileExtension = "wav"
-    needReduction = "False"
-    needCompression = "True"
+    needReduction = True
+    needCompression = False
 
     def getDataType(self):
         return "audio"
@@ -55,8 +55,8 @@ class microphone(ABC):
 
     # override from microphone
     @abstractmethod
-    def dataReduction(self, files):
+    def dataReduction(self, files, path):
         print("microphone: Make Reduction to data:")
         date = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
-        song = AudioSegment.from_wav(files[0]).export("filesAfterReduce/convertedFile-" + date + ".mp3",format="mp3")  # convert wav to mp3
+        song = AudioSegment.from_wav(files[0]).export(path + "/convertedFile-" + date + ".mp3",format="mp3")  # convert wav to mp3
         print("microphone: Audio file converted to mp3 successfully:")
