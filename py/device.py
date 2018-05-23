@@ -8,13 +8,17 @@
 # example for abstract:  "setInterval()" ALL type of devices  has interval need to be set but exact interval is depends on device type
 # example for none abstract:  "sendData()" ALL type of devices need to send data to the cloud no matter what is that data
 # if method is abstract, then the operation of this method IS unique to the specific device type.
+import datetime
+import glob
 from abc import ABC, abstractmethod
 import pickle  # saving object for other sessions
+from time import sleep
 import dill as pickle
 import socket
 import sys
 import os
 
+import zlib
 class device(ABC):
 
     def __init__(self, interval, ID, description):
@@ -22,6 +26,7 @@ class device(ABC):
         self.ID = 12
         self.description = description
         self.dataType = "my data type"
+        self.mode = "standBy"  #device state: standby= regular mode (waiting for something to happen)
         print("device: init device:", description)
 
     def save(self, path):
@@ -37,13 +42,11 @@ class device(ABC):
     def setInterval(self, interval):  # interval for heart beat send
         pass
 
-    def compress(self):  # compress data with some known compress method
-        print("device: compressing data")
-        pass  # todo: place holder. need to write the method
 
-    # override from device
-    def doesNeedAnalyzing(
-            self):  # is the data need to be analyzed (example: if only 1 second past from last time there is no need)
+
+
+    #override from device
+    def doesNeedAnalyzing(self):   # is the data need to be analyzed (example: if only 1 second past from last time there is no need)
         print("device: check if need analyze")
         return True  # todo: just place holder, need to check if need analyze
 
@@ -96,7 +99,7 @@ class device(ABC):
     def setDescription(self, description):  # set a new (textual) description to the device
         pass
 
-    def sdeleteOutDatedData(self):
+    def deleteOutDatedData(self):
         pass  # todo: place holder. need to write the method
 
     def sendData(fileName):
@@ -130,3 +133,35 @@ class device(ABC):
         print("Interval:", self.interval)
         print("Description:", self.description)
         print("Data Type:", self.dataType)
+
+
+    def getDataFromInputFolder(self):
+        print("Searching for files in input directory...")
+        files = glob.glob("filesToReduce/*.*")  # create list of files in directory
+        print(files)
+        try:
+            while not files:
+                sleep(10)
+                files = glob.glob("filesToReduce/*.*")
+            else:  # then list (actually the directory) isn't empty
+                print("File detected!")
+                return (files)
+        except KeyboardInterrupt:
+            print("Exit Stand By mode")
+            pass
+
+
+    def compress(self, files):  #   compress data with some known compress method
+        #compress the data
+        print("device: compressing data")
+        original_data = open(files[0], 'rb').read()
+        compressed_data = zlib.compress(original_data, zlib.Z_BEST_COMPRESSION)
+
+        # compress_ratio = (float(len(original_data)) - float(len(compressed_data))) / float(len(original_data))
+        # print('Compressed: %d%%' % (100.0 * compress_ratio))
+
+        #save the compressed data to file
+        f = open('filesAfterReduce/compressed', 'wb')
+        f.write(compressed_data)
+        f.close()
+
