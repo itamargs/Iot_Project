@@ -1,7 +1,0 @@
-HOW TO USE (In development)
-
-All sensors class MUST have the following methods:
-
-def dataReduction(self, files): --> GET pointer to list of files.
-				    CREATES reduced file in the output folder
-

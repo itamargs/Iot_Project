@@ -105,14 +105,15 @@ class device(ABC):
         host = socket.gethostname()
         port  = 5002
         sock.connect((host, port))
-        file_name, file_extension = os.path.splitext(fileName)
-        print(file_name)
-        print(file_extension)
-        sock.sendmsg(file_name)
+        # file_name, file_extension = os.path.splitext(fileName)
+        # print(file_name)
+        # print(file_extension)
+        # sock.sendmsg(file_name)
 
         with open(fileName, 'rb') as f:
             data = f.read()
             sock.sendall(data)
+
 
         sock.close()
         f.close()
@@ -120,7 +121,7 @@ class device(ABC):
 
 
 
-    sendData('LICENSE.txt')
+    sendData('sample.wav')
 
 
 
