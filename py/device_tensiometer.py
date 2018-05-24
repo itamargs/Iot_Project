@@ -1,6 +1,6 @@
 # this is a device.
 # import here the interface "device" to make it able to act as device who can work with the compressing protocol
-#impot tensiometer to make this device be able to connect to a tensiometer sensor
+#impot tensiometer to make this device be able to connect to a tensiometer sensor.
 
 
 import tensiometer
