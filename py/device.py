@@ -17,6 +17,7 @@ import dill as pickle
 import socket
 import sys
 import os
+import threading
 
 import zlib
 class device(ABC):
@@ -102,30 +103,6 @@ class device(ABC):
     def deleteOutDatedData(self):
         pass  # todo: place holder. need to write the method
 
-    def sendData(fileName):
-
-        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        host = socket.gethostname()
-        port  = 5002
-        sock.connect((host, port))
-        # file_name, file_extension = os.path.splitext(fileName)
-        # print(file_name)
-        # print(file_extension)
-        # sock.sendmsg(file_name)
-
-        with open(fileName, 'rb') as f:
-            data = f.read()
-            sock.sendall(data)
-
-
-        sock.close()
-        f.close()
-
-
-
-
-    sendData('sample.wav')
-
 
 
     def printDetails(self):
@@ -164,4 +141,48 @@ class device(ABC):
         f = open('filesAfterReduce/compressed', 'wb')
         f.write(compressed_data)
         f.close()
+
+
+
+    def sendData(path):
+
+        path = "filesAlreadyReduced"
+
+        dirs = os.listdir(path)
+
+        filename, file_extension = os.path.splitext(path + "/" + dirs[0])
+
+        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        host = "127.0.0.1"
+        port  = 5002
+        sock.connect((host, port))
+
+        for files in dirs:
+            filename = files
+            size = len(filename)
+            size = bin(size)[2:].zfill(16) #encode file name to 16 bit
+            sock.sendall(size.encode('utf8'))
+            sock.sendall(filename.encode('utf8'))
+
+            filename = os.path.join(path,filename)
+            filesize = os.path.getsize(filename)
+            filesize = bin(filesize)[2:].zfill(32) # encode filesize as 32 bit binary
+            sock.sendall(filesize.encode('utf8'))
+
+            file_to_send = open(filename, 'rb')
+
+            l = file_to_send.read()
+            sock.sendall(l)
+            file_to_send.close()
+
+        # with open(path + "/" + dirs[0], 'rb') as f:
+        #        data = f.read()
+        #        sock.sendall(data)
+
+
+        sock.close()
+        # f.close()
+
+
+    sendData('compressed.txt')
 
