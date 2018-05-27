@@ -94,5 +94,5 @@ class tensiometer(ABC):
 
     # override from tensiometer
     @abstractmethod
-    def dataReduction(self, files):
+    def dataReduction(self, files, path):
         print("tensiometer: reduction to data")

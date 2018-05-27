@@ -111,15 +111,14 @@ class device(ABC):
         print("Description:", self.description)
         print("Data Type:", self.dataType)
 
-
-    def getDataFromInputFolder(self):
+    # path to folder fo files to get
+    def getDataFromInputFolder(self, path):
         print("Searching for files in input directory...")
-        files = glob.glob("filesToReduce/*.*")  # create list of files in directory
-        print(files)
+        files = glob.glob(path + "/*.*")  # create list of files in directory
         try:
             while not files:
                 sleep(10)
-                files = glob.glob("filesToReduce/*.*")
+                files = glob.glob(path + "/*.*")
             else:  # then list (actually the directory) isn't empty
                 print("File detected!")
                 return (files)
@@ -127,8 +126,8 @@ class device(ABC):
             print("Exit Stand By mode")
             pass
 
-
-    def compress(self, files):  #   compress data with some known compress method
+    # 'files': what files[0] to compress. 'path': to file goes after compress
+    def compress(self, files, path, original_file_name, date):  #   compress data with some known compress method
         #compress the data
         print("device: compressing data")
         original_data = open(files[0], 'rb').read()
@@ -138,7 +137,7 @@ class device(ABC):
         # print('Compressed: %d%%' % (100.0 * compress_ratio))
 
         #save the compressed data to file
-        f = open('filesAfterReduce/compressed', 'wb')
+        f = open(path + '/' + original_file_name + '-' + date + '.zlib', 'wb')
         f.write(compressed_data)
         f.close()
 
