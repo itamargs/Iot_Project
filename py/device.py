@@ -1,5 +1,5 @@
 #!/usr/bin/python
-#-*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 # interface
 # import this to you class so it can be a device
 # all methods with "@abstractmethod" decorators are MUST be implementer into the sub class of this.
@@ -11,59 +11,61 @@
 import datetime
 import glob
 from abc import ABC, abstractmethod
-import pickle #saving object for other sessions
+import pickle  # saving object for other sessions
 from time import sleep
-
 import dill as pickle
+import socket
+import sys
+import os
+import threading
+
 import zlib
 class device(ABC):
 
-
-
     def __init__(self, interval, ID, description):
         self.interval = interval
-        self.ID = ID
+        self.ID = 12
         self.description = description
         self.dataType = "my data type"
         self.mode = "standBy"  #device state: standby= regular mode (waiting for something to happen)
         print("device: init device:", description)
 
-
     def save(self, path):
         with open(path, 'wb') as f:
             return pickle.dump(self, f)
+
     def load(self, path):
         with open(path, 'rb') as f:
             self.__dict__.update(pickle.load(f).__dict__)
 
-
-
     @abstractmethod
-    #override from device
-    def setInterval(self, interval):   # interval for heart beat send
+    # override from device
+    def setInterval(self, interval):  # interval for heart beat send
         pass
+
+
 
 
     #override from device
     def doesNeedAnalyzing(self):   # is the data need to be analyzed (example: if only 1 second past from last time there is no need)
         print("device: check if need analyze")
-        return True #todo: just place holder, need to check if need analyze
+        return True  # todo: just place holder, need to check if need analyze
 
     @abstractmethod
-    #override from device
-    def deleteOutdatedData(self):   # delete data who isn't nececcery anymore for cleaning space in device memory
+    # override from device
+    def deleteOutdatedData(self):  # delete data who isn't nececcery anymore for cleaning space in device memory
         print("device: deleteOutdatedData")
         pass
 
-    def sendData(self): # send data to cloud
+    def sendData(self):  # send data to cloud
         print("device: sending data")
         pass
 
-    def getReady(self):   # final initializaion of device
+    def getReady(self):  # final initializaion of device
         print("device: Getting ready...")
-        self.getData()  #get data from device (data depends on device type)
-        self.getSettings() #get settings from device (settings depends on device type)
-        self.analyze() # insert values from sensor uoutput into device data members
+        self.getData()  # get data from device (data depends on device type)
+        self.getSettings()  # get settings from device (settings depends on device type)
+        self.analyze()  # insert values from sensor uoutput into device data members
 
         # check connection to sensor
         # get data from sensor
@@ -71,14 +73,13 @@ class device(ABC):
         # connect to cloud
         pass
 
-    def isTheDataHasChanged(self): #boolean
-        print("device: Check for change in data..." )
-        return self.compareData()  #compare the new data from the sensor to the data captured last time. (return true if data has changed)
+    def isTheDataHasChanged(self):  # boolean
+        print("device: Check for change in data...")
+        return self.compareData()  # compare the new data from the sensor to the data captured last time. (return true if data has changed)
 
-    def getChange(self): #get the change from the old data that captured in sensor to the new data captured
+    def getChange(self):  # get the change from the old data that captured in sensor to the new data captured
         print("device: get the change in data...")
-        #todo: place holder. need to write the method
-
+        # todo: place holder. need to write the method
 
         # check connection to sensor
         # get data from sensor
@@ -100,7 +101,9 @@ class device(ABC):
         pass
 
     def deleteOutDatedData(self):
-        pass    #todo: place holder. need to write the method
+        pass  # todo: place holder. need to write the method
+
+
 
     def printDetails(self):
         print("ID:", self.ID)
@@ -137,4 +140,48 @@ class device(ABC):
         f = open(path + '/' + original_file_name + '-' + date + '.zlib', 'wb')
         f.write(compressed_data)
         f.close()
+
+
+
+    def sendData(path):
+
+        path = "filesAlreadyReduced"
+
+        dirs = os.listdir(path)
+
+        filename, file_extension = os.path.splitext(path + "/" + dirs[0])
+
+        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        host = "127.0.0.1"
+        port  = 5002
+        sock.connect((host, port))
+
+        for files in dirs:
+            filename = files
+            size = len(filename)
+            size = bin(size)[2:].zfill(16) #encode file name to 16 bit
+            sock.sendall(size.encode('utf8'))
+            sock.sendall(filename.encode('utf8'))
+
+            filename = os.path.join(path,filename)
+            filesize = os.path.getsize(filename)
+            filesize = bin(filesize)[2:].zfill(32) # encode filesize as 32 bit binary
+            sock.sendall(filesize.encode('utf8'))
+
+            file_to_send = open(filename, 'rb')
+
+            l = file_to_send.read()
+            sock.sendall(l)
+            file_to_send.close()
+
+        # with open(path + "/" + dirs[0], 'rb') as f:
+        #        data = f.read()
+        #        sock.sendall(data)
+
+
+        sock.close()
+        # f.close()
+
+
+    sendData('compressed.txt')
 
