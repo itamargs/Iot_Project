@@ -30,4 +30,4 @@ def dataReduction(self, files, path): --> GET (pointer to list of files, path to
 
 3 ----- Testing -------
 3.1) For testing only- if you wish to change sensor type: a)delete 'saved' file
-							b)in the device menu, press '1' in the first time to create new 							  settings file
+							b)in the device menu, press '1' in the first time to create new.							  settings file
