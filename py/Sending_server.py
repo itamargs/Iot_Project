@@ -14,14 +14,15 @@ print ("Waiting for a connection.....")
 clientsocket,addr = serversock.accept()
 print("Got a connection from %s" % str(addr))
 while True:
-    size = clientsocket.recv(16) # Note that you limit your filename length to 255 bytes.
+    size = clientsocket.recv(16)                #recv file size from client
     if not size:
         break
     size = int(size, 2)
     filename = clientsocket.recv(size)
     filesize = clientsocket.recv(32)
     filesize = int(filesize, 2)
-    file_to_write = open(filename, 'wb')
+    file_to_write = open(filename, 'wb')            #creating the recived file on server side
+
     chunksize = 4096
     while filesize > 0:
         if filesize < chunksize:

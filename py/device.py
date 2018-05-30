@@ -8,16 +8,14 @@
 # example for abstract:  "setInterval()" ALL type of devices  has interval need to be set but exact interval is depends on device type
 # example for none abstract:  "sendData()" ALL type of devices need to send data to the cloud no matter what is that data
 # if method is abstract, then the operation of this method IS unique to the specific device type.
-import datetime
 import glob
 from abc import ABC, abstractmethod
 import pickle  # saving object for other sessions
 from time import sleep
 import dill as pickle
 import socket
-import sys
 import os
-import threading
+
 
 import zlib
 class device(ABC):
@@ -155,6 +153,7 @@ class device(ABC):
         host = "127.0.0.1"
         port  = 5002
         sock.connect((host, port))
+
 
         for files in dirs:
             filename = files
