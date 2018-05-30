@@ -24,20 +24,27 @@
 
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="device_microphone.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/py/device_microphone.py">
+      <file leaf-file-name="device.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/py/device.py">
           <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="168">
+              <caret line="115" selection-start-line="115" selection-end-line="115" />
 
             <state relative-caret-position="90">
               <caret line="75" column="18" selection-start-line="75" selection-start-column="18" selection-end-line="75" selection-end-column="18" />
 
               <folding>
-                <element signature="e#215#230#0" expanded="true" />
+                <element signature="e#217#230#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="Sending_server.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/py/Sending_server.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="240">
+              <caret line="16" column="17" selection-start-line="16" selection-start-column="17" selection-end-line="16" selection-end-column="17" />
       <file leaf-file-name="device_tensiometer.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/py/device_tensiometer.py">
           <provider selected="true" editor-type-id="text-editor">
@@ -123,11 +130,25 @@
       <find>sleep</find>
     </findStrings>
   </component>
+  <component name="Git.Rebase.Settings">
+    <option name="SHOW_REMOTE_BRANCHES" value="true" />
+    <option name="ONTO" value="refs/remotes/origin/Sending" />
+  </component>
   <component name="Git.Settings">
+    <option name="PREVIOUS_COMMIT_AUTHORS">
+      <list>
+        <option value="OriHalyo &lt;orihalyo123@gmail.com&gt;" />
+      </list>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
         <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="be60c757ff7a4322b1f0809f3a5a1bf2b35b267f" />
       </map>
     </option>
   </component>
@@ -145,6 +166,10 @@
         <option value="$PROJECT_DIR$/py/microphone.py" />
         <option value="$PROJECT_DIR$/py/device.py" />
         <option value="$PROJECT_DIR$/py/device_microphone.py" />
+        <option value="$PROJECT_DIR$/clinet-test.py" />
+        <option value="$PROJECT_DIR$/py/clinet-test.py" />
+        <option value="$PROJECT_DIR$/py/Sending_server.py" />
+        <option value="$PROJECT_DIR$/py/device.py" />
       </list>
     </option>
   </component>
@@ -158,6 +183,13 @@
     <packageJsonPaths />
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="310" />
+    <option name="y" value="159" />
+    <option name="width" value="959" />
+    <option name="height" value="552" />
+  </component>
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="1" id="Add" />
     <option name="x" value="238" />
     <option name="y" value="99" />
     <option name="width" value="1029" />
@@ -168,6 +200,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Course" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -212,24 +245,8 @@
   <component name="RunManager" selected="Python.device_microphone">
     <configuration name="A" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="Iot_Project" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/py" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/py/A.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-    </configuration>
-    <configuration name="B" type="PythonConfigurationType" factoryName="Python" temporary="true">
+  <component name="RunManager" selected="Python.device">
+    <configuration name="Sending_server" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="Iot_Project" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -241,6 +258,27 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/py/Sending_server.py" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/py/A.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+    </configuration>
+    <configuration name="clinet-test" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="Iot_Project" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/py" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/py/clinet-test.py" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/py/B.py" />
       <option name="PARAMETERS" value="" />
@@ -267,7 +305,7 @@
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
     </configuration>
-    <configuration name="device1" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="device" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="Iot_Project" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -279,27 +317,9 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/py/device.py" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="C:\Iot_Project\py\device_tensiometer.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-    </configuration>
-    <configuration name="device_microphone" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="Iot_Project" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/py" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/py/device_microphone.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -317,6 +337,27 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/py/device_tensiometer.py" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/py/device_microphone.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+    </configuration>
+    <configuration name="server" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="Iot_Project" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/py" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/py/server.py" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/py/device_tensiometer.py" />
       <option name="PARAMETERS" value="" />
@@ -325,13 +366,19 @@
       <option name="MODULE_MODE" value="false" />
     </configuration>
     <list>
-      <item itemvalue="Python.device1" />
-      <item itemvalue="Python.A" />
-      <item itemvalue="Python.B" />
-      <item itemvalue="Python.device_microphone" />
       <item itemvalue="Python.device_tensiometer" />
+      <item itemvalue="Python.Sending_server" />
+      <item itemvalue="Python.clinet-test" />
+      <item itemvalue="Python.device" />
+      <item itemvalue="Python.server" />
     </list>
     <recent_temporary>
+      <list>
+        <item itemvalue="Python.device" />
+        <item itemvalue="Python.Sending_server" />
+        <item itemvalue="Python.server" />
+        <item itemvalue="Python.clinet-test" />
+        <item itemvalue="Python.device_tensiometer" />
       <list>
 
         <item itemvalue="Python.device_microphone" />
@@ -344,7 +391,7 @@
     </recent_temporary>
   </component>
   <component name="SvnConfiguration">
-    <configuration />
+    <configuration>$USER_HOME$/.subversion</configuration>
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -505,10 +552,28 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
+    <frame x="67" y="25" width="1293" height="743" extended-state="6" />
 
     <frame x="67" y="25" width="1613" height="1025" extended-state="6" />
 
     <layout>
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.19370079" />
+      <window_info active="true" anchor="bottom" id="Version Control" order="14" visible="true" weight="0.32917318" />
+      <window_info anchor="bottom" id="Python Console" order="15" />
+      <window_info anchor="bottom" id="Run" order="4" weight="0.27925116" />
+      <window_info anchor="bottom" id="Debug" order="5" weight="0.39937598" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info id="Structure" order="1" weight="0.25" />
+      <window_info anchor="right" id="Commander" order="0" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="bottom" id="TODO" order="11" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Event Log" order="13" side_tool="true" />
+      <window_info anchor="bottom" id="Inspection" order="7" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="6" weight="0.25" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32917318" />
+      <window_info anchor="bottom" id="Terminal" order="16" />
       <window_info anchor="bottom" id="TODO" order="11" />
       <window_info anchor="bottom" id="Event Log" order="13" side_tool="true" />
       <window_info anchor="bottom" id="Database Changes" order="14" show_stripe_button="false" />
@@ -534,6 +599,25 @@
       <window_info anchor="bottom" id="Cvs" order="6" weight="0.25" />
 
     </layout>
+    <layout-to-restore>
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.19370079" />
+      <window_info id="Structure" order="1" weight="0.25" />
+      <window_info anchor="right" id="Commander" order="0" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.27925116" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32917318" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.39937598" />
+      <window_info anchor="bottom" id="Terminal" order="10" />
+      <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
+      <window_info anchor="bottom" id="Version Control" order="8" weight="0.32917318" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Python Console" order="9" />
+    </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
@@ -560,6 +644,8 @@
     <MESSAGE value="ADD: now device default is waiting for trigger (support only file detection for now).&#10;Go back to standby after manipulating files" />
     <MESSAGE value="VC" />
     <option name="LAST_COMMIT_MESSAGE" value="VC" />
+    <MESSAGE value="Updating device, communicate between sockets" />
+    <option name="LAST_COMMIT_MESSAGE" value="Updating device, communicate between sockets" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -570,6 +656,7 @@
           <option name="timeStamp" value="13" />
         </line-breakpoint>
       </breakpoints>
+      <option name="time" value="25" />
       <option name="time" value="20" />
     </breakpoint-manager>
   </component>
@@ -702,6 +789,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1071">
           <caret line="63" column="23" selection-start-line="63" selection-start-column="23" selection-end-line="63" selection-end-column="23" />
+          <folding>
+            <element signature="e#756#791#0" expanded="true" />
+          </folding>
+          <caret line="63" column="23" selection-start-line="63" selection-start-column="23" selection-end-line="63" selection-end-column="23" />
 
         </state>
       </provider>
@@ -747,6 +838,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1071">
           <caret line="63" column="23" lean-forward="true" selection-start-line="63" selection-start-column="23" selection-end-line="63" selection-end-column="23" />
+          <folding>
+            <element signature="e#756#791#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -784,6 +878,10 @@
     <entry file="file://$PROJECT_DIR$/py/device.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
+          <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
+          <folding>
+            <element signature="e#756#791#0" expanded="true" />
+          </folding>
           <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
 
         </state>
@@ -830,6 +928,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
           <caret line="2" column="11" lean-forward="true" selection-start-line="2" selection-start-column="11" selection-end-line="2" selection-end-column="11" />
+          <folding>
+            <element signature="e#756#791#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -838,6 +939,10 @@
         <state relative-caret-position="34">
           <caret line="2" column="11" selection-start-line="2" selection-start-column="11" selection-end-line="2" selection-end-column="11" />
 
+          <caret line="2" column="11" selection-start-line="2" selection-start-column="11" selection-end-line="2" selection-end-column="11" />
+          <folding>
+            <element signature="e#756#791#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -864,6 +969,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
           <caret line="2" column="11" lean-forward="true" selection-start-line="2" selection-start-column="11" selection-end-line="2" selection-end-column="11" />
+          <folding>
+            <element signature="e#756#791#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -880,6 +988,32 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
           <caret line="5" selection-start-line="4" selection-end-line="5" />
+          <caret line="5" selection-start-line="4" selection-end-line="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/Python36/Lib/abc.py" />
+    <entry file="file://$PROJECT_DIR$/py/device_tensiometer.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="118" column="40" selection-start-line="118" selection-start-column="40" selection-end-line="118" selection-end-column="40" />
+          <folding>
+            <element signature="e#217#230#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/py/device_microphone.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="50" column="28" lean-forward="true" selection-start-line="50" selection-start-column="28" selection-end-line="50" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/py/microphone.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="10" column="16" selection-start-line="10" selection-start-column="6" selection-end-line="10" selection-end-column="16" />
         </state>
       </provider>
     </entry>
@@ -889,32 +1023,87 @@
 
         <state relative-caret-position="255">
           <caret line="15" selection-start-line="15" selection-end-line="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/anaconda3/lib/python3.6/shutil.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="199">
-          <caret line="541" selection-start-line="541" selection-end-line="541" />
+        <state relative-caret-position="225">
+          <caret line="15" selection-start-line="15" selection-end-line="15" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/py/tensiometer.py">
       <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="556">
+          <caret line="96" column="45" selection-start-line="96" selection-start-column="45" selection-end-line="96" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/py/clinet-test.py" />
+    <entry file="file://$USER_HOME$/anaconda3/envs/Iot_Project/lib/python3.6/socket.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="298">
+          <caret line="114" column="19" lean-forward="true" selection-start-line="114" selection-start-column="19" selection-end-line="114" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/anaconda3/envs/Iot_Project/lib/python3.6/enum.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="159">
+          <caret line="290" selection-start-line="290" selection-end-line="290" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/anaconda3/envs/Iot_Project/lib/python3.6/genericpath.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="283">
+          <caret line="134" selection-start-line="134" selection-end-line="134" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/anaconda3/envs/Iot_Project/lib/python3.6/posixpath.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="223">
+          <caret line="128" selection-start-line="128" selection-end-line="128" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/anaconda3/envs/Iot_Project/lib/python3.6/_bootlocale.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="268">
+          <caret line="33" selection-start-line="33" selection-end-line="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/anaconda3/lib/python3.6/shutil.py">
+    <entry file="file://$USER_HOME$/anaconda3/envs/Iot_Project/lib/python3.6/codecs.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="199">
+          <caret line="541" selection-start-line="541" selection-end-line="541" />
+        <state relative-caret-position="125">
+          <caret line="323" selection-start-line="323" selection-end-line="323" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/py/tensiometer.py">
+    <entry file="file://$USER_HOME$/anaconda3/envs/Iot_Project/lib/python3.6/copyreg.py">
+      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="479">
           <caret line="94" column="21" selection-start-line="94" selection-start-column="8" selection-end-line="94" selection-end-column="21" />
+        <state relative-caret-position="185">
+          <caret line="144" selection-start-line="144" selection-end-line="144" />
         </state>
       </provider>
     </entry>
     <entry file="file://$USER_HOME$/anaconda3/lib/python3.6/site-packages/dill/dill.py">
+    <entry file="file://$USER_HOME$/anaconda3/envs/Iot_Project/lib/python3.6/pickle.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="594">
           <caret line="444" selection-start-line="444" selection-end-line="444" />
 
+        <state relative-caret-position="140">
+          <caret line="410" selection-start-line="410" selection-end-line="410" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/py/device_tensiometer.py">
+    <entry file="file://$USER_HOME$/anaconda3/envs/Iot_Project/lib/python3.6/abc.py">
       <provider selected="true" editor-type-id="text-editor">
 
         <state relative-caret-position="129">
@@ -923,9 +1112,19 @@
           <folding>
             <element signature="e#217#230#0" expanded="true" />
           </folding>
+        <state relative-caret-position="118">
+          <caret line="132" selection-start-line="132" selection-end-line="132" />
         </state>
       </provider>
     </entry>
+    <entry file="file://$USER_HOME$/anaconda3/envs/Iot_Project/lib/python3.6/logging/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="110">
+          <caret line="1304" selection-start-line="1304" selection-end-line="1304" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/anaconda3/envs/Iot_Project/lib/python3.6/site-packages/dill/dill.py">
 
     <entry file="file://$PROJECT_DIR$/py/microphone.py">
       <provider selected="true" editor-type-id="text-editor">
@@ -935,10 +1134,17 @@
             <element signature="e#332#347#0" expanded="true" />
           </folding>
 
+        <state relative-caret-position="230">
+          <caret line="613" selection-start-line="613" selection-end-line="613" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/py/device.py">
+    <entry file="file://$PROJECT_DIR$/py/new_file.txt">
+      <provider selected="true" editor-type-id="LargeFileEditor" />
+      <provider editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/py/Sending_server.py">
       <provider selected="true" editor-type-id="text-editor">
 
         <state relative-caret-position="481">
@@ -947,20 +1153,40 @@
           <folding>
             <element signature="e#755#770#0" expanded="true" />
           </folding>
+        <state relative-caret-position="240">
+          <caret line="16" column="17" selection-start-line="16" selection-start-column="17" selection-end-line="16" selection-end-column="17" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/py/device_microphone.py">
+    <entry file="file://$PROJECT_DIR$/py/device.py">
       <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="115" selection-start-line="115" selection-end-line="115" />
 
         <state relative-caret-position="90">
           <caret line="75" column="18" selection-start-line="75" selection-start-column="18" selection-end-line="75" selection-end-column="18" />
 
           <folding>
+            <element signature="e#756#791#0" expanded="true" />
             <element signature="e#215#230#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ScopeChooserConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
   </component>
 </project>
