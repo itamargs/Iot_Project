@@ -173,13 +173,10 @@ class device(ABC):
             sock.sendall(l)
             file_to_send.close()
 
-        # with open(path + "/" + dirs[0], 'rb') as f:
-        #        data = f.read()
-        #        sock.sendall(data)
+
 
 
         sock.close()
-        # f.close()
 
 
     sendData('compressed.txt')
