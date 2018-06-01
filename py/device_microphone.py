@@ -153,10 +153,9 @@ while(True):
                                 "filesBeenCared/" + original_file_name + "-" + date + original_file_extension)
 
 
-
                 # myDevice.deleteOutdatedData()
                 myDevice.sendPulse()
-                myDevice.sendData()
+                myDevice.sendData("readyFiles")
                 # waitForFileCreation()
             else:  # if there is NO change
                 myDevice.deleteOutdatedData()
@@ -176,7 +175,7 @@ while(True):
                 # myDevice.compress()
                 # myDevice.deleteOutdatedData()
                 myDevice.sendPulse()
-                myDevice.sendData()
+                # myDevice.sendData()
             else:  # if there is NO change
                 myDevice.deleteOutdatedData()
                 myDevice.sendPulse()
