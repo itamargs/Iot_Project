@@ -55,9 +55,10 @@ class device(ABC):
         print("device: deleteOutdatedData")
         pass
 
-    def sendData(self):  # send data to cloud
-        print("device: sending data")
-        pass
+    #todo: ERASE?
+    # def sendData(self):  # send data to cloud
+    #     print("device: sending data")
+    #     pass
 
     def getReady(self):  # final initializaion of device
         print("device: Getting ready...")
@@ -141,9 +142,10 @@ class device(ABC):
 
 
 
-    def sendData(path):
+    def sendData(self, path):
+        print("device: sending data")
 
-        path = "filesAlreadyReduced"
+        path = "readyFiles"
 
         dirs = os.listdir(path)
 
@@ -179,5 +181,5 @@ class device(ABC):
         sock.close()
 
 
-    sendData('compressed.txt')
+    # sendData('compressed.txt') todo: SHOULD NOT BE HERE! sending data only from device running file (AKA device_microphone.py)
 
