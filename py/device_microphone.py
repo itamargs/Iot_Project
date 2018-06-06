@@ -155,7 +155,7 @@ while(True):
 
                 # myDevice.deleteOutdatedData()
                 myDevice.sendPulse()
-                myDevice.sendData("readyFiles")
+                # myDevice.sendData("readyFiles")
                 # waitForFileCreation()
             else:  # if there is NO change
                 myDevice.deleteOutdatedData()

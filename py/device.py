@@ -8,6 +8,8 @@
 # example for abstract:  "setInterval()" ALL type of devices  has interval need to be set but exact interval is depends on device type
 # example for none abstract:  "sendData()" ALL type of devices need to send data to the cloud no matter what is that data
 # if method is abstract, then the operation of this method IS unique to the specific device type.
+
+
 import glob
 from abc import ABC, abstractmethod
 import pickle  # saving object for other sessions
@@ -15,9 +17,36 @@ from time import sleep
 import dill as pickle
 import socket
 import os
-
-
 import zlib
+import pyrebase
+import firebase_admin
+from firebase_admin import credentials
+from firebase_admin import storage
+
+
+# cred = credentials.Certificate('/home/itamar/iot-compression-protocol-firebase-adminsdk-65s1v-c9385c017f.json')
+# default_app = firebase_admin.initialize_app(cred)
+#
+# bucket = storage.bucket("staging.iot-compression-protocol.appspot.com")
+# upload_blob(bucket, , )
+
+# 'bucket' is an object defined in the google-cloud-storage Python library.
+# See https://google-cloud-python.readthedocs.io/en/latest/storage/buckets.html
+# for more details.
+
+def upload_blob(bucket_name, source_file_name, destination_blob_name):
+    """Uploads a file to the bucket."""
+    storage_client = storage.Client()
+    bucket = storage_client.get_bucket(bucket_name)
+    blob = bucket.blob(destination_blob_name)
+
+    blob.upload_from_filename(source_file_name)
+
+    print('File {} uploaded to {}.'.format(
+        source_file_name,
+        destination_blob_name))
+
+
 class device(ABC):
 
     def __init__(self, interval, ID, description):
