@@ -57,9 +57,10 @@ class device(ABC):
         print("device: deleteOutdatedData")
         pass
 
-    def sendData(self):  # send data to cloud
-        print("device: sending data")
-        pass
+    #todo: ERASE?
+    # def sendData(self):  # send data to cloud
+    #     print("device: sending data")
+    #     pass
 
     def getReady(self):  # final initializaion of device
         print("device: Getting ready...")
@@ -143,8 +144,10 @@ class device(ABC):
 
 
 
-    def sendData(path):
+    def sendData(self, path):
+        print("device: sending data")
 
+        path = "readyFiles"
 
         dirs = os.listdir(path)
 
@@ -195,6 +198,5 @@ class device(ABC):
         for f in filelist:
             os.remove(os.path.join(path, f))
 
-
-    sendData("filesAlreadyReduced")
+   # sendData("filesAlreadyReduced")todo: SHOULD NOT BE HERE! sending data only from device running file (AKA device_microphone.py)
 
