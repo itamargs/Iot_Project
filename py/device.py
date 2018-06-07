@@ -8,8 +8,7 @@
 # example for abstract:  "setInterval()" ALL type of devices  has interval need to be set but exact interval is depends on device type
 # example for none abstract:  "sendData()" ALL type of devices need to send data to the cloud no matter what is that data
 # if method is abstract, then the operation of this method IS unique to the specific device type.
-
-
+import datetime
 import glob
 from abc import ABC, abstractmethod
 import pickle  # saving object for other sessions
@@ -21,30 +20,17 @@ import zlib
 import pyrebase
 import firebase_admin
 from firebase_admin import credentials
-from firebase_admin import storage
+from firebase_admin import firestore
 
 
-# cred = credentials.Certificate('/home/itamar/iot-compression-protocol-firebase-adminsdk-65s1v-c9385c017f.json')
-# default_app = firebase_admin.initialize_app(cred)
-#
-# bucket = storage.bucket("staging.iot-compression-protocol.appspot.com")
-# upload_blob(bucket, , )
+# Should be in server! not int device
+# ------------------------------------------  Init FireStore ------------------------------------------------------
+# init fireStore cloud with credentials and things -
+cred = credentials.Certificate('/home/itamar/iot-compression-protocol-firebase-adminsdk-65s1v-c9385c017f.json')
+firebase_admin.initialize_app(cred)
+db = firestore.client()
+# -----------------------------------------------------------------------------------------------------------------
 
-# 'bucket' is an object defined in the google-cloud-storage Python library.
-# See https://google-cloud-python.readthedocs.io/en/latest/storage/buckets.html
-# for more details.
-
-def upload_blob(bucket_name, source_file_name, destination_blob_name):
-    """Uploads a file to the bucket."""
-    storage_client = storage.Client()
-    bucket = storage_client.get_bucket(bucket_name)
-    blob = bucket.blob(destination_blob_name)
-
-    blob.upload_from_filename(source_file_name)
-
-    print('File {} uploaded to {}.'.format(
-        source_file_name,
-        destination_blob_name))
 
 
 class device(ABC):
@@ -69,9 +55,6 @@ class device(ABC):
     # override from device
     def setInterval(self, interval):  # interval for heart beat send
         pass
-
-
-
 
     #override from device
     def doesNeedAnalyzing(self):   # is the data need to be analyzed (example: if only 1 second past from last time there is no need)
@@ -211,8 +194,38 @@ class device(ABC):
             sock.sendall(l)
             file_to_send.close()
 
-
-
-
         sock.close()
 
+
+
+    # Should be in server! not int device
+    def sendDataToCloud(self):
+        # add some data to the fireStore cloud
+        data = {
+            u'file_name': u'03022018-103259',
+            u'date': u'03.02.2018',  # better to get datetime object
+            u'time': u'10:32:59',  # better to get datetime object
+        }
+        db.collection(u'devices').document(u'0001').set(data)
+
+        data = {
+            u'file_name': u'03032018-113259',
+            u'date': u'03.03.2018',  # better to get datetime object
+            u'time': u'11:32:59',  # better to get datetime object
+        }
+        db.collection(u'devices').document(u'0002').set(data)
+
+        # data = {
+        #     u'stringExample': u'Hello, World!',
+        #     u'booleanExample': True,
+        #     u'numberExample': 3.14159265,
+        #     u'dateExample': datetime.datetime.now(),
+        #     u'arrayExample': [5, True, u'hello'],
+        #     u'nullExample': None,
+        #     u'objectExample': {
+        #         u'a': 5,
+        #         u'b': True
+        #     }
+        # }
+        #
+        # db.collection(u'data').document(u'one').set(data)

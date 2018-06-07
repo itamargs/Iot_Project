@@ -117,6 +117,7 @@ while(True):
             print("case: new data")
             with open('saved', 'rb') as f:
                 myDevice = pickle.load(f)
+                myDevice.sendDataToCloud()
             if myDevice.doesNeedAnalyzing() is True:
                 files = myDevice.getDataFromInputFolder("filesPool")  # get list of pointers to the files in the path provided folder
                 original_file_name = Path(files[0]).stem
