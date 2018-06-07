@@ -16,15 +16,13 @@ import dill as pickle
 import socket
 import os
 import time
-
-
 import zlib
 
 class device(ABC):
 
     def __init__(self, interval, ID, description):
         self.interval = interval
-        self.ID = 12
+        self.ID = ID
         self.description = description
         self.dataType = "my data type"
         self.mode = "standBy"  #device state: standby= regular mode (waiting for something to happen)
@@ -144,13 +142,12 @@ class device(ABC):
 
 
 
+
+
     def sendData(self, path):
         print("device: sending data")
 
-        path = "readyFiles"
-
         dirs = os.listdir(path)
-
 
         while True:
             sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -158,45 +155,36 @@ class device(ABC):
             port  = 5002
             try:
                 sock.connect((host, port))
+                break
             except:
                 print("Falied to connect, auto try again after 10sec")
                 time.sleep(10)
                 continue
 
 
+        for files in dirs:
+            filename = files
+            size = len(filename)
+            size = bin(size)[2:].zfill(16)          #encode file name to 16 bit
+            sock.sendall(size.encode('utf8'))       #encode so we could send it
+            sock.sendall(filename.encode('utf8'))
 
+            filename = os.path.join(path,filename)
+            filesize = os.path.getsize(filename)
+            filesize = bin(filesize)[2:].zfill(32)   # encode filesize as 32 bit binary
+            sock.sendall(filesize.encode('utf8'))
 
-            for files in dirs:
-                filename = files
-                size = len(filename)
-                size = bin(size)[2:].zfill(16) #encode file name to 16 bit
-                sock.sendall(size.encode('utf8'))
-                sock.sendall(filename.encode('utf8'))
+            file_to_send = open(filename, 'rb')
 
-                filename = os.path.join(path,filename)
-                filesize = os.path.getsize(filename)
-                filesize = bin(filesize)[2:].zfill(32) # encode filesize as 32 bit binary
-                sock.sendall(filesize.encode('utf8'))
+            l = file_to_send.read()
+            sock.sendall(l)
+            file_to_send.close()
 
-                file_to_send = open(filename, 'rb')
-
-                l = file_to_send.read()
-                sock.sendall(l)
-                file_to_send.close()
-
-
-
-
-            sock.close()
-
-        self.deleteFiles()
-
-
-    def deleteFiles(self, path):
+        sock.close()
 
         filelist = [ f for f in os.listdir(path)]
         for f in filelist:
             os.remove(os.path.join(path, f))
 
-   # sendData("filesAlreadyReduced")todo: SHOULD NOT BE HERE! sending data only from device running file (AKA device_microphone.py)
 
+    sendData("hey", "readyFiles")
