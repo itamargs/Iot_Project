@@ -154,12 +154,12 @@ while(True):
 
 
                 # myDevice.deleteOutdatedData()
-                myDevice.sendPulse()
-                # myDevice.sendData("readyFiles")
+                # myDevice.sendPulse()
+                # myDevice.sendData("readyFiles")  #Send all files inside path to the server
                 # waitForFileCreation()
             else:  # if there is NO change
                 myDevice.deleteOutdatedData()
-                myDevice.sendPulse()
+                # myDevice.sendPulse()
             option = "standBy"
             break
 

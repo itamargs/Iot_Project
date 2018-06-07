@@ -141,14 +141,14 @@ class device(ABC):
 
     # path to folder fo files to get
     def getDataFromInputFolder(self, path):
-        print("Searching for files in input directory...")
+        # print("Searching for files in input directory...")
         files = glob.glob(path + "/*.*")  # create list of files in directory
         try:
             while not files:
                 sleep(10)
                 files = glob.glob(path + "/*.*")
             else:  # then list (actually the directory) isn't empty
-                print("File detected!")
+                # print("File detected!") #todo Filedetected message is duplicate because its also says it in the standby mode.
                 return (files)
         except KeyboardInterrupt:
             print("Exit Stand By mode")
@@ -205,25 +205,14 @@ class device(ABC):
                 filesize = bin(filesize)[2:].zfill(32) # encode filesize as 32 bit binary
                 sock.sendall(filesize.encode('utf8'))
 
-                file_to_send = open(filename, 'rb')
+            file_to_send = open(filename, 'rb')
 
-                l = file_to_send.read()
-                sock.sendall(l)
-                file_to_send.close()
-
-
+            l = file_to_send.read()
+            sock.sendall(l)
+            file_to_send.close()
 
 
-            sock.close()
-
-        self.deleteFiles()
 
 
-    def deleteFiles(self, path):
-
-        filelist = [ f for f in os.listdir(path)]
-        for f in filelist:
-            os.remove(os.path.join(path, f))
-
-   # sendData("filesAlreadyReduced")todo: SHOULD NOT BE HERE! sending data only from device running file (AKA device_microphone.py)
+        sock.close()
 
