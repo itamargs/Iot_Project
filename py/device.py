@@ -187,4 +187,3 @@ class device(ABC):
             os.remove(os.path.join(path, f))
 
 
-    sendData("hey", "readyFiles")

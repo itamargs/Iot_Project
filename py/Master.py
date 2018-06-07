@@ -4,8 +4,7 @@ from threading import Thread
 import hashlib
 from pprint import pprint as pp
 from datetime import datetime
-
-
+import pprint
 
 #handle the clinets connection
 def client_thread(clientsocket, ip, port, MAX_BUFFER = 4096):       # MAX_BUFFER_SIZE is how big the message can be
@@ -73,22 +72,21 @@ def files_db(self, path):
     for files in dirs:                                                                           #scanning the whole flder given
         if files.rsplit('-')[0] not in files_dict:                                               #check if we still did not recvied file from that ID
             files_dict[files.rsplit('-')[0]] = {}
-
+        device_id = files.rsplit('-')[0]
         temp_date = files.rsplit('-')[1]                                                        #split the time so it would be readable
-        date =str( datetime(int(temp_date[4:]), int(temp_date[2:4]), int(temp_date[:2])))
+        date =str( datetime(int(temp_date[4:]), int(temp_date[2:4]), int(temp_date[:2])))       #contain the relvant date but in full format
         temp_time = files.rsplit('-')[2].rsplit('.')[0]
         time = str(temp_time[0:2]) + ':' + str(temp_time[2:4]) + ':' + temp_time[4:]
 
         files_dict[files.rsplit('-')[0]][files] = {'date: ': date[0:10] , 'time: ': time}
 
+    with open(path +'/db.txt', 'w') as file:
+        file.write(pprint.pformat(files_dict))
+
 
     pp(files_dict)
 
 
-
-
-
-files_db('hey','Recvied')
 
 
 
