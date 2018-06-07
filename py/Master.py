@@ -69,7 +69,9 @@ def files_db(self, path):
     files_dict ={}
     dirs = os.listdir(path)
 
-    for files in dirs:                                                                           #scanning the whole flder given
+    for files in dirs:                                                                          #scanning the whole flder given
+        if files == 'db.txt':
+            continue
         if files.rsplit('-')[0] not in files_dict:                                               #check if we still did not recvied file from that ID
             files_dict[files.rsplit('-')[0]] = {}
         device_id = files.rsplit('-')[0]
@@ -88,7 +90,7 @@ def files_db(self, path):
 
 
 
-
+files_db('hey', 'Recvied')
 
 
 
