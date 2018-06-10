@@ -16,6 +16,7 @@ from time import sleep
 import dill as pickle
 import socket
 import os
+
 import zlib
 import pyrebase
 import firebase_admin
@@ -45,11 +46,12 @@ from firebase_admin import storage
 
 
 
+
 class device(ABC):
 
     def __init__(self, interval, ID, description):
         self.interval = interval
-        self.ID = 12
+        self.ID = ID
         self.description = description
         self.dataType = "my data type"
         self.mode = "standBy"  #device state: standby= regular mode (waiting for something to happen)
@@ -166,13 +168,12 @@ class device(ABC):
 
 
 
+
+
     def sendData(self, path):
         print("device: sending data")
 
-        path = "readyFiles"
-
         dirs = os.listdir(path)
-
 
         while True:
             sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -180,13 +181,24 @@ class device(ABC):
             port  = 5002
             try:
                 sock.connect((host, port))
+                break
             except:
                 print("Falied to connect, auto try again after 10sec")
                 time.sleep(10)
                 continue
 
 
+        for files in dirs:
+            filename = files
+            size = len(filename)
+            size = bin(size)[2:].zfill(16)          #encode file name to 16 bit
+            sock.sendall(size.encode('utf8'))       #encode so we could send it
+            sock.sendall(filename.encode('utf8'))
 
+            filename = os.path.join(path,filename)
+            filesize = os.path.getsize(filename)
+            filesize = bin(filesize)[2:].zfill(32)   # encode filesize as 32 bit binary
+            sock.sendall(filesize.encode('utf8'))
 
             for files in dirs:
                 filename = files
@@ -199,6 +211,7 @@ class device(ABC):
                 filesize = os.path.getsize(filename)
                 filesize = bin(filesize)[2:].zfill(32) # encode filesize as 32 bit binary
                 sock.sendall(filesize.encode('utf8'))
+
 
             file_to_send = open(filename, 'rb')
 
@@ -241,3 +254,4 @@ class device(ABC):
         # }
         #
         # db.collection(u'data').document(u'one').set(data)
+
