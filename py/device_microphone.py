@@ -19,7 +19,7 @@ import ntpath
 from pathlib import Path
 
 
-class Device(device.device, microphone.microphone): #microphone is a placeholder
+class Device(device.device, microphone.microphone): #microphone is a placeholder.
 
 
     # override from device
