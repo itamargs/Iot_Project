@@ -8,6 +8,7 @@
 # example for abstract:  "setInterval()" ALL type of devices  has interval need to be set but exact interval is depends on device type
 # example for none abstract:  "sendData()" ALL type of devices need to send data to the cloud no matter what is that data
 # if method is abstract, then the operation of this method IS unique to the specific device type.
+import datetime
 import glob
 from abc import ABC, abstractmethod
 import pickle  # saving object for other sessions
@@ -15,8 +16,36 @@ from time import sleep
 import dill as pickle
 import socket
 import os
-import time
+
 import zlib
+import pyrebase
+import firebase_admin
+from firebase_admin import credentials
+from firebase_admin import firestore
+from firebase_admin import storage
+
+# Should be in server! not int device
+# ------------------------------------------  Init FireStore ------------------------------------------------------
+# init fireStore cloud with credentials and things -
+# cred = credentials.Certificate('/home/itamar/iotproject-dd956-4555a8fff398.json')
+# firebase_admin.initialize_app(cred)
+# firebase_admin.initialize_app(cred, {
+#     'storageBucket': 'iotproject-dd956.appspot.com.appspot.com'
+# })
+
+# db = firestore.client()
+
+
+# bucket = storage.bucket()
+
+
+# 'bucket' is an object defined in the google-cloud-storage Python library.
+# See https://google-cloud-python.readthedocs.io/en/latest/storage/buckets.html
+# for more details.
+# -----------------------------------------------------------------------------------------------------------------
+
+
+
 
 class device(ABC):
 
@@ -40,9 +69,6 @@ class device(ABC):
     # override from device
     def setInterval(self, interval):  # interval for heart beat send
         pass
-
-
-
 
     #override from device
     def doesNeedAnalyzing(self):   # is the data need to be analyzed (example: if only 1 second past from last time there is no need)
@@ -112,14 +138,14 @@ class device(ABC):
 
     # path to folder fo files to get
     def getDataFromInputFolder(self, path):
-        print("Searching for files in input directory...")
+        # print("Searching for files in input directory...")
         files = glob.glob(path + "/*.*")  # create list of files in directory
         try:
             while not files:
                 sleep(10)
                 files = glob.glob(path + "/*.*")
             else:  # then list (actually the directory) isn't empty
-                print("File detected!")
+                # print("File detected!") #todo Filedetected message is duplicate because its also says it in the standby mode.
                 return (files)
         except KeyboardInterrupt:
             print("Exit Stand By mode")
@@ -174,6 +200,19 @@ class device(ABC):
             filesize = bin(filesize)[2:].zfill(32)   # encode filesize as 32 bit binary
             sock.sendall(filesize.encode('utf8'))
 
+            for files in dirs:
+                filename = files
+                size = len(filename)
+                size = bin(size)[2:].zfill(16) #encode file name to 16 bit
+                sock.sendall(size.encode('utf8'))
+                sock.sendall(filename.encode('utf8'))
+
+                filename = os.path.join(path,filename)
+                filesize = os.path.getsize(filename)
+                filesize = bin(filesize)[2:].zfill(32) # encode filesize as 32 bit binary
+                sock.sendall(filesize.encode('utf8'))
+
+
             file_to_send = open(filename, 'rb')
 
             l = file_to_send.read()
@@ -182,8 +221,37 @@ class device(ABC):
 
         sock.close()
 
-        filelist = [ f for f in os.listdir(path)]
-        for f in filelist:
-            os.remove(os.path.join(path, f))
 
+
+    # Should be in server! not int device
+    def sendDataToCloud(self):
+        # add some data to the fireStore cloud
+        data = {
+            u'file_name': u'03022018-103259',
+            u'date': u'03.02.2020',  # better to get datetime object
+            u'time': u'10:32:59',  # better to get datetime object
+        }
+        db.collection(u'devices').document(u'0001').set(data)
+
+        data = {
+            u'file_name': u'03032018-113259',
+            u'date': u'03.03.2018',  # better to get datetime object
+            u'time': u'11:32:59',  # better to get datetime object
+        }
+        db.collection(u'devices').document(u'0002').set(data)
+
+        # data = {
+        #     u'stringExample': u'Hello, World!',
+        #     u'booleanExample': True,
+        #     u'numberExample': 3.14159265,
+        #     u'dateExample': datetime.datetime.now(),
+        #     u'arrayExample': [5, True, u'hello'],
+        #     u'nullExample': None,
+        #     u'objectExample': {
+        #         u'a': 5,
+        #         u'b': True
+        #     }
+        # }
+        #
+        # db.collection(u'data').document(u'one').set(data)
 
