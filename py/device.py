@@ -21,14 +21,26 @@ import pyrebase
 import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import firestore
-
+from firebase_admin import storage
 
 # Should be in server! not int device
 # ------------------------------------------  Init FireStore ------------------------------------------------------
 # init fireStore cloud with credentials and things -
-cred = credentials.Certificate('/home/itamar/iot-compression-protocol-firebase-adminsdk-65s1v-c9385c017f.json')
-firebase_admin.initialize_app(cred)
-db = firestore.client()
+# cred = credentials.Certificate('/home/itamar/iotproject-dd956-4555a8fff398.json')
+# firebase_admin.initialize_app(cred)
+# firebase_admin.initialize_app(cred, {
+#     'storageBucket': 'iotproject-dd956.appspot.com.appspot.com'
+# })
+
+# db = firestore.client()
+
+
+# bucket = storage.bucket()
+
+
+# 'bucket' is an object defined in the google-cloud-storage Python library.
+# See https://google-cloud-python.readthedocs.io/en/latest/storage/buckets.html
+# for more details.
 # -----------------------------------------------------------------------------------------------------------------
 
 
@@ -203,7 +215,7 @@ class device(ABC):
         # add some data to the fireStore cloud
         data = {
             u'file_name': u'03022018-103259',
-            u'date': u'03.02.2018',  # better to get datetime object
+            u'date': u'03.02.2020',  # better to get datetime object
             u'time': u'10:32:59',  # better to get datetime object
         }
         db.collection(u'devices').document(u'0001').set(data)
