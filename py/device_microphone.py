@@ -49,7 +49,7 @@ class Device(device.device, microphone.microphone): #microphone is a placeholder
         super(Device, self).getSettings()
 
     # override from microphone
-    def analyze(self):  #get settings from file
+    def analyze(self):  #get settings from file.
         # analyze data in sensor, insert values to class values
         super(Device, self).analyze()
 
