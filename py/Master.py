@@ -12,6 +12,7 @@ def client_thread(clientsocket, ip, port, MAX_BUFFER = 4096):       # MAX_BUFFER
 
         #recv file size from client
         size = clientsocket.recv(16)
+        print(size)
         if not size:
             break
         size = int(size, 2)
@@ -30,7 +31,7 @@ def client_thread(clientsocket, ip, port, MAX_BUFFER = 4096):       # MAX_BUFFER
 
         file_to_write.close()
         print('File received successfully')
-
+    files_db('hey', 'Recvied')
 
 #starting server with the connection defantion
 def startserver():
@@ -90,7 +91,7 @@ def files_db(self, path):
 
 
 
-files_db('hey', 'Recvied')
+startserver()
 
 
 
