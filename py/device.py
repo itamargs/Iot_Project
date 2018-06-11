@@ -30,12 +30,10 @@ from firebase_admin import storage
 '''
 # Should be in server! not int device
 # ------------------------------------------  Init FireStore ------------------------------------------------------
-
 #--- we use 'pystorage' instead of 'storage' for pyrebase use for not colliding with the native firebase which we use it for firestore
 #note that we will use pyrebase only for firebase 'Storage' and not
 # for the real time databae as we use Dire Store
 # instead and fire store already have a python native functions
-
 # init fireStore cloud with credentials and things -
 cred = credentials.Certificate('/home/itamar/iotproject-dd956-4555a8fff398.json')
 # firebase_admin.initialize_app(cred)
@@ -43,7 +41,6 @@ cred = credentials.Certificate('/home/itamar/iotproject-dd956-4555a8fff398.json'
 firebase_admin.initialize_app(cred, {
     'storageBucket': 'iotproject-dd956.appspot.com'
 })
-
 # config values for pyrebase
 config = {
   "apiKey": "AIzaSyChiOWAbg8Th2woLuAXfpqJwUc2ajFvlkU",
@@ -53,37 +50,28 @@ config = {
   "serviceAccount": "/home/itamar/iotproject-dd956-4555a8fff398.json"
 }
 firebase = pyrebase.initialize_app(config)
-
-
 db = firestore.client()
-
 # 'bucket' is an object defined in the google-cloud-storage Python library.
 # See https://google-cloud-python.readthedocs.io/en/latest/storage/buckets.html
 # for more details.
 bucket = storage.bucket()
 print('Fire Base Bucket name: "{}" .'.format(bucket.name))
-
 # blob = bucket.blob('test.mp3') #destination file name
 # blob.upload_from_filename('test.mp3') # file location on local device
-
 py_storage = firebase.storage() #init firebase storage to work with pyrebase
 print(py_storage.child("test.mp3").get_url(None))
-
-
 data = {
     u'file_name': u'03022018-103259',
     u'date': u'03.02.2020',  # better to get datetime object
     u'time': u'10:32:59',  # better to get datetime object
 }
 db.collection(u'devices').document(u'0001').set(data)
-
 data = {
     u'file_name': u'03032018-113259',
     u'date': u'03.03.2018',  # better to get datetime object
     u'time': u'11:32:59',  # better to get datetime object
 }
 db.collection(u'devices').document(u'0002').set(data)
-
 # -----------------------------------------------------------------------------------------------------------------
 '''
 
@@ -194,7 +182,7 @@ class device(ABC):
             pass
 
     # 'files': what files[0] to compress. 'path': to file goes after compress
-    def compress(self, files, path, original_file_name, date):  #   compress data with some known compress method
+    def compress(self, files, path, deviceID, date):  #   compress data with some known compress method
         #compress the data
         print("device: compressing data")
         original_data = open(files[0], 'rb').read()
@@ -204,7 +192,7 @@ class device(ABC):
         # print('Compressed: %d%%' % (100.0 * compress_ratio))
 
         #save the compressed data to file
-        f = open(path + '/' + original_file_name + '-' + date + '.zlib', 'wb')
+        f = open(path + '/' + deviceID + '-' + date + '.zlib', 'wb')
         f.write(compressed_data)
         f.close()
 
