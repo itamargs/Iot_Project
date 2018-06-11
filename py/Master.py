@@ -30,6 +30,8 @@ def client_thread(clientsocket, ip, port, MAX_BUFFER = 4096):       # MAX_BUFFER
 
         file_to_write.close()
         print('File received successfully')
+        files_db('hey')
+
 
 
 #starting server with the connection defantion
@@ -65,9 +67,9 @@ def startserver():
 
 
 #creating Server DB
-def files_db(self, path):
+def files_db(self):
     files_dict ={}
-    dirs = os.listdir(path)
+    dirs = os.listdir()
 
     for files in dirs:                                                                          #scanning the whole flder given
         if files == 'db.txt':
@@ -82,7 +84,7 @@ def files_db(self, path):
 
         files_dict[files.rsplit('-')[0]][files] = {'date: ': date[0:10] , 'time: ': time}
 
-    with open(path +'/db.txt', 'w') as file:
+    with open('db.txt', 'w') as file:
         file.write(pprint.pformat(files_dict))
 
 
@@ -90,8 +92,7 @@ def files_db(self, path):
 
 
 
-files_db('hey', 'Recvied')
-
+startserver()
 
 
 
