@@ -26,29 +26,33 @@ def sendData(self, path):
             time.sleep(5)
             continue
 
+    while True:
+        name = sock.getsockname()
+        print(name)
 
-    for files in dirs:
-        filename = files
-        size = len(filename)
-        size = bin(size)[2:].zfill(16) #encode file name to 16 bit
-        sock.sendall(size.encode('utf8'))
-        sock.sendall(filename.encode('utf8'))
+    # for files in dirs:
+    #     filename = files
+    #     size = len(filename)
+    #     size = bin(size)[2:].zfill(16) #encode file name to 16 bit
+    #     sock.sendall(size.encode('utf8'))
+    #     sock.sendall(filename.encode('utf8'))
+    #
+    #     filename = os.path.join(path,filename)
+    #     filesize = os.path.getsize(filename)
+    #     filesize = bin(filesize)[2:].zfill(32) # encode filesize as 32 bit binary
+    #     sock.sendall(filesize.encode('utf8'))
+    #
+    #     file_to_send = open(filename, 'rb')
+    #
+    #     l = file_to_send.read()
+    #     sock.sendall(l)
+    #     file_to_send.close()
+    #
+    # sock.close()
+    #
+    # filelist = [ f for f in os.listdir(path)]
+    # for f in filelist:
+    #     os.remove(os.path.join(path, f))
 
-        filename = os.path.join(path,filename)
-        filesize = os.path.getsize(filename)
-        filesize = bin(filesize)[2:].zfill(32) # encode filesize as 32 bit binary
-        sock.sendall(filesize.encode('utf8'))
 
-        file_to_send = open(filename, 'rb')
-
-        l = file_to_send.read()
-        sock.sendall(l)
-        file_to_send.close()
-
-    sock.close()
-
-    filelist = [ f for f in os.listdir(path)]
-    for f in filelist:
-        os.remove(os.path.join(path, f))
-
-
+sendData("hey", "SendFiles")

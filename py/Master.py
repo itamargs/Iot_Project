@@ -7,11 +7,19 @@ from datetime import datetime
 import pprint
 
 #handle the clinets connection
-def client_thread(clientsocket, ip, port, MAX_BUFFER = 4096):       # MAX_BUFFER_SIZE is how big the message can be
+def client_thread(clientsocket, ip, port,serverID , MAX_BUFFER = 4096):       # MAX_BUFFER_SIZE is how big the message can be
     while True:
+
+
 
         #recv file size from client
         size = clientsocket.recv(16)
+
+        if size.decode('utf8') == "No Change":
+            print("No Change detected")
+            break
+
+
         if not size:
             break
         size = int(size, 2)
@@ -30,20 +38,21 @@ def client_thread(clientsocket, ip, port, MAX_BUFFER = 4096):       # MAX_BUFFER
 
         file_to_write.close()
         print('File received successfully')
-        files_db('hey')
+        files_db('hey', serverID)
 
 
 
 #starting server with the connection defantion
 def startserver():
 
+    serverID = "1"
     os.chdir('Recvied')
     serversock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     host = "127.0.0.1"
     port = 5002;
     serversock.bind((host,port));
     filename = ""
-    serversock.listen(10);
+    serversock.listen(1);
     print ("Waiting for a connection.....")
 
     #Infinte loop - so the server wont reset after each connetion
@@ -54,11 +63,13 @@ def startserver():
         print("Got a connection from %s"+ ip + ":" + port)
 
         try:
-           Thread(target = client_thread , args=(clientsocket, ip, port)).start()
+           Thread(target = client_thread , args=(clientsocket, ip, port, serverID)).start()
 
         except:
             print("Error trying to create Thread")
 
+
+    print("2")
 
     serversock.close()
 
@@ -67,7 +78,9 @@ def startserver():
 
 
 #creating Server DB
-def files_db(self):
+def files_db(self, serverID):
+    server_id = serverID
+
     files_dict ={}
     dirs = os.listdir()
 

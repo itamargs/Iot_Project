@@ -118,7 +118,7 @@ while(True):
             with open('saved', 'rb') as f:
                 myDevice = pickle.load(f)
             if myDevice.doesNeedAnalyzing() is True:
-                files = myDevice.getDataFromInputFolder("filesPool")  # get list of pointers to the files in the path provided folder
+                files = myDevice.getDataFromInputFolder("hello")  # get list of pointers to the files in the path provided folder
                 original_file_name = Path(files[0]).stem
                 filename123, original_file_extension = os.path.splitext(files[0])
                 date = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
@@ -146,7 +146,7 @@ while(True):
                         os.remove(files[0])
 
                 elif myDevice.needCompression is True:
-                    files = myDevice.getDataFromInputFolder("filesPool")
+                    files = myDevice.getDataFromInputFolder("hello")
                     myDevice.compress(files, "readyFiles", original_file_name, date)
                     # date = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
                     shutil.move(files[0],
@@ -188,11 +188,11 @@ while(True):
             print("\nWelcome to project Ultron.\nStand by, We R Waiting for a trigger\n.")
             while (True):
                 print("Searching for files in input directory...") #todo: implements other trigers then new file
-                filesExist = glob.glob("filesPool/*.*")  # create list of files in directory
+                filesExist = glob.glob("hello/*.*")  # create list of files in directory
                 try:
                     while not filesExist:
                         time.sleep(2)
-                        filesExist = glob.glob("filesPool/*.*")
+                        filesExist = glob.glob("hello/*.*")
                     else:  # then list (actually the directory) isn't empty
                         print("File detected!")
                         option = "new data"
