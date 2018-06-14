@@ -10,8 +10,6 @@ import pprint
 def client_thread(clientsocket, ip, port,serverID , MAX_BUFFER = 4096):       # MAX_BUFFER_SIZE is how big the message can be
     while True:
 
-
-
         #recv file size from client
         size = clientsocket.recv(16)
 
@@ -38,7 +36,7 @@ def client_thread(clientsocket, ip, port,serverID , MAX_BUFFER = 4096):       # 
 
         file_to_write.close()
         print('File received successfully')
-        files_db('hey', serverID)
+        files_db('', serverID)
 
 
 
@@ -68,9 +66,8 @@ def startserver():
         except:
             print("Error trying to create Thread")
 
-
-    print("2")
-
+    serversock.connect(ip, port)
+    serversock.sendall("Recvied".encode('utf8'))
     serversock.close()
 
 

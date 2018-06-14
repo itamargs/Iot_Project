@@ -169,6 +169,8 @@ class device(ABC):
             sock.sendall(l)
             file_to_send.close()
 
+
+
         sock.close()
 
         filelist = [ f for f in os.listdir(path)]
