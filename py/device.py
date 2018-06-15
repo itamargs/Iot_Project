@@ -28,8 +28,8 @@ from firebase_admin import storage
 
 
 '''
-# Should be in server! not int device
 # ------------------------------------------  Init FireStore ------------------------------------------------------
+# Should be in server! not int devic
 #--- we use 'pystorage' instead of 'storage' for pyrebase use for not colliding with the native firebase which we use it for firestore
 #note that we will use pyrebase only for firebase 'Storage' and not
 # for the real time databae as we use Dire Store
@@ -56,22 +56,23 @@ db = firestore.client()
 # for more details.
 bucket = storage.bucket()
 print('Fire Base Bucket name: "{}" .'.format(bucket.name))
-# blob = bucket.blob('test.mp3') #destination file name
-# blob.upload_from_filename('test.mp3') # file location on local device
+blob = bucket.blob('0001-13062018-112550.zlib') #destination file name
+blob.upload_from_filename('test.mp3') # file location on local device
 py_storage = firebase.storage() #init firebase storage to work with pyrebase
-print(py_storage.child("test.mp3").get_url(None))
-data = {
-    u'file_name': u'03022018-103259',
-    u'date': u'03.02.2020',  # better to get datetime object
-    u'time': u'10:32:59',  # better to get datetime object
-}
-db.collection(u'devices').document(u'0001').set(data)
-data = {
-    u'file_name': u'03032018-113259',
-    u'date': u'03.03.2018',  # better to get datetime object
-    u'time': u'11:32:59',  # better to get datetime object
-}
-db.collection(u'devices').document(u'0002').set(data)
+print(py_storage.child("0001-13062018-164325.mp3").get_url(None))
+# data = {
+#     u'file_name': u'14062018-103259',
+#     u'date': u'14.06.2018',  # better to get datetime object
+#     u'time': u'10:32:59',  # better to get datetime object
+# }
+# db.collection(u'Master-001').document(u'Device-0006').set(data)
+#
+# data = {
+#     u'file_name': u'03032018-113259',
+#     u'date': u'14.06.2018',  # better to get datetime object
+#     u'time': u'11:32:59',  # better to get datetime object
+# }
+# db.collection(u'Master-001').document(u'Device-0007').set(data)
 # -----------------------------------------------------------------------------------------------------------------
 '''
 
@@ -83,7 +84,7 @@ class device(ABC):
         self.interval = interval
         self.ID = ID
         self.description = description
-        self.dataType = "my data type"
+        self.dataType = self.dataType
         self.mode = "standBy"  #device state: standby= regular mode (waiting for something to happen)
         print("device: init device:", description)
 
@@ -102,7 +103,7 @@ class device(ABC):
 
     #override from device
     def doesNeedAnalyzing(self):   # is the data need to be analyzed (example: if only 1 second past from last time there is no need)
-        print("device: check if need analyze")
+        # print("device: check if need analyze")
         return True  # todo: just place holder, need to check if need analyze
 
     @abstractmethod
@@ -196,10 +197,6 @@ class device(ABC):
         f.write(compressed_data)
         f.close()
 
-
-
-
-
     def sendData(self, path):
         print("device: sending data")
 
@@ -208,7 +205,7 @@ class device(ABC):
         while True:
             sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             host = "127.0.0.1"
-            port  = 5002
+            port = 5002
             try:
                 sock.connect((host, port))
                 break
@@ -217,31 +214,17 @@ class device(ABC):
                 time.sleep(10)
                 continue
 
-
         for files in dirs:
             filename = files
             size = len(filename)
-            size = bin(size)[2:].zfill(16)          #encode file name to 16 bit
-            sock.sendall(size.encode('utf8'))       #encode so we could send it
+            size = bin(size)[2:].zfill(16)  # encode file name to 16 bit
+            sock.sendall(size.encode('utf8'))  # encode so we could send it
             sock.sendall(filename.encode('utf8'))
 
-            filename = os.path.join(path,filename)
+            filename = os.path.join(path, filename)
             filesize = os.path.getsize(filename)
-            filesize = bin(filesize)[2:].zfill(32)   # encode filesize as 32 bit binary
+            filesize = bin(filesize)[2:].zfill(32)  # encode filesize as 32 bit binary
             sock.sendall(filesize.encode('utf8'))
-
-            for files in dirs:
-                filename = files
-                size = len(filename)
-                size = bin(size)[2:].zfill(16) #encode file name to 16 bit
-                sock.sendall(size.encode('utf8'))
-                sock.sendall(filename.encode('utf8'))
-
-                filename = os.path.join(path,filename)
-                filesize = os.path.getsize(filename)
-                filesize = bin(filesize)[2:].zfill(32) # encode filesize as 32 bit binary
-                sock.sendall(filesize.encode('utf8'))
-
 
             file_to_send = open(filename, 'rb')
 
@@ -251,7 +234,11 @@ class device(ABC):
 
         sock.close()
 
+        filelist = [f for f in os.listdir(path)]
+        for f in filelist:
+            os.remove(os.path.join(path, f))
 
+        print("File sent!")
 
     # Should be in server! not int device
     def sendDataToCloud(self):

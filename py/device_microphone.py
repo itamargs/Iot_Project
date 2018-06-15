@@ -74,8 +74,8 @@ while(True):
     if option == None:
         print("\nInsert case NUM:\n"
               " 1: first start\n"
-              " 2: new data (trigger received)\n"
-              " 3: interval activation (or ping from server)\n"
+              # " 2: new data (trigger received)\n"
+              # " 3: interval activation (or ping from server)\n"
               " 4: Stand By Mode")
         option = input("insert NUM: ")
         if option == "1":
@@ -90,10 +90,13 @@ while(True):
     for case in switch(option):
 
         if case('first start'):
-            print("case: first start")
-            myDevice = Device(1, "0001", "my  Microphone IoT device") #(self, interval, id, description)create device instance to actually run in background and gather data
+            print("\ncase: first start")
+            myDevice = Device(1, "0001", "my Microphone IoT device") #(self, interval, id, description)create device instance to actually run in background and gather data
             myDevice_ = myDevice.save('saved') #saving the device values to another sessions
+            myDevice.printDetails()
+            print("--Sucess--")
 
+            '''
             # myDevice.getReady()
             # check if need start analyze data
             if myDevice.doesNeedAnalyzing() is True:
@@ -108,6 +111,7 @@ while(True):
                 else:  # if there is NO change
                     # myDevice.deleteOutdatedData()
                     myDevice.sendPulse()
+            '''
             option = None
             break
 
@@ -133,7 +137,7 @@ while(True):
                     # date = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
                     filename, file_extension = os.path.splitext(files[0])
                     shutil.move(files[0],
-                                "filesBeenCared/" + original_file_name + "-" + date + file_extension)  # rename and move file to new folder with the device supported file extension
+                                "filesBeenCared/" + myDevice.ID + "-" + date + file_extension)  # rename and move file to new folder with the device supported file extension
                     if myDevice.needCompression is False:
                         files = myDevice.getDataFromInputFolder("filesUnderProcess")
                         # date = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
@@ -142,20 +146,20 @@ while(True):
                                          "readyFiles/" + myDevice.ID + "-" + date + file_extension)  # rename and move file to new folder
                     if myDevice.needCompression is True:
                         files = myDevice.getDataFromInputFolder("filesUnderProcess")
-                        myDevice.compress(files, "readyFiles", original_file_name, date)
+                        myDevice.compress(files, "readyFiles", myDevice.ID, date)
                         os.remove(files[0])
 
                 elif myDevice.needCompression is True:
                     files = myDevice.getDataFromInputFolder("filesPool")
-                    myDevice.compress(files, "readyFiles", original_file_name, date)
+                    myDevice.compress(files, "readyFiles", myDevice.ID, date)
                     # date = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
                     shutil.move(files[0],
-                                "filesBeenCared/" + original_file_name + "-" + date + original_file_extension)
+                                "filesBeenCared/" + myDevice.ID + "-" + date + original_file_extension)
 
 
                 # myDevice.deleteOutdatedData()
                 # myDevice.sendPulse()
-                # myDevice.sendData("readyFiles")  #Send all files inside path to the server
+                myDevice.sendData("readyFiles")  #Send all files inside path to the server
                 # waitForFileCreation()
             else:  # if there is NO change
                 myDevice.deleteOutdatedData()
@@ -185,7 +189,7 @@ while(True):
 
 
         if case('standBy'):
-            print("\nWelcome to project Ultron.\nStand by, We R Waiting for a trigger\n.")
+            print("\nWelcome to project Ultron.\nStand by, We R Waiting for new data\n.")
             while (True):
                 print("Searching for files in input directory...") #todo: implements other trigers then new file
                 filesExist = glob.glob("filesPool/*.*")  # create list of files in directory
@@ -203,9 +207,9 @@ while(True):
 
 
         if case(): # default, could also just omit condition or 'if True'
-            print("something else!")
+            # print("something else!")
+            pass
             # No need to break here, it'll stop anyway
-
 
 
 

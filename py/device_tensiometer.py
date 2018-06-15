@@ -115,7 +115,7 @@ while(True):
                     # date = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
                     filename, file_extension = os.path.splitext(files[0])
                     shutil.move(files[0],
-                                "filesBeenCared/" + original_file_name + "-" + date + file_extension)  # rename and move file to new folder with the device supported file extension
+                                "filesBeenCared/" + myDevice.ID + "-" + date + file_extension)  # rename and move file to new folder with the device supported file extension
                     if myDevice.needCompression is False:
                         files = myDevice.getDataFromInputFolder("filesUnderProcess")
                         # date = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
@@ -124,7 +124,7 @@ while(True):
                                          "readyFiles/" + myDevice.ID + "-" + date + file_extension)  # rename and move file to new folder
                     if myDevice.needCompression is True:
                         files = myDevice.getDataFromInputFolder("filesUnderProcess")
-                        myDevice.compress(files, "readyFiles", original_file_name, date)
+                        myDevice.compress(files, "readyFiles", myDevice.ID, date)
                         os.remove(files[0])
 
                 elif myDevice.needCompression is True:
@@ -132,12 +132,12 @@ while(True):
                     myDevice.compress(files, "readyFiles", myDevice.ID, date)
                     # date = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
                     shutil.move(files[0],
-                                "filesBeenCared/" + original_file_name + "-" + date + original_file_extension)
+                                "filesBeenCared/" + myDevice.ID + "-" + date + original_file_extension)
 
 
                 # myDevice.deleteOutdatedData()
                 # myDevice.sendPulse()
-                # myDevice.sendData("readyFiles")  #Send all files inside path to the server
+                myDevice.sendData("readyFiles")  #Send all files inside path to the server
                 # waitForFileCreation()
             else:  # if there is NO change
                 myDevice.deleteOutdatedData()
@@ -185,7 +185,8 @@ while(True):
 
 
         if case(): # default, could also just omit condition or 'if True'
-            print("something else!")
+            # print("something else!")
+            pass
             # No need to break here, it'll stop anyway
 
 
