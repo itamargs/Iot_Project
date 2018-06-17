@@ -56,6 +56,7 @@ db = firestore.client()
 # for more details.
 bucket = storage.bucket()
 print('Fire Base Bucket name: "{}" .'.format(bucket.name))
+************** end of init ***************
 blob = bucket.blob('0001-13062018-112550.zlib') #destination file name
 blob.upload_from_filename('test.mp3') # file location on local device
 py_storage = firebase.storage() #init firebase storage to work with pyrebase
@@ -197,7 +198,7 @@ class device(ABC):
         f.write(compressed_data)
         f.close()
 
-    def sendData(self, path):
+    def sendData(self, path): # send data to Master
         print("device: sending data")
 
         dirs = os.listdir(path)
@@ -240,6 +241,7 @@ class device(ABC):
 
         print("File sent!")
 
+    # todo ERASE all method
     # Should be in server! not int device
     def sendDataToCloud(self):
         # add some data to the fireStore cloud

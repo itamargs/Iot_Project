@@ -132,15 +132,20 @@ while(True):
                 # myDevice.getChange()  # data has been changed so get the new data
                 # myDevice.compareData()
                 # reducing or compressing the files depends on their sensor settings
-                if myDevice.needReduction is True:
-                    myDevice.dataReduction(files, "filesUnderProcess")
-                    # date = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
+                if myDevice.needReduction is True: # is the file need to go throw reduction process
+                    myDevice.dataReduction(files, "filesUnderProcess") # make reduction + save result in this path
                     filename, file_extension = os.path.splitext(files[0])
-                    shutil.move(files[0],
-                                "filesBeenCared/" + myDevice.ID + "-" + date + file_extension)  # rename and move file to new folder with the device supported file extension
+                    if myDevice.save_original_file is True:
+                        shutil.move(files[0],
+                                    "filesBeenCared/" + myDevice.ID + "-" + date + file_extension)  #
+
+                    try: # need to remove file from filesUnderProcess DIR. if we wanted to save original the file, the file wont be there so need to check that.
+                        os.remove(files[0])
+                    except FileNotFoundError:
+                        pass
+
                     if myDevice.needCompression is False:
                         files = myDevice.getDataFromInputFolder("filesUnderProcess")
-                        # date = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
                         filename, file_extension = os.path.splitext(files[0])
                         shutil.move(files[0],
                                          "readyFiles/" + myDevice.ID + "-" + date + file_extension)  # rename and move file to new folder
@@ -151,10 +156,14 @@ while(True):
 
                 elif myDevice.needCompression is True:
                     files = myDevice.getDataFromInputFolder("filesPool")
-                    myDevice.compress(files, "readyFiles", myDevice.ID, date)
-                    # date = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
-                    shutil.move(files[0],
-                                "filesBeenCared/" + myDevice.ID + "-" + date + original_file_extension)
+                    myDevice.compress(files, "readyFiles", myDevice.ID, date) # compress file + save result in this path
+                    if myDevice.save_original_file is True:
+                        shutil.move(files[0],
+                                    "filesBeenCared/" + myDevice.ID + "-" + date + original_file_extension)
+                    try: # need to remove file from filePool DIR. if we wanted to save original file, the file wont be there so need to check that.
+                        os.remove(files[0])
+                    except FileNotFoundError:
+                        pass
 
 
                 # myDevice.deleteOutdatedData()

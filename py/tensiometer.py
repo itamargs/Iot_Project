@@ -17,6 +17,7 @@ class tensiometer(ABC):
     dataType = "text"
     needReduction = False
     needCompression = True
+    save_original_file = False
 
     # override from tensiometer
     @abstractmethod
