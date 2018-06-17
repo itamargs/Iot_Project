@@ -196,7 +196,7 @@ def files_db(self, serverID):
             db.collection(server_id).document(device_id).set(data)
 
 
-            #todo all the files data on DB writen again every time it makes the synced value be overriden
+            #todo all the files data on DB writen again every time it makes the synced value be overriden.
             # tag current file as synced to the cloud
             fileDict = files_dict[files.rsplit('-')[0]][files]
             fileDict.update(synced = True)
