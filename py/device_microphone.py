@@ -19,7 +19,7 @@ import ntpath
 from pathlib import Path
 
 
-class Device(device.device, microphone.microphone): #microphone is a placeholder
+class Device(device.device, microphone.microphone): #microphone is a placeholder.
 
 
     # override from device
@@ -91,7 +91,7 @@ while(True):
 
         if case('first start'):
             print("case: first start")
-            myDevice = Device(10, 5645656656, "my  Microphone IoT device") #(self, interval, id, description)create device instance to actually run in background and gather data
+            myDevice = Device(1, "0001", "my  Microphone IoT device") #(self, interval, id, description)create device instance to actually run in background and gather data
             myDevice_ = myDevice.save('saved') #saving the device values to another sessions
 
             # myDevice.getReady()
@@ -118,10 +118,10 @@ while(True):
             with open('saved', 'rb') as f:
                 myDevice = pickle.load(f)
             if myDevice.doesNeedAnalyzing() is True:
-                files = myDevice.getDataFromInputFolder("hello")  # get list of pointers to the files in the path provided folder
+                files = myDevice.getDataFromInputFolder("filesPool")  # get list of pointers to the files in the path provided folder
                 original_file_name = Path(files[0]).stem
                 filename123, original_file_extension = os.path.splitext(files[0])
-                date = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
+                date = datetime.datetime.now().strftime("%d%m%Y-%H%M%S")
                 print("file name:" + original_file_name)
                 # myDevice.analyze()
                 # if myDevice.isTheDataHasChanged() is True:  # if there is a change
@@ -139,14 +139,14 @@ while(True):
                         # date = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
                         filename, file_extension = os.path.splitext(files[0])
                         shutil.move(files[0],
-                                         "readyFiles/" + original_file_name + "-" + date + file_extension)  # rename and move file to new folder
+                                         "readyFiles/" + myDevice.ID + "-" + date + file_extension)  # rename and move file to new folder
                     if myDevice.needCompression is True:
                         files = myDevice.getDataFromInputFolder("filesUnderProcess")
                         myDevice.compress(files, "readyFiles", original_file_name, date)
                         os.remove(files[0])
 
                 elif myDevice.needCompression is True:
-                    files = myDevice.getDataFromInputFolder("hello")
+                    files = myDevice.getDataFromInputFolder("filesPool")
                     myDevice.compress(files, "readyFiles", original_file_name, date)
                     # date = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
                     shutil.move(files[0],
@@ -154,12 +154,12 @@ while(True):
 
 
                 # myDevice.deleteOutdatedData()
-                myDevice.sendPulse()
-                myDevice.sendData("readyFiles")
+                # myDevice.sendPulse()
+                # myDevice.sendData("readyFiles")  #Send all files inside path to the server
                 # waitForFileCreation()
             else:  # if there is NO change
                 myDevice.deleteOutdatedData()
-                myDevice.sendPulse()
+                # myDevice.sendPulse()
             option = "standBy"
             break
 
@@ -188,11 +188,11 @@ while(True):
             print("\nWelcome to project Ultron.\nStand by, We R Waiting for a trigger\n.")
             while (True):
                 print("Searching for files in input directory...") #todo: implements other trigers then new file
-                filesExist = glob.glob("hello/*.*")  # create list of files in directory
+                filesExist = glob.glob("filesPool/*.*")  # create list of files in directory
                 try:
                     while not filesExist:
                         time.sleep(2)
-                        filesExist = glob.glob("hello/*.*")
+                        filesExist = glob.glob("filesPool/*.*")
                     else:  # then list (actually the directory) isn't empty
                         print("File detected!")
                         option = "new data"
@@ -205,7 +205,4 @@ while(True):
         if case(): # default, could also just omit condition or 'if True'
             print("something else!")
             # No need to break here, it'll stop anyway
-
-
-
 
