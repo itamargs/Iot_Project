@@ -91,7 +91,7 @@ while(True):
 
         if case('first start'):
             print("\ncase: first start")
-            myDevice = Device(1, "0001", "my Microphone IoT device") #(self, interval, id, description)create device instance to actually run in background and gather data
+            myDevice = Device(1, "0003", "my Microphone IoT device") #(self, interval, id, description)create device instance to actually run in background and gather data
             myDevice_ = myDevice.save('saved') #saving the device values to another sessions
             myDevice.printDetails()
             print("--Sucess--")

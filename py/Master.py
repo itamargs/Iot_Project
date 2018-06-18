@@ -121,7 +121,8 @@ def client_thread(clientsocket, ip, port,serverID , MAX_BUFFER = 4096):       # 
 def startserver():
 
 
-    serverID = "2"
+    serverID = "0001"
+
     os.chdir('Recvied')
     serversock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     host = "127.0.0.1"
@@ -150,8 +151,6 @@ def startserver():
 
 
 
-
-
 #creating Server DB
 def files_db(self, serverID):
     internetOn = have_internet() # for checking internet connection only once
@@ -164,17 +163,13 @@ def files_db(self, serverID):
 
 
     for files in dirs:  #scanning the whole folder given- 'files' is a single file inside a folder
-        if files == 'db.txt':
-            continue
-        if files.rsplit('-')[0] not in files_dict:                                               #check if we still did not recvied file from that ID
-            files_dict[files.rsplit('-')[0]] = {}
+
         device_id = files.rsplit('-')[0]
         temp_date = files.rsplit('-')[1]                                                        #split the time so it would be readable
         date =str( datetime(int(temp_date[4:]), int(temp_date[2:4]), int(temp_date[:2])))       #contain the relvant date but in full format
         temp_time = files.rsplit('-')[2].rsplit('.')[0]
         time = str(temp_time[0:2]) + ':' + str(temp_time[2:4]) + ':' + temp_time[4:]
 
-        files_dict[files.rsplit('-')[0]][files] = {'date: ': date[0:10] , 'time: ': time, 'synced': False}
 
         print("current file name:" + files)
 
@@ -184,34 +179,25 @@ def files_db(self, serverID):
             init_fireBase()
         if internetOn and firebaseIsON:
             print("OKKKKKKKK Updating FireBase")
-            blob = bucket.blob(server_id + "-" + files)  # destination file name in Google Storage
+            destinationFileName = server_id + "-" + files
+            blob = bucket.blob(destinationFileName)  # destination file name in Google Storage
             blob.upload_from_filename(files)  # file location on local device
-            fileUrl = py_storage.child(files).get_url(None) # get url of file from Google Storage
+            # fileUrl = py_storage.child(files).get_url(None) # get url of file from Google Storage
+            fileUrl = 'https://storage.cloud.google.com/' + bucket.name +'/' + destinationFileName
+            print(fileUrl)
 
             data = {
                 u'file_name': fileUrl,  # to fix e
                 u'date': date[0:10],
                 u'time': time,
             }
-            db.collection(server_id).document(device_id).set(data)
+            db.collection('Master ID:' + server_id).document('Device ID:' + device_id).collection('Files').document(files).set(data)
 
-
-            #todo all the files data on DB writen again every time it makes the synced value be overriden.
-            # tag current file as synced to the cloud
-            fileDict = files_dict[files.rsplit('-')[0]][files]
-            fileDict.update(synced = True)
-            files_dict[files.rsplit('-')[0]][files] = fileDict
+            print("removing file after the backup :" + files)
+            os.remove(files)
 
         else:
             print("try to send data to cloud but no internet")
-
-
-
-    with open('db.txt', 'w') as file:
-        file.write(pprint.pformat(files_dict))
-
-
-    pp(files_dict)
 
 
 
