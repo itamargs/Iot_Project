@@ -1,4 +1,16 @@
 import datetime
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+# interface
+# import this to you class so it can be a device
+# all methods with "@abstractmethod" decorators are MUST be implementer into the sub class of this.
+# please copy the comment "override from ***"  to the subclass to make the code more readable
+# if method is NOT abstract,then the operation of this method isn't unique to the specific device type.
+# example for abstract:  "setInterval()" ALL type of devices  has interval need to be set but exact interval is depends on device type
+# example for none abstract:  "sendData()" ALL type of devices need to send data to the cloud no matter what is that data
+# if method is abstract, then the operation of this method IS unique to the specific device type.
+
+import datetime
 import glob
 from abc import ABC, abstractmethod
 import pickle  # saving object for other sessions
@@ -8,6 +20,75 @@ import socket
 import os
 import time
 import zlib
+import pyrebase
+import firebase_admin
+from firebase_admin import credentials
+from firebase_admin import firestore
+from firebase_admin import storage
+
+
+
+'''
+# Should be in server! not int device
+# ------------------------------------------  Init FireStore ------------------------------------------------------
+
+#--- we use 'pystorage' instead of 'storage' for pyrebase use for not colliding with the native firebase which we use it for firestore
+#note that we will use pyrebase only for firebase 'Storage' and not
+# for the real time databae as we use Dire Store
+# instead and fire store already have a python native functions
+
+# init fireStore cloud with credentials and things -
+cred = credentials.Certificate('/home/itamar/iotproject-dd956-4555a8fff398.json')
+# firebase_admin.initialize_app(cred)
+# init FB app with credentials AND storage bucket (bucket is the thing that stores the data inside FB)
+firebase_admin.initialize_app(cred, {
+    'storageBucket': 'iotproject-dd956.appspot.com'
+})
+
+# config values for pyrebase
+config = {
+  "apiKey": "AIzaSyChiOWAbg8Th2woLuAXfpqJwUc2ajFvlkU",
+  "authDomain": "iotproject-dd956.firebaseapp.com",
+  "databaseURL": "https://iotproject-dd956.firebaseio.com",
+  "storageBucket": "iotproject-dd956.appspot.com",
+  "serviceAccount": "/home/itamar/iotproject-dd956-4555a8fff398.json"
+}
+firebase = pyrebase.initialize_app(config)
+
+
+db = firestore.client()
+
+# 'bucket' is an object defined in the google-cloud-storage Python library.
+# See https://google-cloud-python.readthedocs.io/en/latest/storage/buckets.html
+# for more details.
+bucket = storage.bucket()
+print('Fire Base Bucket name: "{}" .'.format(bucket.name))
+
+# blob = bucket.blob('test.mp3') #destination file name
+# blob.upload_from_filename('test.mp3') # file location on local device
+
+py_storage = firebase.storage() #init firebase storage to work with pyrebase
+print(py_storage.child("test.mp3").get_url(None))
+
+
+data = {
+    u'file_name': u'03022018-103259',
+    u'date': u'03.02.2020',  # better to get datetime object
+    u'time': u'10:32:59',  # better to get datetime object
+}
+db.collection(u'devices').document(u'0001').set(data)
+
+data = {
+    u'file_name': u'03032018-113259',
+    u'date': u'03.03.2018',  # better to get datetime object
+    u'time': u'11:32:59',  # better to get datetime object
+}
+db.collection(u'devices').document(u'0002').set(data)
+
+# -----------------------------------------------------------------------------------------------------------------
+'''
+
+
 
 class device(ABC):
 
@@ -163,6 +244,19 @@ class device(ABC):
             filesize = bin(filesize)[2:].zfill(32)   # encode filesize as 32 bit binary
             sock.sendall(filesize.encode('utf8'))
 
+            for files in dirs:
+                filename = files
+                size = len(filename)
+                size = bin(size)[2:].zfill(16) #encode file name to 16 bit
+                sock.sendall(size.encode('utf8'))
+                sock.sendall(filename.encode('utf8'))
+
+                filename = os.path.join(path,filename)
+                filesize = os.path.getsize(filename)
+                filesize = bin(filesize)[2:].zfill(32) # encode filesize as 32 bit binary
+                sock.sendall(filesize.encode('utf8'))
+
+
             file_to_send = open(filename, 'rb')
 
             l = file_to_send.read()
@@ -173,11 +267,24 @@ class device(ABC):
 
         sock.close()
 
-        filelist = [ f for f in os.listdir(path)]
-        for f in filelist:
-            os.remove(os.path.join(path, f))
 
 
+    # Should be in server! not int device
+    def sendDataToCloud(self):
+        # add some data to the fireStore cloud
+        data = {
+            u'file_name': u'03022018-103259',
+            u'date': u'03.02.2020',  # better to get datetime object
+            u'time': u'10:32:59',  # better to get datetime object
+        }
+        db.collection(u'devices').document(u'0001').set(data)
+
+        data = {
+            u'file_name': u'03032018-113259',
+            u'date': u'03.03.2018',  # better to get datetime object
+            u'time': u'11:32:59',  # better to get datetime object
+        }
+        db.collection(u'devices').document(u'0002').set(data)
 
     def noChange(self):
         while True:
@@ -196,3 +303,20 @@ class device(ABC):
         sock.sendall(("No Change").encode('utf8'))
         sock.close()
 
+
+        # data = {
+        #     u'stringExample': u'Hello, World!',
+        #     u'booleanExample': True,
+        #     u'numberExample': 3.14159265,
+        #     u'dateExample': datetime.datetime.now(),
+        #     u'arrayExample': [5, True, u'hello'],
+        #     u'nullExample': None,
+        #     u'objectExample': {
+        #         u'a': 5,
+        #         u'b': True
+        #     }
+        # }
+        #
+        # db.collection(u'data').document(u'one').set(data)
+
+    # sendData('self',"readyFiles")
