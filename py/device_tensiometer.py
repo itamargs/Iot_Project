@@ -56,8 +56,8 @@ while(True):
     if option == None:
         print("\nInsert case NUM:\n"
               " 1: first start\n"
-              " 2: new data (trigger received)\n"
-              " 3: interval activation (or ping from server)\n"
+              # " 2: new data (trigger received)\n"
+              # " 3: interval activation (or ping from server)\n"
               " 4: Stand By Mode")
         option = input("insert NUM: ")
         if option == "1":
@@ -72,10 +72,13 @@ while(True):
     for case in switch(option):
 
         if case('first start'):
-            print("case: first start")
-            myDevice = Device(1, "0001", "my Tensiometer IoT device") #(self, interval, id, description)create device instance to actually run in background and gather data
+            print("\ncase: first start")
+            myDevice = Device(1, "0003", "my TensiometerIoT device") #(self, interval, id, description)create device instance to actually run in background and gather data
             myDevice_ = myDevice.save('saved') #saving the device values to another sessions
+            myDevice.printDetails()
+            print("--Sucess--")
 
+            '''
             # myDevice.getReady()
             # check if need start analyze data
             if myDevice.doesNeedAnalyzing() is True:
@@ -90,6 +93,7 @@ while(True):
                 else:  # if there is NO change
                     # myDevice.deleteOutdatedData()
                     myDevice.sendPulse()
+            '''
             option = None
             break
 
@@ -110,15 +114,20 @@ while(True):
                 # myDevice.getChange()  # data has been changed so get the new data
                 # myDevice.compareData()
                 # reducing or compressing the files depends on their sensor settings
-                if myDevice.needReduction is True:
-                    myDevice.dataReduction(files, "filesUnderProcess")
-                    # date = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
+                if myDevice.needReduction is True: # is the file need to go throw reduction process
+                    myDevice.dataReduction(files, "filesUnderProcess") # make reduction + save result in this path
                     filename, file_extension = os.path.splitext(files[0])
-                    shutil.move(files[0],
-                                "filesBeenCared/" + myDevice.ID + "-" + date + file_extension)  # rename and move file to new folder with the device supported file extension
+                    if myDevice.save_original_file is True:
+                        shutil.move(files[0],
+                                    "filesBeenCared/" + myDevice.ID + "-" + date + file_extension)  #
+
+                    try: # need to remove file from filesUnderProcess DIR. if we wanted to save original the file, the file wont be there so need to check that.
+                        os.remove(files[0])
+                    except FileNotFoundError:
+                        pass
+
                     if myDevice.needCompression is False:
                         files = myDevice.getDataFromInputFolder("filesUnderProcess")
-                        # date = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
                         filename, file_extension = os.path.splitext(files[0])
                         shutil.move(files[0],
                                          "readyFiles/" + myDevice.ID + "-" + date + file_extension)  # rename and move file to new folder
@@ -129,10 +138,14 @@ while(True):
 
                 elif myDevice.needCompression is True:
                     files = myDevice.getDataFromInputFolder("filesPool")
-                    myDevice.compress(files, "readyFiles", myDevice.ID, date)
-                    # date = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
-                    shutil.move(files[0],
-                                "filesBeenCared/" + myDevice.ID + "-" + date + original_file_extension)
+                    myDevice.compress(files, "readyFiles", myDevice.ID, date) # compress file + save result in this path
+                    if myDevice.save_original_file is True:
+                        shutil.move(files[0],
+                                    "filesBeenCared/" + myDevice.ID + "-" + date + original_file_extension)
+                    try: # need to remove file from filePool DIR. if we wanted to save original file, the file wont be there so need to check that.
+                        os.remove(files[0])
+                    except FileNotFoundError:
+                        pass
 
 
                 # myDevice.deleteOutdatedData()
@@ -167,7 +180,7 @@ while(True):
 
 
         if case('standBy'):
-            print("\nWelcome to project Ultron.\nStand by, We R Waiting for a trigger\n.")
+            print("\nWelcome to project Ultron.\nStand by, We R Waiting for new data\n.")
             while (True):
                 print("Searching for files in input directory...") #todo: implements other trigers then new file
                 filesExist = glob.glob("filesPool/*.*")  # create list of files in directory
@@ -188,7 +201,6 @@ while(True):
             # print("something else!")
             pass
             # No need to break here, it'll stop anyway
-
 
 
 

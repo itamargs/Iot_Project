@@ -1,16 +1,14 @@
-import socket
 import os
-import sys
-from threading import Thread
-import hashlib
-from pprint import pprint as pp
+import socket
 from datetime import datetime
-import pprint
-import pyrebase
+from threading import Thread
+import time
 import firebase_admin
+import pyrebase
 from firebase_admin import credentials
 from firebase_admin import firestore
 from firebase_admin import storage
+
 try:
     import httplib
 except:
@@ -26,7 +24,6 @@ def have_internet():
         conn.close()
         return False
 
-
 cred = None
 config = None
 firebase = None
@@ -34,6 +31,8 @@ db = None
 bucket = None
 py_storage = None
 firebaseIsON = False
+
+thread_check_for_internet_exist = False
 
 
 def init_fireBase():
@@ -85,6 +84,8 @@ else:
 
 #handle the clinets connection
 def client_thread(clientsocket, ip, port,serverID , MAX_BUFFER = 4096):       # MAX_BUFFER_SIZE is how big the message can be
+    global thread_check_for_internet_exist
+
     while True:
 
         #recv file size from client
@@ -112,10 +113,25 @@ def client_thread(clientsocket, ip, port,serverID , MAX_BUFFER = 4096):       # 
             filesize -= len(data)
 
         file_to_write.close()
-        print('File received successfully')
+        print('File received successfully from Device')
+
+
+        # if not have_internet():
+        #     if thread_check_for_internet_exist is False: # then we do it now
+        #         thread_check_for_internet_exist = True
+        #         print('thread_check_for_internet == True')
+        #         while have_internet() is False:
+        #             print("no internet - will check again in 5 seconds")
+        #             time.sleep(5)
+        #         thread_check_for_internet_exist = False
+        #         print('thread_check_for_internet == False - start syncing files')
+        #         files_db('', serverID)
+        #     print("No internet- don't worry, File will sync at first chance!")
+        # else:
+        #     print('all fine- start sync')
+        #     files_db('', serverID)
+
         files_db('', serverID)
-
-
 
 #starting server with the connection defantion
 def startserver():
@@ -132,8 +148,10 @@ def startserver():
     serversock.listen(1);
     print ("Waiting for a connection.....")
 
+
     #Infinte loop - so the server wont reset after each connetion
     while True:
+
 
         clientsocket,addr = serversock.accept()
         ip, port = str(addr[0]), str(addr[1])
@@ -156,8 +174,6 @@ def files_db(self, serverID):
     internetOn = have_internet() # for checking internet connection only once
 
     server_id = serverID
-
-    files_dict ={}
     dirs = os.listdir()
 
 
@@ -168,8 +184,7 @@ def files_db(self, serverID):
         temp_date = files.rsplit('-')[1]                                                        #split the time so it would be readable
         date =str( datetime(int(temp_date[4:]), int(temp_date[2:4]), int(temp_date[:2])))       #contain the relvant date but in full format
         temp_time = files.rsplit('-')[2].rsplit('.')[0]
-        time = str(temp_time[0:2]) + ':' + str(temp_time[2:4]) + ':' + temp_time[4:]
-
+        mtime = str(temp_time[0:2]) + ':' + str(temp_time[2:4]) + ':' + temp_time[4:]
 
         print("current file name:" + files)
 
@@ -189,7 +204,7 @@ def files_db(self, serverID):
             data = {
                 u'file_name': fileUrl,  # to fix e
                 u'date': date[0:10],
-                u'time': time,
+                u'time': mtime,
             }
             db.collection('Master ID:' + server_id).document('Device ID:' + device_id).collection('Files').document(files).set(data)
 
