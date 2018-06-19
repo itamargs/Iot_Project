@@ -73,7 +73,7 @@ while(True):
 
         if case('first start'):
             print("\ncase: first start")
-            myDevice = Device(1, "0003", "my TensiometerIoT device") #(self, interval, id, description)create device instance to actually run in background and gather data
+            myDevice = Device(1, "0011", "my TensiometerIoT device") #(self, interval, id, description)create device instance to actually run in background and gather data
             myDevice_ = myDevice.save('saved') #saving the device values to another sessions
             myDevice.printDetails()
             print("--Sucess--")
@@ -107,6 +107,7 @@ while(True):
                 files = myDevice.getDataFromInputFolder("filesPool")  # get list of pointers to the files in the path provided folder
                 original_file_name = Path(files[0]).stem
                 filename123, original_file_extension = os.path.splitext(files[0])
+                # todo: date won't change fast enogh if multiple files was forced copoid into input folder. can cause error in creating file  (won't be the case in production mode)
                 date = datetime.datetime.now().strftime("%d%m%Y-%H%M%S")
                 print("file name:" + original_file_name)
                 # myDevice.analyze()

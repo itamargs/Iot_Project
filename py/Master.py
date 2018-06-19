@@ -33,6 +33,7 @@ py_storage = None
 firebaseIsON = False
 
 thread_check_for_internet_exist = False
+sombodySendToCloud = False
 
 
 def init_fireBase():
@@ -85,7 +86,7 @@ else:
 #handle the clinets connection
 def client_thread(clientsocket, ip, port,serverID , MAX_BUFFER = 4096):       # MAX_BUFFER_SIZE is how big the message can be
     global thread_check_for_internet_exist
-
+    global sombodySendToCloud
     while True:
 
         #recv file size from client
@@ -129,11 +130,26 @@ def client_thread(clientsocket, ip, port,serverID , MAX_BUFFER = 4096):       # 
         #     print("No internet- don't worry, File will sync at first chance!")
         # else:
         #     print('all fine- start sync')
-        #     files_db('', serverID)
+        #     sendFileToCloud('', serverID, filename)
 
-        files_db('', serverID)
+        sendFileToCloud('', serverID, filename)
 
 #starting server with the connection defantion
+
+def fileSyncHandlerThread(serverID):
+    while True:
+        if not have_internet():
+                while have_internet() is False:
+                    print("no internet - will check again in 5 seconds")
+                    time.sleep(5)
+                print("internet connection back on :) -> sync files")
+                while sombodySendToCloud == True:
+                    time.sleep(2)
+                files_db('', serverID)
+        time.sleep(5)
+        print("handle thread: All OK")
+
+
 def startserver():
 
 
@@ -148,6 +164,17 @@ def startserver():
     serversock.listen(1);
     print ("Waiting for a connection.....")
 
+    try:
+        thread = Thread(target = fileSyncHandlerThread, args=(serverID,))
+        thread.start()
+    except:
+        print("Error trying to create Thread")
+
+    # thread = Thread(target=threaded_function, args=(10,))
+    # thread.start()
+    # thread.join()
+    # print
+    # "thread finished...exiting"
 
     #Infinte loop - so the server wont reset after each connetion
     while True:
@@ -168,6 +195,53 @@ def startserver():
     serversock.close()
 
 
+#creating Server DB
+def sendFileToCloud(self, serverID, fileName):
+    global sombodySendToCloud
+    sombodySendToCloud = True
+    fileName = fileName.decode('utf-8')
+
+    internetOn = have_internet() # for checking internet connection only once
+    server_id = serverID
+    dirs = os.listdir()
+    for files in dirs:  # scanning the whole folder given- 'files' is a single file inside a folder
+        if files == fileName:
+            device_id = fileName.rsplit('-')[0]
+            temp_date = fileName.rsplit('-')[1]                                                        #split the time so it would be readable
+            date =str( datetime(int(temp_date[4:]), int(temp_date[2:4]), int(temp_date[:2])))       #contain the relvant date but in full format
+            temp_time = fileName.rsplit('-')[2].rsplit('.')[0]
+            mtime = str(temp_time[0:2]) + ':' + str(temp_time[2:4]) + ':' + temp_time[4:]
+
+            print("current file name:" + fileName)
+
+
+            # now saving data in cloud
+            if not firebaseIsON and internetOn:
+                init_fireBase()
+            if internetOn and firebaseIsON:
+                print("OKKKKKKKK Updating FireBase")
+                destinationFileName = server_id + "-" + fileName
+                blob = bucket.blob(destinationFileName)  # destination file name in Google Storage
+                blob.upload_from_filename(fileName)  # file location on local device
+                # fileUrl = py_storage.child(fileName).get_url(None) # get url of file from Google Storage
+                fileUrl = 'https://storage.cloud.google.com/' + bucket.name +'/' + destinationFileName
+                print(fileUrl)
+
+                data = {
+                    u'file_name': fileUrl,  # to fix e
+                    u'date': date[0:10],
+                    u'time': mtime,
+                }
+                db.collection('Master ID:' + server_id).document('Device ID:' + device_id).collection('fileName').document(fileName).set(data)
+                try:
+                    os.remove(fileName)
+                    print("file: " + fileName + ' removed sucecfuly')
+                except FileNotFoundError:
+                    print("ERROR: Can't erase synced file (Probably user try to copy multiple file into input dir)")
+
+            else:
+                print("try to send data to cloud but no internet")
+    sombodySendToCloud = False
 
 #creating Server DB
 def files_db(self, serverID):
