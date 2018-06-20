@@ -1,13 +1,4 @@
-#!/usr/bin/python
-# -*- coding: utf-8 -*-
-# interface
-# import this to you class so it can be a device
-# all methods with "@abstractmethod" decorators are MUST be implementer into the sub class of this.
-# please copy the comment "override from ***"  to the subclass to make the code more readable
-# if method is NOT abstract,then the operation of this method isn't unique to the specific device type.
-# example for abstract:  "setInterval()" ALL type of devices  has interval need to be set but exact interval is depends on device type
-# example for none abstract:  "sendData()" ALL type of devices need to send data to the cloud no matter what is that data
-# if method is abstract, then the operation of this method IS unique to the specific device type.
+import datetime
 import glob
 from abc import ABC, abstractmethod
 import pickle  # saving object for other sessions
@@ -40,9 +31,6 @@ class device(ABC):
     # override from device
     def setInterval(self, interval):  # interval for heart beat send
         pass
-
-
-
 
     #override from device
     def doesNeedAnalyzing(self):   # is the data need to be analyzed (example: if only 1 second past from last time there is no need)
@@ -112,21 +100,21 @@ class device(ABC):
 
     # path to folder fo files to get
     def getDataFromInputFolder(self, path):
-        print("Searching for files in input directory...")
+        # print("Searching for files in input directory...")
         files = glob.glob(path + "/*.*")  # create list of files in directory
         try:
             while not files:
                 sleep(10)
                 files = glob.glob(path + "/*.*")
             else:  # then list (actually the directory) isn't empty
-                print("File detected!")
+                # print("File detected!") #todo Filedetected message is duplicate because its also says it in the standby mode.
                 return (files)
         except KeyboardInterrupt:
             print("Exit Stand By mode")
             pass
 
     # 'files': what files[0] to compress. 'path': to file goes after compress
-    def compress(self, files, path, original_file_name, date):  #   compress data with some known compress method
+    def compress(self, files, path, deviceID, date):  #   compress data with some known compress method
         #compress the data
         print("device: compressing data")
         original_data = open(files[0], 'rb').read()
@@ -136,9 +124,10 @@ class device(ABC):
         # print('Compressed: %d%%' % (100.0 * compress_ratio))
 
         #save the compressed data to file
-        f = open(path + '/' + original_file_name + '-' + date + '.zlib', 'wb')
+        f = open(path + '/' + deviceID + '-' + date + '.zlib', 'wb')
         f.write(compressed_data)
         f.close()
+
 
 
 
@@ -180,6 +169,8 @@ class device(ABC):
             sock.sendall(l)
             file_to_send.close()
 
+
+
         sock.close()
 
         filelist = [ f for f in os.listdir(path)]
@@ -205,3 +196,21 @@ class device(ABC):
         print("no change")
         sock.sendall(("No Change").encode('utf8'))
         sock.close()
+
+    def noChange(self):
+        while True:
+            sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            host = "127.0.0.1"
+            port  = 5002
+            try:
+                sock.connect((host, port))
+                break
+            except:
+                print("Falied to connect, auto try again after 10sec")
+                time.sleep(10)
+                continue
+
+        print("no change")
+        sock.sendall(("No Change").encode('utf8'))
+        sock.close()
+

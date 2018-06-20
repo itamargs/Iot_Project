@@ -59,4 +59,4 @@ class microphone(ABC):
         print("microphone: Make Reduction to data:")
         date = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
         song = AudioSegment.from_wav(files[0]).export(path + "/convertedFile-" + date + ".mp3",format="mp3")  # convert wav to mp3
-        print("microphone: Audio file converted to mp3 successfully:")
+print("microphone: Audio file converted to mp3 successfully:")

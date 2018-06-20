@@ -34,6 +34,7 @@ class tensiometer(ABC):
     def printMyType(self):
         print("Device type: Tensiometer")
 
+
     # override from tensiometer
     def getData(self):
         print("tensiometer:  Get Data:")
@@ -49,6 +50,7 @@ class tensiometer(ABC):
 
         for key, value in my_dict.items():
             print(key + ":", value)
+
 
 
     #override from tensiometer
@@ -67,7 +69,6 @@ class tensiometer(ABC):
             print(key + ":", value)
 
     # override from tensiometer
-
     def analyze(self):
         print("tensiometer: analyze:")
         my_dict = {}

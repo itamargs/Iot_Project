@@ -35,20 +35,21 @@ def client_thread(clientsocket, ip, port, MAX_BUFFER = 4096):       # MAX_BUFFER
 
         file_to_write.close()
         print('File received successfully')
-        files_db('hey')
+        files_db('', serverID)
 
 
 
 #starting server with the connection defantion
 def startserver():
 
+    serverID = "1"
     os.chdir('Recvied')
     serversock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     host = "127.0.0.1"
     port = 5002;
     serversock.bind((host,port));
     filename = ""
-    serversock.listen(10);
+    serversock.listen(1);
     print ("Waiting for a connection.....")
 
     #Infinte loop - so the server wont reset after each connetion
@@ -59,7 +60,7 @@ def startserver():
         print("Got a connection from %s"+ ip + ":" + port)
 
         try:
-           Thread(target = client_thread , args=(clientsocket, ip, port)).start()
+           Thread(target = client_thread , args=(clientsocket, ip, port, serverID)).start()
 
         except:
             print("Error trying to create Thread")
@@ -72,7 +73,9 @@ def startserver():
 
 
 #creating Server DB
-def files_db(self):
+def files_db(self, serverID):
+    server_id = serverID
+
     files_dict ={}
     dirs = os.listdir()
 
