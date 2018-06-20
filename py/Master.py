@@ -44,16 +44,15 @@ def init_fireBase():
     global bucket
     global py_storage
     global firebaseIsON
+
+
     # ------------------------------------------  Init FireStore ------------------------------------------------------
-    # - we use 'pystorage' instead of 'storage' for pyrebase use for not colliding with the native firebase which we use it for firestore
+    # - we use the variable name'pystorage' instead of the variable name 'storage' for pyrebase use for not colliding with the native firebase which we use it for firestore
     # - note that we will use pyrebase only for firebase 'Storage' and not
-    # - for the real time databae as we use Dire Store
-    # - instead and fire store already have a python native functions
-    # - init fireStore cloud with credentials and things -
+    #   for the real time databae as we use FireStore instead- Cause FireStore already have a python native functions
+    # - init fireStore cloud with credentials and Etc.
 
     cred = credentials.Certificate('/home/itamar/iotproject-dd956-4555a8fff398.json')
-    # - firebase_admin.initialize_app(cred)
-    # - init FB app with credentials AND storage bucket (bucket is the thing that stores the data inside FB)
     firebase_admin.initialize_app(cred, {
         'storageBucket': 'iotproject-dd956.appspot.com'
     })
@@ -116,22 +115,6 @@ def client_thread(clientsocket, ip, port,serverID , MAX_BUFFER = 4096):       # 
         file_to_write.close()
         print('File received successfully from Device')
 
-
-        # if not have_internet():
-        #     if thread_check_for_internet_exist is False: # then we do it now
-        #         thread_check_for_internet_exist = True
-        #         print('thread_check_for_internet == True')
-        #         while have_internet() is False:
-        #             print("no internet - will check again in 5 seconds")
-        #             time.sleep(5)
-        #         thread_check_for_internet_exist = False
-        #         print('thread_check_for_internet == False - start syncing files')
-        #         files_db('', serverID)
-        #     print("No internet- don't worry, File will sync at first chance!")
-        # else:
-        #     print('all fine- start sync')
-        #     sendFileToCloud('', serverID, filename)
-
         sendFileToCloud('', serverID, filename)
 
 #starting server with the connection defantion
@@ -169,12 +152,6 @@ def startserver():
         thread.start()
     except:
         print("Error trying to create Thread")
-
-    # thread = Thread(target=threaded_function, args=(10,))
-    # thread.start()
-    # thread.join()
-    # print
-    # "thread finished...exiting"
 
     #Infinte loop - so the server wont reset after each connetion
     while True:
@@ -228,7 +205,7 @@ def sendFileToCloud(self, serverID, fileName):
                 print(fileUrl)
 
                 data = {
-                    u'file_name': fileUrl,  # to fix e
+                    u'file_name': fileUrl,
                     u'date': date[0:10],
                     u'time': mtime,
                 }
@@ -276,7 +253,7 @@ def files_db(self, serverID):
             print(fileUrl)
 
             data = {
-                u'file_name': fileUrl,  # to fix e
+                u'file_name': fileUrl,
                 u'date': date[0:10],
                 u'time': mtime,
             }

@@ -34,15 +34,6 @@ class Device(device.device, tensiometer.tensiometer): #tensiometer is a placehol
     def dataReduction(self, files, path):
         super(Device, self).dataReduction(files, path)
 
-    # override from device
-    def setInterval(self, interval):
-        # interval for heart beat send
-        pass
-
-    # override from device
-    def deleteOutdatedData(self):   # delete data who isn't nececcery anymore for cleaning space in device memory
-        super(Device, self).deleteOutdatedData()
-
 
 
 
@@ -73,32 +64,15 @@ while(True):
 
         if case('first start'):
             print("\ncase: first start")
-            myDevice = Device(1, "0011", "my TensiometerIoT device") #(self, interval, id, description)create device instance to actually run in background and gather data
+            myDevice = Device(1, "0022", "my Tensiometer IoT device") #(self, interval, id, description)create device instance to actually run in background and gather data
             myDevice_ = myDevice.save('saved') #saving the device values to another sessions
             myDevice.printDetails()
             print("--Sucess--")
-
-            '''
-            # myDevice.getReady()
-            # check if need start analyze data
-            if myDevice.doesNeedAnalyzing() is True:
-                myDevice.analyze()
-                if myDevice.isTheDataHasChanged() is True:  # if there is a change
-                    # myDevice.getChange()  # data has been changed so get the new data
-                    # myDevice.dataReduction()
-                    # myDevice.compress()
-                    # myDevice.deleteOutdatedData()
-                    myDevice.sendPulse()
-                    # myDevice.sendData()
-                else:  # if there is NO change
-                    # myDevice.deleteOutdatedData()
-                    myDevice.sendPulse()
-            '''
             option = None
             break
 
-        # todo: recheck if need to remove "#" from part of the methods
-        # todo: decelete filename123
+
+
         if case('new data'):  # need to load the object created in the case of "first start"
             print("case: new data")
             with open('saved', 'rb') as f:
@@ -199,7 +173,6 @@ while(True):
 
 
         if case(): # default, could also just omit condition or 'if True'
-            # print("something else!")
             pass
             # No need to break here, it'll stop anyway
 

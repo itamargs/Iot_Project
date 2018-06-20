@@ -94,3 +94,4 @@ class tensiometer(ABC):
     @abstractmethod
     def dataReduction(self, files, path):
         print("tensiometer: reduction to data")
+        print("Just compressing the data")
