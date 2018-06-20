@@ -7,7 +7,7 @@ from datetime import datetime
 import pprint
 
 #handle the clinets connection
-def client_thread(clientsocket, ip, port, MAX_BUFFER = 4096):       # MAX_BUFFER_SIZE is how big the message can be
+def client_thread(clientsocket, serverID ,ip, port, MAX_BUFFER = 4096):       # MAX_BUFFER_SIZE is how big the message can be
     while True:
 
         #recv file size from client
