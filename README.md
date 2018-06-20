@@ -4,8 +4,10 @@
   <img src="https://mspalliance.com/wp-content/uploads/2017/03/IoT.png">
 </p>
 
+
 Our project is developed as part of the requirements for our B.Sc studying at [Azrieli College of Engineering, Jerusalem, Israel](https://www.jce.ac.il/).
 The project is advisored by Dr. Guy Leshem, and created by [our team](https://github.com/itamargs/Iot_Project/wiki/Our-Team)
+
 
 Our project deals with compressing and sending data between IoT devices to minimize the storage data without damaging it is rehabilitee or it is relevance.
 The project will deal with the "flood" information problem as well as be suitable for diverse types of information.
