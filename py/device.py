@@ -1,3 +1,7 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+# interface
+
 import datetime
 import glob
 from abc import ABC, abstractmethod
@@ -9,13 +13,15 @@ import os
 import time
 import zlib
 
+
+
 class device(ABC):
 
     def __init__(self, interval, ID, description):
         self.interval = interval
         self.ID = ID
         self.description = description
-        self.dataType = "my data type"
+        self.dataType = self.dataType
         self.mode = "standBy"  #device state: standby= regular mode (waiting for something to happen)
         print("device: init device:", description)
 
@@ -27,37 +33,27 @@ class device(ABC):
         with open(path, 'rb') as f:
             self.__dict__.update(pickle.load(f).__dict__)
 
-    @abstractmethod
+
     # override from device
     def setInterval(self, interval):  # interval for heart beat send
         pass
 
     #override from device
     def doesNeedAnalyzing(self):   # is the data need to be analyzed (example: if only 1 second past from last time there is no need)
-        print("device: check if need analyze")
+        # print("device: check if need analyze")
         return True  # todo: just place holder, need to check if need analyze
 
-    @abstractmethod
     # override from device
     def deleteOutdatedData(self):  # delete data who isn't nececcery anymore for cleaning space in device memory
         print("device: deleteOutdatedData")
         pass
 
-    #todo: ERASE?
-    # def sendData(self):  # send data to cloud
-    #     print("device: sending data")
-    #     pass
 
     def getReady(self):  # final initializaion of device
         print("device: Getting ready...")
         self.getData()  # get data from device (data depends on device type)
         self.getSettings()  # get settings from device (settings depends on device type)
         self.analyze()  # insert values from sensor uoutput into device data members
-
-        # check connection to sensor
-        # get data from sensor
-        # analyze data from sensor
-        # connect to cloud
         pass
 
     def isTheDataHasChanged(self):  # boolean
@@ -67,11 +63,6 @@ class device(ABC):
     def getChange(self):  # get the change from the old data that captured in sensor to the new data captured
         print("device: get the change in data...")
         # todo: place holder. need to write the method
-
-        # check connection to sensor
-        # get data from sensor
-        # analyze data from sensor
-        # connect to cloud
         pass
 
     def sendPulse(self):  # pulse heart beat to the server
@@ -128,12 +119,7 @@ class device(ABC):
         f.write(compressed_data)
         f.close()
 
-
-
-
-
-
-    def sendData(self, path):
+    def sendData(self, path): # send data to Master
         print("device: sending data")
 
         dirs = os.listdir(path)
@@ -141,7 +127,7 @@ class device(ABC):
         while True:
             sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             host = "127.0.0.1"
-            port  = 5002
+            port = 5002
             try:
                 sock.connect((host, port))
                 break
@@ -154,13 +140,13 @@ class device(ABC):
         for files in dirs:
             filename = files
             size = len(filename)
-            size = bin(size)[2:].zfill(16)          #encode file name to 16 bit
-            sock.sendall(size.encode('utf8'))       #encode so we could send it
+            size = bin(size)[2:].zfill(16)  # encode file name to 16 bit
+            sock.sendall(size.encode('utf8'))  # encode so we could send it
             sock.sendall(filename.encode('utf8'))
 
-            filename = os.path.join(path,filename)
+            filename = os.path.join(path, filename)
             filesize = os.path.getsize(filename)
-            filesize = bin(filesize)[2:].zfill(32)   # encode filesize as 32 bit binary
+            filesize = bin(filesize)[2:].zfill(32)  # encode filesize as 32 bit binary
             sock.sendall(filesize.encode('utf8'))
 
             file_to_send = open(filename, 'rb')
@@ -169,33 +155,13 @@ class device(ABC):
             sock.sendall(l)
             file_to_send.close()
 
-
-
         sock.close()
 
-        filelist = [ f for f in os.listdir(path)]
+        filelist = [f for f in os.listdir(path)]
         for f in filelist:
             os.remove(os.path.join(path, f))
 
 
-    sendData('', 'readyFiles')
-
-    def noChange(self):
-        while True:
-            sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            host = "127.0.0.1"
-            port  = 5002
-            try:
-                sock.connect((host, port))
-                break
-            except:
-                print("Falied to connect, auto try again after 10sec")
-                time.sleep(10)
-                continue
-
-        print("no change")
-        sock.sendall(("No Change").encode('utf8'))
-        sock.close()
 
     def noChange(self):
         while True:

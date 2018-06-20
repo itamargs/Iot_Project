@@ -17,6 +17,7 @@ class tensiometer(ABC):
     dataType = "text"
     needReduction = False
     needCompression = True
+    save_original_file = False
 
     # override from tensiometer
     @abstractmethod
@@ -50,7 +51,6 @@ class tensiometer(ABC):
 
         for key, value in my_dict.items():
             print(key + ":", value)
-
 
 
     #override from tensiometer
@@ -94,3 +94,4 @@ class tensiometer(ABC):
     @abstractmethod
     def dataReduction(self, files, path):
         print("tensiometer: reduction to data")
+        print("Just compressing the data")

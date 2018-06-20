@@ -1,4 +1,4 @@
-#!/usr/bin/python
+4#!/usr/bin/python
 #-*- coding: utf-8 -*-
 
 # Interface
@@ -19,6 +19,7 @@ class microphone(ABC):
     fileExtension = "wav"
     needReduction = True
     needCompression = False
+    save_original_file = False
 
     def getDataType(self):
         return "audio"
@@ -55,8 +56,13 @@ class microphone(ABC):
 
     # override from microphone
     @abstractmethod
-    def dataReduction(self, files, path):
+    def dataReduction(self, file, path):
         print("microphone: Make Reduction to data:")
         date = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
-        song = AudioSegment.from_wav(files[0]).export(path + "/convertedFile-" + date + ".mp3",format="mp3")  # convert wav to mp3
+        try:
+            song = AudioSegment.from_wav(file).export(path + "/convertedFile-" + date + ".mp3",format="mp3")  # convert wav to mp3
+        except:
+            print("ERROR: Bad format. Please use .WAV for this device")
+            return False
+
 print("microphone: Audio file converted to mp3 successfully:")
