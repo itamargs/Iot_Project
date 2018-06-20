@@ -5,7 +5,7 @@
 </p>
 
 This project is developed as part of the requirements for our B.Sc studying at [Azrieli College of Engineering, Jerusalem, Israel](https://www.jce.ac.il/).
-The project is advisored by Dr. Guy Leshem, and created by [our team](https://github.com/itamargs/Iot_Project/wiki/Our-Team)
+The project is advisored by Dr.  Guy Leshem, and created by [our team](https://github.com/itamargs/Iot_Project/wiki/Our-Team)
 
 Relevant Links:
 
