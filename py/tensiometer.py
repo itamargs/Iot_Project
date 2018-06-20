@@ -34,7 +34,6 @@ class tensiometer(ABC):
     def printMyType(self):
         print("Device type: Tensiometer")
 
-    @abstractmethod
     # override from tensiometer
     def getData(self):
         print("tensiometer:  Get Data:")
@@ -52,7 +51,6 @@ class tensiometer(ABC):
             print(key + ":", value)
 
 
-    @abstractmethod
     #override from tensiometer
     def getSettings(self):
         print("tensiomete: Get Settings:")
@@ -69,7 +67,7 @@ class tensiometer(ABC):
             print(key + ":", value)
 
     # override from tensiometer
-    @abstractmethod
+
     def analyze(self):
         print("tensiometer: analyze:")
         my_dict = {}
@@ -85,7 +83,6 @@ class tensiometer(ABC):
         m_buttery = my_dict.get('buttery', 'None')
 
     # override from tensiometer
-    @abstractmethod
     def compareData(self):
         print("tensiometer: compare data")
         print("tensiometer compareData(): data has changed--> returns true") #todo: just for test in case its really true

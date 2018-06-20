@@ -161,7 +161,7 @@ class device(ABC):
                 time.sleep(10)
                 continue
 
-
+        print("CONECT TO MASTER")
         for files in dirs:
             filename = files
             size = len(filename)
@@ -187,3 +187,21 @@ class device(ABC):
             os.remove(os.path.join(path, f))
 
 
+    sendData('', 'readyFiles')
+
+    def noChange(self):
+        while True:
+            sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            host = "127.0.0.1"
+            port  = 5002
+            try:
+                sock.connect((host, port))
+                break
+            except:
+                print("Falied to connect, auto try again after 10sec")
+                time.sleep(10)
+                continue
+
+        print("no change")
+        sock.sendall(("No Change").encode('utf8'))
+        sock.close()

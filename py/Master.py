@@ -12,6 +12,11 @@ def client_thread(clientsocket, ip, port, MAX_BUFFER = 4096):       # MAX_BUFFER
 
         #recv file size from client
         size = clientsocket.recv(16)
+
+        if size.decode('utf8') == "No Change":
+            print("No Change detected")
+            break
+
         if not size:
             break
         size = int(size, 2)
