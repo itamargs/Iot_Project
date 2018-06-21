@@ -30,7 +30,7 @@ class Device(device.device, tensiometer.tensiometer): #tensiometer is a placehol
     def needToClean(self, ):
         pass
 
-    # override from tensiometer4
+    # override from tensiometer
     def dataReduction(self, files, path):
         super(Device, self).dataReduction(files, path)
 
@@ -165,7 +165,8 @@ while(True):
                 filesExist = glob.glob("filesPool/*.*")  # create list of files in directory
                 try:
                     while not filesExist:
-                        time.sleep(2)
+                        myDevice.noChange()
+                        time.sleep(4)
                         filesExist = glob.glob("filesPool/*.*")
                     else:  # then list (actually the directory) isn't empty
                         print("File detected!")

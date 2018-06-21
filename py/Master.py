@@ -52,7 +52,7 @@ def init_fireBase():
     #   for the real time databae as we use FireStore instead- Cause FireStore already have a python native functions
     # - init fireStore cloud with credentials and Etc.
 
-    cred = credentials.Certificate('/home/itamar/iotproject-dd956-4555a8fff398.json')
+    cred = credentials.Certificate('iotproject-dd956-firebase-adminsdk-usn8m-50b069f476.json')
     firebase_admin.initialize_app(cred, {
         'storageBucket': 'iotproject-dd956.appspot.com'
     })
@@ -62,7 +62,7 @@ def init_fireBase():
         "authDomain": "iotproject-dd956.firebaseapp.com",
         "databaseURL": "https://iotproject-dd956.firebaseio.com",
         "storageBucket": "iotproject-dd956.appspot.com",
-        "serviceAccount": "/home/itamar/iotproject-dd956-4555a8fff398.json"
+        "serviceAccount": "iotproject-dd956-firebase-adminsdk-usn8m-50b069f476"
     }
     firebase = pyrebase.initialize_app(config)
     db = firestore.client()
