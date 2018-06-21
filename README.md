@@ -27,9 +27,11 @@ Relevant Links:
 | License | [![Open Source Love](https://badges.frapsoft.com/os/mit/mit.svg?v=102)](https://github.com/itamargs/Iot_Project/blob/master/LICENSE)|
 ---
 *How To Use:*
-On RasberyPi Os (Should be the same or slightly different in other Linux distributions)
+
+On RasberyPi-Os (Should be the same or slightly different in other Linux distributions)
 
 Install Python3 Packages on your device:
+	
 	pip3 install dill
 	
 	pip3 install firebase_admin
