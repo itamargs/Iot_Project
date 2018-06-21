@@ -31,14 +31,16 @@ Relevant Links:
 On RasberyPi-Os (Should be the same or slightly different in other Linux distributions)
 
 1. Install Python3 Packages on your device:
-	
+'''
+
 	pip3 install dill
 	
 	pip3 install firebase_admin
 	
 	pip3 install pydub
 	
-	pip3 install pyrebase
+	pip3 install pyrebase 
+'''
 	
 2. Install libav-tools for audio encoding:
 
