@@ -64,7 +64,7 @@ while(True):
 
         if case('first start'):
             print("\ncase: first start")
-            myDevice = Device(1, "0022", "my Tensiometer IoT device") #(self, interval, id, description)create device instance to actually run in background and gather data
+            myDevice = Device(1, "0022", "my Tesnsiometer IoT device") #(self, interval, id, description)create device instance to actually run in background and gather data
             myDevice_ = myDevice.save('saved') #saving the device values to another sessions
             myDevice.printDetails()
             print("--Sucess--")
@@ -90,7 +90,11 @@ while(True):
                 # myDevice.compareData()
                 # reducing or compressing the files depends on their sensor settings
                 if myDevice.needReduction is True: # is the file need to go throw reduction process
-                    myDevice.dataReduction(files, "filesUnderProcess") # make reduction + save result in this path
+                    result = myDevice.dataReduction(files[0], "filesUnderProcess") # make reduction + save result in this path
+                    if result is False: # result is false when there is error in reduction
+                        os.remove(files[0]) # remove the file that cause the error so can keep program flow
+                        option = "standBy" # go back to standby mode
+                        break
                     filename, file_extension = os.path.splitext(files[0])
                     if myDevice.save_original_file is True:
                         shutil.move(files[0],
@@ -175,6 +179,3 @@ while(True):
         if case(): # default, could also just omit condition or 'if True'
             pass
             # No need to break here, it'll stop anyway
-
-
-
