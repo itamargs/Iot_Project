@@ -55,3 +55,8 @@ Insert Files into input folder for compression- filesPool
 
 Note: 
 	microphone only support .WAV files
+	
+Get the .json credentials files from  [This link](https://www.dropbox.com/home/%D7%A4%D7%A8%D7%95%D7%99%D7%99%D7%A7%D7%98%20%D7%92%D7%9E%D7%A8%20-%20IoT/credentials) (If you have permission) or use your own firebase credentials.
+
+Put the .json file in the py DIR of the IoT project files
+
