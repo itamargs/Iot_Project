@@ -62,7 +62,7 @@ def init_fireBase():
         "authDomain": "iotproject-dd956.firebaseapp.com",
         "databaseURL": "https://iotproject-dd956.firebaseio.com",
         "storageBucket": "iotproject-dd956.appspot.com",
-        "serviceAccount": "iotproject-dd956-firebase-adminsdk-usn8m-50b069f476"
+        "serviceAccount": "iotproject-dd956-firebase-adminsdk-usn8m-50b069f476.json"
     }
     firebase = pyrebase.initialize_app(config)
     db = firestore.client()
