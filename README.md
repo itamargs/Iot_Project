@@ -25,5 +25,24 @@ Relevant Links:
 | Diary |  [![link](https://img.shields.io/badge/Diary-On%20demand-blue.svg)](https://calendar.google.com/calendar/embed?src=e0luturcbaalb57knbt17hq83k%40group.calendar.google.com&ctz=Asia%2FJerusalem) |
 | Releases |  [![release](http://github-release-version.herokuapp.com/github/meitarsh/m.s-aluminium-manager-app/release.svg?style=flat)](https://github.com/itamargs/Iot_Project/releases) |
 | License | [![Open Source Love](https://badges.frapsoft.com/os/mit/mit.svg?v=102)](https://github.com/itamargs/Iot_Project/blob/master/LICENSE)|
+---
+*How To Use:*
+On RasberyPi Os (Should be the same or slightly different in other Linux distributions)
 
+Install Python3 Packages on your device:
+	pip3 install dill
+	pip3 install firebase_admin
+	pip3 install pydub
+	pip3 install pyrebase
+Install libav-tools for audio encoding:
+	sudo apt-get install libav-tools
+	
+Run program:
+	python3 device_[sensor name].py
+Run master (server):
+	python3 Master.py
 
+Insert Files into input folder for compression- filesPool
+
+Note: 
+	microphone only support .WAV files
