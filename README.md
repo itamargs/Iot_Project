@@ -31,15 +31,22 @@ On RasberyPi Os (Should be the same or slightly different in other Linux distrib
 
 Install Python3 Packages on your device:
 	pip3 install dill
+	
 	pip3 install firebase_admin
+	
 	pip3 install pydub
+	
 	pip3 install pyrebase
+	
 Install libav-tools for audio encoding:
+
 	sudo apt-get install libav-tools
 	
 Run program:
+
 	python3 device_[sensor name].py
 Run master (server):
+
 	python3 Master.py
 
 Insert Files into input folder for compression- filesPool
