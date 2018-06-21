@@ -26,7 +26,7 @@ Relevant Links:
 | Releases |  [![release](http://github-release-version.herokuapp.com/github/meitarsh/m.s-aluminium-manager-app/release.svg?style=flat)](https://github.com/itamargs/Iot_Project/releases) |
 | License | [![Open Source Love](https://badges.frapsoft.com/os/mit/mit.svg?v=102)](https://github.com/itamargs/Iot_Project/blob/master/LICENSE)|
 ---
-*How To Use:*
+***How To Use:***
 
 On RasberyPi-Os (Should be the same or slightly different in other Linux distributions)
 
@@ -60,3 +60,4 @@ Get the .json credentials files from  [This link](https://www.dropbox.com/home/%
 
 Put the .json file in the py DIR of the IoT project files
 
+**DO NOT PUSH THE .JSON CRED FILES INTO GITHUB OR ANY OTHER LOCAL REPO**
