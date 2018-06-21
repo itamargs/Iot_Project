@@ -73,7 +73,7 @@ def init_fireBase():
     py_storage = firebase.storage()  # init firebase storage to work with pyrebase
     print('Fire Base Bucket name: "{}" .\n'.format(bucket.name))
     firebaseIsON = True
-    # ---------------------- End of init FireBase -----------------------------------------------------------------------
+    ---------------------- End of init FireBase -----------------------------------------------------------------------
 
 
 if have_internet():
@@ -83,11 +83,12 @@ else:
 
 
 #handle the clinets connection
-def client_thread(clientsocket, ip, port,serverID , MAX_BUFFER = 4096):       # MAX_BUFFER_SIZE is how big the message can be
+def client_thread(clientsocket, serversock ,ip, port,serverID , MAX_BUFFER = 4096):       # MAX_BUFFER_SIZE is how big the message can be
     global thread_check_for_internet_exist
     global sombodySendToCloud
     while True:
 
+        total_size = 0
         #recv file size from client
         size = clientsocket.recv(16)
 
@@ -109,10 +110,15 @@ def client_thread(clientsocket, ip, port,serverID , MAX_BUFFER = 4096):       # 
                 chunksize = filesize
             data = clientsocket.recv(chunksize)
             file_to_write.write(data)
+            total_size += filesize
             filesize -= len(data)
 
         file_to_write.close()
+        clientsocket.sendall(((str(total_size)).encode(('utf8'))))
         print('File received successfully from Device')
+
+
+
 
         sendFileToCloud('', serverID, filename)
 
@@ -143,7 +149,7 @@ def startserver():
     port = 5002;
     serversock.bind((host,port));
     filename = ""
-    serversock.listen(1);
+    serversock.listen(10);
     print ("Waiting for a connection.....")
 
     try:
@@ -152,7 +158,7 @@ def startserver():
     except:
         print("Error trying to create Thread")
 
-    #Infinte loop - so the server wont reset after each connetion
+    Infinte loop - so the server wont reset after each connetion
     while True:
 
 
@@ -161,14 +167,12 @@ def startserver():
         print("Got a connection from %s"+ ip + ":" + port)
 
         try:
-           Thread(target = client_thread , args=(clientsocket, ip, port, serverID)).start()
+           Thread(target = client_thread , args=(clientsocket, ip, port, serverID, serversock)).start()
 
         except:
             print("Error trying to create Thread")
 
-    serversock.connect(ip, port)
-    serversock.sendall("Recvied".encode('utf8'))
-    serversock.close()
+
 
 
 #creating Server DB

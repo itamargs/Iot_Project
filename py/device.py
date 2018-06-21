@@ -136,16 +136,19 @@ class device(ABC):
                 time.sleep(10)
                 continue
 
+        total_size = 0
+
         print("CONECT TO MASTER")
         for files in dirs:
             filename = files
-            size = len(filename)
-            size = bin(size)[2:].zfill(16)  # encode file name to 16 bit
+            size = len(filename)            #num of lines in files
+            size = bin(size)[2:].zfill(16)  # encode file name to 16 bit, zfill for not losing the leading zero when converting to bin
             sock.sendall(size.encode('utf8'))  # encode so we could send it
             sock.sendall(filename.encode('utf8'))
 
-            filename = os.path.join(path, filename)
-            filesize = os.path.getsize(filename)
+            filename = os.path.join(path, filename) #gets the full file name
+            filesize = os.path.getsize(filename)    #gets the real file size after reduce
+            total_size += filesize
             filesize = bin(filesize)[2:].zfill(32)  # encode filesize as 32 bit binary
             sock.sendall(filesize.encode('utf8'))
 
@@ -154,6 +157,11 @@ class device(ABC):
             l = file_to_send.read()
             sock.sendall(l)
             file_to_send.close()
+
+        conf =  sock.recv(4096)
+
+        if (conf.decode('utf8') == str(total_size)):
+            print("all files recvied successfully")
 
         sock.close()
 
