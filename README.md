@@ -31,7 +31,7 @@ Relevant Links:
 On RasberyPi-Os (Should be the same or slightly different in other Linux distributions)
 
 1. Install Python3 Packages on your device:
-'''
+```
 pip3 install dill
 	
 pip3 install firebase_admin
@@ -39,31 +39,31 @@ pip3 install firebase_admin
 pip3 install pydub
 	
 pip3 install pyrebase 
-'''
+```
 	
 2. Install libav-tools for audio encoding:
-'''
+```
 sudo apt-get install libav-tools
-'''	
+```	
 3. Run program:
-'''
+```
 python3 device_[sensor name].py
-'''	
+```	
 4. Get the .json credentials files from  [This link](https://www.dropbox.com/home/%D7%A4%D7%A8%D7%95%D7%99%D7%99%D7%A7%D7%98%20%D7%92%D7%9E%D7%A8%20-%20IoT/credentials) (If you have permission) or use your own firebase credentials.
-'''
+```
 Put the .json file in the py DIR of the IoT project files
 
 **DO NOT PUSH THE .JSON CRED FILES INTO GITHUB OR ANY OTHER LOCAL REPO**
-'''	
+```	
 5. Run master (server):
-'''
+```
 python3 Master.py
-'''
+```
 6. Operation
-'''
+```
 Insert Some Files the input folder('filesPool' folder) for compress them and send to the cloud.
 
 Note: 
 microphone only support .WAV files
-'''	
+```	
 
