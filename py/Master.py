@@ -198,11 +198,14 @@ def sendFileToCloud(self, serverID, fileName):
     dirs = os.listdir()
     for files in dirs:  # scanning the whole folder given- 'files' is a single file inside a folder
         if files == fileName:
-            device_id = fileName.rsplit('-')[0]
-            temp_date = fileName.rsplit('-')[1]                                                        #split the time so it would be readable
+            device_id = fileName.rsplit('-')[0] # export id
+            temp_date = fileName.rsplit('-')[1]   # export date                                                     #split the time so it would be readable
             date =str( datetime(int(temp_date[4:]), int(temp_date[2:4]), int(temp_date[:2])))       #contain the relvant date but in full format
-            temp_time = fileName.rsplit('-')[2].rsplit('.')[0]
+            # temp_time = fileName.rsplit('-')[2].rsplit('.')[0] # export time
+            temp_time = fileName.rsplit('-')[2]  # export time
             mtime = str(temp_time[0:2]) + ':' + str(temp_time[2:4]) + ':' + temp_time[4:]
+            fileExtension = fileName.rsplit('-')[3] # export file extension
+            description = fileName.rsplit('-')[4] # export description
 
             print("File name:" + fileName)
 
@@ -212,19 +215,21 @@ def sendFileToCloud(self, serverID, fileName):
                 init_fireBase()
             if internetOn and firebaseIsON:
                 print("OK, OK, OK, Updating FireBase")
-                destinationFileName = server_id + "-" + fileName
+
+                destinationFileName = server_id + "-" + fileName.rsplit('.')[0] + fileExtension
                 blob = bucket.blob(destinationFileName)  # destination file name in Google Storage
                 blob.upload_from_filename(fileName)  # file location on local device
-                # fileUrl = py_storage.child(fileName).get_url(None) # get url of file from Google Storage
-                fileUrl = 'https://storage.cloud.google.com/' + bucket.name +'/' + destinationFileName
+
+                fileUrl = 'https://storage.cloud.google.com/' + bucket.name +'/' + destinationFileName # get url of file from Google Storage
                 print(fileUrl)
 
                 data = {
                     u'file_name': fileUrl,
                     u'date': date[0:10],
                     u'time': mtime,
+                    u'description': description,
                 }
-                db.collection('Master ID:' + server_id).document('Device ID:' + device_id).collection('Files').document(fileName).set(data)
+                db.collection('Master ID:' + server_id).document('Device ID:' + device_id).collection('Files').document(fileName.rsplit(fileExtension)[0] + fileExtension).set(data)
                 try:
                     os.remove(fileName)
                     print("file removed sucecfuly from master")

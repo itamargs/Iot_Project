@@ -58,6 +58,7 @@ while(True):
 
         if case('first start'):
             print("\ncase: first start")
+            # todo description cant include dots
             myDevice = Device(1, "0022", "my Tesnsiometer IoT device", "192.168.252.118") #(self, interval, id, description, masterIP)create device instance to actually run in background and gather data
             myDevice_ = myDevice.save('saved') #saving the device values to another sessions
             myDevice.printDetails()
@@ -98,7 +99,7 @@ while(True):
                         files = myDevice.getDataFromInputFolder("filesUnderProcess")
                         filename, file_extension = os.path.splitext(files[0])
                         shutil.move(files[0],
-                                         "readyFiles/" + myDevice.ID + "-" + date + file_extension)  # rename and move file to new folder --------> save file here (reduction)
+                                         "readyFiles/" + myDevice.ID + "-" + date + '-' + file_extension + myDevice.description)  # rename and move file to new folder --------> save file here (reduction)
                     if myDevice.needCompression is True:
                         files = myDevice.getDataFromInputFolder("filesUnderProcess")
                         myDevice.compress(files, "readyFiles", myDevice.ID, date) # -----------> save file here (compress + reduction)

@@ -18,7 +18,7 @@ class microphone(ABC):
     dataType = "audio"
     fileExtension = "wav"
     needReduction = True
-    needCompression = False
+    needCompression = True
     save_original_file = False
 
     def getDataType(self):

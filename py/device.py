@@ -67,7 +67,7 @@ class device(ABC):
         # print('Compressed: %d%%' % (100.0 * compress_ratio))
 
         #save the compressed data to file
-        f = open(path + '/' + deviceID + '-' + date + '.zlib', 'wb')
+        f = open(path + '/' + deviceID + '-' + date + '-' +'.zlib' + '-' + self.description, 'wb') # ---------> save file here after compress
         f.write(compressed_data)
         f.close()
 
