@@ -57,16 +57,10 @@ while(True):
     if option == None:
         print("\nInsert case NUM:\n"
               " 1: first start\n"
-              # " 2: new data (trigger received)\n"
-              # " 3: interval activation (or ping from server)\n"
               " 4: Stand By Mode")
         option = input("insert NUM: ")
         if option == "1":
             option = "first start"
-        if option == "2":
-            option = "new data"
-        if option == "3":
-            option = "interval activation"
         if option == "4":
             option = "standBy"
 
@@ -74,10 +68,10 @@ while(True):
 
         if case('first start'):
             print("\ncase: first start")
-            myDevice = Device(1, "0011", "my Microphone IoT device") #(self, interval, id, description)create device instance to actually run in background and gather data
+            # todo description cant include dots
+            myDevice = Device(1, "0022", "my Microphone IoT device", "192.168.252.118") #(self, interval, id, description, masterIP)create device instance to actually run in background and gather data
             myDevice_ = myDevice.save('saved') #saving the device values to another sessions
             myDevice.printDetails()
-            print("--Sucess--")
             option = None
             break
 
@@ -87,17 +81,13 @@ while(True):
             print("case: new data")
             with open('saved', 'rb') as f:
                 myDevice = pickle.load(f)
-            if myDevice.doesNeedAnalyzing() is True:
                 files = myDevice.getDataFromInputFolder("filesPool")  # get list of pointers to the files in the path provided folder
                 original_file_name = Path(files[0]).stem
                 filename123, original_file_extension = os.path.splitext(files[0])
                 # todo: date won't change fast enogh if multiple files was forced copoid into input folder. can cause error in creating file  (won't be the case in production mode)
+                time.sleep(1)
                 date = datetime.datetime.now().strftime("%d%m%Y-%H%M%S")
                 print("file name:" + original_file_name)
-                # myDevice.analyze()
-                # if myDevice.isTheDataHasChanged() is True:  # if there is a change
-                # myDevice.getChange()  # data has been changed so get the new data
-                # myDevice.compareData()
                 # reducing or compressing the files depends on their sensor settings
                 if myDevice.needReduction is True: # is the file need to go throw reduction process
                     result = myDevice.dataReduction(files[0], "filesUnderProcess") # make reduction + save result in this path
@@ -119,15 +109,15 @@ while(True):
                         files = myDevice.getDataFromInputFolder("filesUnderProcess")
                         filename, file_extension = os.path.splitext(files[0])
                         shutil.move(files[0],
-                                         "readyFiles/" + myDevice.ID + "-" + date + file_extension)  # rename and move file to new folder
+                                         "readyFiles/" + myDevice.ID + "-" + date + '-' + file_extension + '-' + myDevice.description)  # rename and move file to new folder --------> save file here (reduction)
                     if myDevice.needCompression is True:
                         files = myDevice.getDataFromInputFolder("filesUnderProcess")
-                        myDevice.compress(files, "readyFiles", myDevice.ID, date)
+                        myDevice.compress(files, "readyFiles", myDevice.ID, date) # -----------> save file here (compress + reduction)
                         os.remove(files[0])
 
                 elif myDevice.needCompression is True:
                     files = myDevice.getDataFromInputFolder("filesPool")
-                    myDevice.compress(files, "readyFiles", myDevice.ID, date) # compress file + save result in this path
+                    myDevice.compress(files, "readyFiles", myDevice.ID, date) # compress file + save result in this path ------------> save file here (compress)
                     if myDevice.save_original_file is True:
                         shutil.move(files[0],
                                     "filesBeenCared/" + myDevice.ID + "-" + date + original_file_extension)
@@ -137,35 +127,9 @@ while(True):
                         pass
 
 
-                # myDevice.deleteOutdatedData()
-                # myDevice.sendPulse()
                 myDevice.sendData("readyFiles")  #Send all files inside path to the server
-                # waitForFileCreation()
-            else:  # if there is NO change
-                myDevice.deleteOutdatedData()
-                # myDevice.sendPulse()
             option = "standBy"
             break
-
-        if case('interval activation'):
-            print("case: Interval activation")
-            with open('saved', 'rb') as f:
-                myDevice = pickle.load(f)
-            # todo:pulseCheck()
-            if myDevice.isTheDataHasChanged() is True:  # if there is a change
-                # myDevice.getChange()  # data has been changed so get the new data
-                # myDevice.compareData()
-                # myDevice.dataReduction()
-                # myDevice.compress()
-                # myDevice.deleteOutdatedData()
-                myDevice.sendPulse()
-                # myDevice.sendData()
-            else:  # if there is NO change
-                myDevice.deleteOutdatedData()
-                myDevice.sendPulse()
-            option = None
-            break
-
 
 
         if case('standBy'):
@@ -189,6 +153,3 @@ while(True):
         if case(): # default, could also just omit condition or 'if True'
             pass
             # No need to break here, it'll stop anyway
-
-
-

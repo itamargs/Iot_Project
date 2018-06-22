@@ -18,7 +18,7 @@ class microphone(ABC):
     dataType = "audio"
     fileExtension = "wav"
     needReduction = True
-    needCompression = False
+    needCompression = True
     save_original_file = False
 
     def getDataType(self):
@@ -65,4 +65,4 @@ class microphone(ABC):
             print("ERROR: Bad format. Please use .WAV for this device")
             return False
 
-print("microphone: Audio file converted to mp3 successfully:")
+        print("microphone: Audio file converted to mp3 successfully:")

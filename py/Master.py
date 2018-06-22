@@ -46,44 +46,44 @@ def init_fireBase():
     global firebaseIsON
 
 
-    # # ------------------------------------------  Init FireStore ------------------------------------------------------
-    # # - we use the variable name'pystorage' instead of the variable name 'storage' for pyrebase use for not colliding with the native firebase which we use it for firestore
-    # # - note that we will use pyrebase only for firebase 'Storage' and not
-    # #   for the real time databae as we use FireStore instead- Cause FireStore already have a python native functions
-    # # - init fireStore cloud with credentials and Etc.
-    #
-    # cred = credentials.Certificate('iotproject-dd956-firebase-adminsdk-usn8m-50b069f476.json')
-    # firebase_admin.initialize_app(cred, {
-    #     'storageBucket': 'iotproject-dd956.appspot.com'
-    # })
-    # # config values for pyrebase
-    # config = {
-    #     "apiKey": "AIzaSyChiOWAbg8Th2woLuAXfpqJwUc2ajFvlkU",
-    #     "authDomain": "iotproject-dd956.firebaseapp.com",
-    #     "databaseURL": "https://iotproject-dd956.firebaseio.com",
-    #     "storageBucket": "iotproject-dd956.appspot.com",
-    #     "serviceAccount": "iotproject-dd956-firebase-adminsdk-usn8m-50b069f476.json"
-    # }
-    # firebase = pyrebase.initialize_app(config)
-    # db = firestore.client()
-    # # 'bucket' is an object defined in the google-cloud-storage Python library.
-    # # See https://google-cloud-python.readthedocs.io/en/latest/storage/buckets.html
-    # # for more details.
-    # bucket = storage.bucket()
-    # py_storage = firebase.storage()  # init firebase storage to work with pyrebase
-    # print('Fire Base Bucket name: "{}" .\n'.format(bucket.name))
-    # firebaseIsON = True
+    # ------------------------------------------  Init FireStore ------------------------------------------------------
+    # - we use the variable name'pystorage' instead of the variable name 'storage' for pyrebase use for not colliding with the native firebase which we use it for firestore
+    # - note that we will use pyrebase only for firebase 'Storage' and not
+    #   for the real time databae as we use FireStore instead- Cause FireStore already have a python native functions
+    # - init fireStore cloud with credentials and Etc.
+
+    cred = credentials.Certificate('/home/itamar/iotproject-dd956-4555a8fff398.json')
+    firebase_admin.initialize_app(cred, {
+        'storageBucket': 'iotproject-dd956.appspot.com'
+    })
+    # config values for pyrebase
+    config = {
+        "apiKey": "AIzaSyChiOWAbg8Th2woLuAXfpqJwUc2ajFvlkU",
+        "authDomain": "iotproject-dd956.firebaseapp.com",
+        "databaseURL": "https://iotproject-dd956.firebaseio.com",
+        "storageBucket": "iotproject-dd956.appspot.com",
+        "serviceAccount": "/home/itamar/iotproject-dd956-4555a8fff398.json"
+    }
+    firebase = pyrebase.initialize_app(config)
+    db = firestore.client()
+    # 'bucket' is an object defined in the google-cloud-storage Python library.
+    # See https://google-cloud-python.readthedocs.io/en/latest/storage/buckets.html
+    # for more details.
+    bucket = storage.bucket()
+    py_storage = firebase.storage()  # init firebase storage to work with pyrebase
+    print('Fire Base Bucket name: "{}" .\n'.format(bucket.name))
+    firebaseIsON = True
     # ---------------------- End of init FireBase -----------------------------------------------------------------------
 
 
-# if have_internet():
-#     init_fireBase()
-# else:
-#     print("try to init firebase but no internet access")
+if have_internet():
+    init_fireBase()
+else:
+    print("try to init firebase but no internet access")
 
 
 #handle the clinets connection
-def client_thread(clientsocket, serversock ,ip, port,serverID , MAX_BUFFER = 4096):       # MAX_BUFFER_SIZE is how big the message can be
+def client_thread(clientsocket, ip, port,serverID , MAX_BUFFER = 4096):       # MAX_BUFFER_SIZE is how big the message can be
     global thread_check_for_internet_exist
     global sombodySendToCloud
     while True:
@@ -118,9 +118,6 @@ def client_thread(clientsocket, serversock ,ip, port,serverID , MAX_BUFFER = 409
         clientsocket.sendall(((str(total_size)).encode(('utf8'))))
         print('File received successfully from Device')
 
-
-
-
         sendFileToCloud('', serverID, filename)
 
 #starting server with the connection defantion
@@ -136,8 +133,19 @@ def fileSyncHandlerThread(serverID):
                     time.sleep(2)
                 files_db('', serverID)
         time.sleep(5)
-        print("handle thread: All OK")
+        print("File cloud sync: OK")
 
+def get_ip():
+    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    try:
+	# doesn't even have to be reachable
+        s.connect(('10.255.255.255', 1))
+        IP = s.getsockname()[0]
+    except:
+        IP = '127.0.0.1'
+    finally:
+        s.close()
+    return IP
 
 def startserver():
 
@@ -146,8 +154,11 @@ def startserver():
 
     os.chdir('Recvied')
     serversock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-  
-    serversock.bind(("",5002));
+
+    host = get_ip()
+    port = 5000;
+    print('Listen on: ' + host + ':' + str(port))
+    serversock.bind((host,port));
     filename = ""
     serversock.listen(10);
     print ("Waiting for a connection.....")
@@ -158,24 +169,23 @@ def startserver():
     except:
         print("Error trying to create Thread")
 
-    # Infinte loop - so the server wont reset after each connetion
+    #Infinte loop - so the server wont reset after each connetion
     while True:
 
 
         clientsocket,addr = serversock.accept()
         ip, port = str(addr[0]), str(addr[1])
-        print("Got a connection from %s"+ ip + ":" + port)
+        print("\nGot a connection from "+ ip + ":" + port)
 
         try:
-           Thread(target = client_thread , args=(clientsocket, ip, port, serverID, serversock)).start()
+           Thread(target = client_thread , args=(clientsocket, ip, port, serverID)).start()
 
         except:
             print("Error trying to create Thread")
 
 
 
-
-#creating Server DB
+#sync recived file to cloud
 def sendFileToCloud(self, serverID, fileName):
     global sombodySendToCloud
     sombodySendToCloud = True
@@ -186,36 +196,41 @@ def sendFileToCloud(self, serverID, fileName):
     dirs = os.listdir()
     for files in dirs:  # scanning the whole folder given- 'files' is a single file inside a folder
         if files == fileName:
-            device_id = fileName.rsplit('-')[0]
-            temp_date = fileName.rsplit('-')[1]                                                        #split the time so it would be readable
+            device_id = fileName.rsplit('-')[0] # export id
+            temp_date = fileName.rsplit('-')[1]   # export date                                                     #split the time so it would be readable
             date =str( datetime(int(temp_date[4:]), int(temp_date[2:4]), int(temp_date[:2])))       #contain the relvant date but in full format
-            temp_time = fileName.rsplit('-')[2].rsplit('.')[0]
+            # temp_time = fileName.rsplit('-')[2].rsplit('.')[0] # export time
+            temp_time = fileName.rsplit('-')[2]  # export time
             mtime = str(temp_time[0:2]) + ':' + str(temp_time[2:4]) + ':' + temp_time[4:]
+            fileExtension = fileName.rsplit('-')[3] # export file extension
+            description = fileName.rsplit('-')[4] # export description
 
-            print("current file name:" + fileName)
+            print("File name:" + fileName)
 
 
             # now saving data in cloud
             if not firebaseIsON and internetOn:
                 init_fireBase()
             if internetOn and firebaseIsON:
-                print("OKKKKKKKK Updating FireBase")
-                destinationFileName = server_id + "-" + fileName
+                print("OK, OK, OK, Updating FireBase")
+
+                destinationFileName = server_id + "-" + fileName.rsplit('.')[0] + fileExtension
                 blob = bucket.blob(destinationFileName)  # destination file name in Google Storage
                 blob.upload_from_filename(fileName)  # file location on local device
-                # fileUrl = py_storage.child(fileName).get_url(None) # get url of file from Google Storage
-                fileUrl = 'https://storage.cloud.google.com/' + bucket.name +'/' + destinationFileName
+
+                fileUrl = 'https://storage.cloud.google.com/' + bucket.name +'/' + destinationFileName # get url of file from Google Storage
                 print(fileUrl)
 
                 data = {
                     u'file_name': fileUrl,
                     u'date': date[0:10],
                     u'time': mtime,
+                    u'description': description,
                 }
-                db.collection('Master ID:' + server_id).document('Device ID:' + device_id).collection('fileName').document(fileName).set(data)
+                db.collection('Master ID:' + server_id).document('Device ID:' + device_id).collection('Files').document(fileName.rsplit(fileExtension)[0] + fileExtension).set(data)
                 try:
                     os.remove(fileName)
-                    print("file: " + fileName + ' removed sucecfuly')
+                    print("file removed sucecfuly from master")
                 except FileNotFoundError:
                     print("ERROR: Can't erase synced file (Probably user try to copy multiple file into input dir)")
 
@@ -223,7 +238,7 @@ def sendFileToCloud(self, serverID, fileName):
                 print("try to send data to cloud but no internet")
     sombodySendToCloud = False
 
-#creating Server DB
+#Sync files to cloud after getting back online to internet
 def files_db(self, serverID):
     internetOn = have_internet() # for checking internet connection only once
 
@@ -240,14 +255,14 @@ def files_db(self, serverID):
         temp_time = files.rsplit('-')[2].rsplit('.')[0]
         mtime = str(temp_time[0:2]) + ':' + str(temp_time[2:4]) + ':' + temp_time[4:]
 
-        print("current file name:" + files)
+        print("File name:" + files)
 
 
         # now saving data in cloud
         if not firebaseIsON and internetOn:
             init_fireBase()
         if internetOn and firebaseIsON:
-            print("OKKKKKKKK Updating FireBase")
+            print("OK, OK, OK Updating FireBase")
             destinationFileName = server_id + "-" + files
             blob = bucket.blob(destinationFileName)  # destination file name in Google Storage
             blob.upload_from_filename(files)  # file location on local device
@@ -262,8 +277,11 @@ def files_db(self, serverID):
             }
             db.collection('Master ID:' + server_id).document('Device ID:' + device_id).collection('Files').document(files).set(data)
 
-            print("removing file after the backup :" + files)
-            os.remove(files)
+            try:
+                os.remove(files)
+                print("file removed sucecfuly from master")
+            except FileNotFoundError:
+                print("ERROR: Can't erase synced file (Probably user try to copy multiple file into input dir)")
 
         else:
             print("try to send data to cloud but no internet")
