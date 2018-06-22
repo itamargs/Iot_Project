@@ -46,40 +46,40 @@ def init_fireBase():
     global firebaseIsON
 
 
-    # ------------------------------------------  Init FireStore ------------------------------------------------------
-    # - we use the variable name'pystorage' instead of the variable name 'storage' for pyrebase use for not colliding with the native firebase which we use it for firestore
-    # - note that we will use pyrebase only for firebase 'Storage' and not
-    #   for the real time databae as we use FireStore instead- Cause FireStore already have a python native functions
-    # - init fireStore cloud with credentials and Etc.
+    # # ------------------------------------------  Init FireStore ------------------------------------------------------
+    # # - we use the variable name'pystorage' instead of the variable name 'storage' for pyrebase use for not colliding with the native firebase which we use it for firestore
+    # # - note that we will use pyrebase only for firebase 'Storage' and not
+    # #   for the real time databae as we use FireStore instead- Cause FireStore already have a python native functions
+    # # - init fireStore cloud with credentials and Etc.
+    #
+    # cred = credentials.Certificate('iotproject-dd956-firebase-adminsdk-usn8m-50b069f476.json')
+    # firebase_admin.initialize_app(cred, {
+    #     'storageBucket': 'iotproject-dd956.appspot.com'
+    # })
+    # # config values for pyrebase
+    # config = {
+    #     "apiKey": "AIzaSyChiOWAbg8Th2woLuAXfpqJwUc2ajFvlkU",
+    #     "authDomain": "iotproject-dd956.firebaseapp.com",
+    #     "databaseURL": "https://iotproject-dd956.firebaseio.com",
+    #     "storageBucket": "iotproject-dd956.appspot.com",
+    #     "serviceAccount": "iotproject-dd956-firebase-adminsdk-usn8m-50b069f476.json"
+    # }
+    # firebase = pyrebase.initialize_app(config)
+    # db = firestore.client()
+    # # 'bucket' is an object defined in the google-cloud-storage Python library.
+    # # See https://google-cloud-python.readthedocs.io/en/latest/storage/buckets.html
+    # # for more details.
+    # bucket = storage.bucket()
+    # py_storage = firebase.storage()  # init firebase storage to work with pyrebase
+    # print('Fire Base Bucket name: "{}" .\n'.format(bucket.name))
+    # firebaseIsON = True
+    # ---------------------- End of init FireBase -----------------------------------------------------------------------
 
-    cred = credentials.Certificate('iotproject-dd956-firebase-adminsdk-usn8m-50b069f476.json')
-    firebase_admin.initialize_app(cred, {
-        'storageBucket': 'iotproject-dd956.appspot.com'
-    })
-    # config values for pyrebase
-    config = {
-        "apiKey": "AIzaSyChiOWAbg8Th2woLuAXfpqJwUc2ajFvlkU",
-        "authDomain": "iotproject-dd956.firebaseapp.com",
-        "databaseURL": "https://iotproject-dd956.firebaseio.com",
-        "storageBucket": "iotproject-dd956.appspot.com",
-        "serviceAccount": "iotproject-dd956-firebase-adminsdk-usn8m-50b069f476.json"
-    }
-    firebase = pyrebase.initialize_app(config)
-    db = firestore.client()
-    # 'bucket' is an object defined in the google-cloud-storage Python library.
-    # See https://google-cloud-python.readthedocs.io/en/latest/storage/buckets.html
-    # for more details.
-    bucket = storage.bucket()
-    py_storage = firebase.storage()  # init firebase storage to work with pyrebase
-    print('Fire Base Bucket name: "{}" .\n'.format(bucket.name))
-    firebaseIsON = True
-    ---------------------- End of init FireBase -----------------------------------------------------------------------
 
-
-if have_internet():
-    init_fireBase()
-else:
-    print("try to init firebase but no internet access")
+# if have_internet():
+#     init_fireBase()
+# else:
+#     print("try to init firebase but no internet access")
 
 
 #handle the clinets connection
@@ -146,9 +146,8 @@ def startserver():
 
     os.chdir('Recvied')
     serversock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    host = "127.0.0.1"
-    port = 5002;
-    serversock.bind((host,port));
+  
+    serversock.bind(("",5002));
     filename = ""
     serversock.listen(10);
     print ("Waiting for a connection.....")
@@ -159,7 +158,7 @@ def startserver():
     except:
         print("Error trying to create Thread")
 
-    Infinte loop - so the server wont reset after each connetion
+    # Infinte loop - so the server wont reset after each connetion
     while True:
 
 
