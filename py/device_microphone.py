@@ -134,12 +134,15 @@ while(True):
 
         if case('standBy'):
             print("\nWelcome to project Ultron.\nStand by, We R Waiting for new data\n.")
+            if os.listdir('readyFiles'):
+                myDevice.sendData("readyFiles")
             while (True):
                 print("Searching for files in input directory...") #todo: implements other trigers then new file
                 filesExist = glob.glob("filesPool/*.*")  # create list of files in directory
                 try:
                     while not filesExist:
-                        time.sleep(2)
+                        myDevice.noChange()
+                        time.sleep(4)
                         filesExist = glob.glob("filesPool/*.*")
                     else:  # then list (actually the directory) isn't empty
                         print("File detected!")

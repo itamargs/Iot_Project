@@ -52,7 +52,7 @@ def init_fireBase():
     #   for the real time databae as we use FireStore instead- Cause FireStore already have a python native functions
     # - init fireStore cloud with credentials and Etc.
 
-    cred = credentials.Certificate('/home/itamar/iotproject-dd956-4555a8fff398.json')
+    cred = credentials.Certificate('/home/iotproject/PycharmProjects/iotproject-dd956-firebase-adminsdk-usn8m-50b069f476.json')
     firebase_admin.initialize_app(cred, {
         'storageBucket': 'iotproject-dd956.appspot.com'
     })
@@ -62,7 +62,7 @@ def init_fireBase():
         "authDomain": "iotproject-dd956.firebaseapp.com",
         "databaseURL": "https://iotproject-dd956.firebaseio.com",
         "storageBucket": "iotproject-dd956.appspot.com",
-        "serviceAccount": "/home/itamar/iotproject-dd956-4555a8fff398.json"
+        "serviceAccount": "/home/iotproject/PycharmProjects/iotproject-dd956-firebase-adminsdk-usn8m-50b069f476.json"
     }
     firebase = pyrebase.initialize_app(config)
     db = firestore.client()
@@ -92,27 +92,28 @@ def client_thread(clientsocket, ip, port,serverID , MAX_BUFFER = 4096):       # 
         #recv file size from client
         size = clientsocket.recv(16)
 
-        if size.decode('utf8') == "No Change":
+        if size.decode('utf8') == "No Change":          #check if there is no change detected by client and print it
             print("No Change detected")
             break
 
 
-        if not size:
+        if not size:                                    #if client done sending
             break
+
         size = int(size, 2)
-        filename = clientsocket.recv(size)
-        filesize = clientsocket.recv(32)
+        filename = clientsocket.recv(size)              #gets the filename from client
+        filesize = clientsocket.recv(32)                #gets the file size from cleint
         filesize = int(filesize, 2)
-        file_to_write = open(filename, 'wb')            #creating the recived file on server side
+        file_to_write = open(filename, 'wb')            #creating the received file on server side with the original name
 
         chunksize = 4096
-        while filesize > 0:
-            if filesize < chunksize:
+        while filesize > 0:                             #when filesize = 0, we received the entire file
+            if filesize < chunksize:                    #if server get large file
                 chunksize = filesize
             data = clientsocket.recv(chunksize)
             file_to_write.write(data)
             total_size += filesize
-            filesize -= len(data)
+            filesize -= len(data)                        #subtrack what we received from the actual size
 
         file_to_write.close()
         clientsocket.sendall(((str(total_size)).encode(('utf8'))))

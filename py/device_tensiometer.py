@@ -59,7 +59,7 @@ while(True):
         if case('first start'):
             print("\ncase: first start")
             # todo description cant include dots
-            myDevice = Device(1, "0022", "my Tesnsiometer IoT device", "192.168.252.118") #(self, interval, id, description, masterIP)create device instance to actually run in background and gather data
+            myDevice = Device(1, "0022", "my Tesnsiometer IoT device", "10.0.2.15") #(self, interval, id, description, masterIP)create device instance to actually run in background and gather data
             myDevice_ = myDevice.save('saved') #saving the device values to another sessions
             myDevice.printDetails()
             option = None
@@ -124,12 +124,16 @@ while(True):
 
         if case('standBy'):
             print("\nWelcome to project Ultron.\nStand by, We R Waiting for new data\n.")
+            if os.listdir('readyFiles'):
+                myDevice.sendData("readyFiles")
+
             while (True):
                 print("Searching for files in input directory...") #todo: implements other trigers then new file
                 filesExist = glob.glob("filesPool/*.*")  # create list of files in directory
                 try:
                     while not filesExist:
-                        time.sleep(2)
+                        myDevice.noChange()
+                        time.sleep(4)
                         filesExist = glob.glob("filesPool/*.*")
                     else:  # then list (actually the directory) isn't empty
                         print("File detected!")

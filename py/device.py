@@ -72,32 +72,36 @@ class device(ABC):
         f.close()
 
     def sendData(self, path): # send data from device to Master
-        host = self.masterIP
+
+        total_size =0
+
+        host = self.masterIP                                #get the IP of the master
         port = 5000        
-        print("device: Sending data to " + host + ':' + str(port))
 
         dirs = os.listdir(path)
 
-        while True:
+        while True:                                          #check whether the connection succeed
             sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             try:
                 sock.connect((host, port))
                 break
-            except:
+            except:                                         #if not, probably server on load situation, wait and try again
                 print("Falied to connect, auto try again after 10sec")
                 time.sleep(10)
                 continue
 
+        print("CONNECTED TO MASTER ON" , self.masterIP)
         for files in dirs:
             filename = files
-            size = len(filename)
-            size = bin(size)[2:].zfill(16)  # encode file name to 16 bit
-            sock.sendall(size.encode('utf8'))  # encode so we could send it
+            size = len(filename)                        #the lines on the file
+            size = bin(size)[2:].zfill(16)              # change to bin and fill to not lose zeros
+            sock.sendall(size.encode('utf8'))            # encode so we could send it
             sock.sendall(filename.encode('utf8'))
 
-            filename = os.path.join(path, filename)
-            filesize = os.path.getsize(filename)
-            filesize = bin(filesize)[2:].zfill(32)  # encode filesize as 32 bit binary
+            filename = os.path.join(path, filename)     #full file name
+            filesize = os.path.getsize(filename)        #actual size after comression and reduction
+            total_size +=filesize
+            filesize = bin(filesize)[2:].zfill(32)       # change to bin and fill to not lose zeros
             sock.sendall(filesize.encode('utf8'))
 
             file_to_send = open(filename, 'rb')
@@ -106,13 +110,41 @@ class device(ABC):
             sock.sendall(l)
             file_to_send.close()
 
-        sock.close()
+            conf = sock.recv(4096)                                  #recvied confirmation from server
 
-        filelist = [f for f in os.listdir(path)]
+
+            if str(total_size) != conf.decode('utf8'):              #in case connection lost during sendig
+                print("Falied to send all files, auto try again after 5sec")
+                time.sleep(5)
+                self.sendData('readyFiles')
+
+        sock.close()
+        print("ALL FILES RECEIVED SUCCESSFULLY")
+
+        filelist = [f for f in os.listdir(path)]                       #clear the storage of client
         for f in filelist:
             os.remove(os.path.join(path, f))
 
         print("File sent!")
+
+
+    def noChange(self):
+        while True:
+            sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            host = self.masterIP
+            port  = 5000
+            try:
+                sock.connect((host, port))
+                break
+            except:
+                print("Falied to connect, auto try again after 10sec")
+                time.sleep(10)
+                continue
+
+        print("CONNECTED TO MASTER ON" , self.masterIP)
+        print("no change")
+        sock.sendall(("No Change").encode('utf8'))
+        sock.close()
 
 
     #--------------------------------- Currently not in use --------------------------------
@@ -135,5 +167,8 @@ class device(ABC):
 
     def isReady(self, false):  # is the device ready to send data and etc?
         pass
+
+
+
 
     #-----------------------------------------------------------------------------------------
