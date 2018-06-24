@@ -59,7 +59,11 @@ Put the .json file in the py DIR of the IoT project files
 ```
 python3 Master.py
 ```
-6. Operation
+6. IP check
+```
+Insert the Master IP to the Device_[type] constructor (Your IP will show up when your run Master.py)
+```
+7. Operation
 ```
 Insert Some Files the input folder('filesPool' folder) for compress them and send to the cloud.
 
