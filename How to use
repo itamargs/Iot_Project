@@ -1,6 +1,6 @@
 HOW TO USE (In development)
 
-
+--See how to Run on the readme file--
 
 1 ---- device_sensor.py ---------
 1.1) devices need to declare the abstract methods from sensor class ([sensor.py]) - OtherWise, for safety measure- a runtime error will accure.
