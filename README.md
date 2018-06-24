@@ -31,7 +31,7 @@ Relevant Links:
 ```
 This project intend to provide platform for reduce the data, size, bandwitch and overall
 consumpion of IoT devices.
-Please note: Implementing it on your on project requiers some coding skill.
+Please note: Implementing it on your on project requiers some coding skills.
 ```
 
 ***How To RUN:***
