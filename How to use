@@ -3,31 +3,29 @@ HOW TO USE (In development)
 
 
 1 ---- device_sensor.py ---------
-1.1) devices need to declare the abstract methods (OtherWise, for safety measure- a runtime error will accure)
-the abstract metuds will be declared as follow:
+1.1) devices need to declare the abstract methods from sensor class ([sensor.py]) - OtherWise, for safety measure- a runtime error will accure.
+the abstract methods will be declared as follow:
 
 -- # override from tensiometer
 --    def foo(self, files, path):
---        super(Device, self).foo(files, path)
+--      return super(Device, self).foo(arg1, arg2)
 
 Note:
 please describe where you overriding from, so the code would be clear. ('tensiometer' is the sensor name, replace it with your sensor)
-	
-1.2)  copy all the code below 'Generic code from here' in the device_sensorName.py example to your running py file (AKA device_sensorName.py)
 
-1.3) for new sensor support only need to adjust the 'sensor.py' file.
+1.2) for new sensor support only need to adjust the 'sensor.py' file.
 
 
 2. ----sensor.py----
 
 2.1 All sensors class MUST have the following methods:
 
-def dataReduction(self, files, path): --> GET (pointer to list of files, path to save the file after convertion)
-				    CREATES reduced file in the output folder
+def dataReduction(self, files, path): --> What it Gets?: pointer to list of files, path to save the file after convertion)
+				    	  What it Creates?: reduced file in the output folder
 
 2.2) define if sensor need compression and/or reducing.
 	for example. no need to compress .wav file after it was reduced to .mp3 couse compressing mp3 files isn't useful.
 
-3 ----- Testing -------
-3.1) For testing only- if you wish to change sensor type: a)delete 'saved' file
-							b)in the device menu, press '1' in the first time to create new.							  settings file
+3 ----- First Start -------
+3.1) When you first start device or when you want to change the device sensor. in the device menu, press '1' in the first time to create new.
+	settings file
