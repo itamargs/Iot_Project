@@ -250,13 +250,18 @@ def files_db(self, serverID):
 
     for files in dirs:  #scanning the whole folder given- 'files' is a single file inside a folder
 
-        device_id = files.rsplit('-')[0]
-        temp_date = files.rsplit('-')[1]                                                        #split the time so it would be readable
-        date =str( datetime(int(temp_date[4:]), int(temp_date[2:4]), int(temp_date[:2])))       #contain the relvant date but in full format
-        temp_time = files.rsplit('-')[2].rsplit('.')[0]
+        device_id = files.rsplit('-')[0]  # export id
+        temp_date = files.rsplit('-')[
+            1]  # export date                                                     #split the time so it would be readable
+        date = str(datetime(int(temp_date[4:]), int(temp_date[2:4]),
+                            int(temp_date[:2])))  # contain the relvant date but in full format
+        # temp_time = files.rsplit('-')[2].rsplit('.')[0] # export time
+        temp_time = files.rsplit('-')[2]  # export time
         mtime = str(temp_time[0:2]) + ':' + str(temp_time[2:4]) + ':' + temp_time[4:]
+        fileExtension = files.rsplit('-')[3]  # export file extension
+        description = files.rsplit('-')[4]  # export description
 
-        print("File name:" + files)
+        print("\nFile name:" + files)
 
 
         # now saving data in cloud
@@ -264,7 +269,7 @@ def files_db(self, serverID):
             init_fireBase()
         if internetOn and firebaseIsON:
             print("OK, OK, OK Updating FireBase")
-            destinationFileName = server_id + "-" + files
+            destinationFileName = server_id + "-" + files.rsplit('.')[0] + fileExtension
             blob = bucket.blob(destinationFileName)  # destination file name in Google Storage
             blob.upload_from_filename(files)  # file location on local device
             # fileUrl = py_storage.child(files).get_url(None) # get url of file from Google Storage
@@ -275,9 +280,9 @@ def files_db(self, serverID):
                 u'file_name': fileUrl,
                 u'date': date[0:10],
                 u'time': mtime,
+                u'description': description,
             }
-            db.collection('Master ID:' + server_id).document('Device ID:' + device_id).collection('Files').document(files).set(data)
-
+            db.collection('Master ID:' + server_id).document('Device ID:' + device_id).collection('Files').document(files.rsplit(fileExtension)[0] + fileExtension).set(data)
             try:
                 os.remove(files)
                 print("file removed sucecfuly from master")
