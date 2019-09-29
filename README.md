@@ -61,7 +61,7 @@ python3 device_[sensor name].py
 ```
 Put the .json file in the py DIR of the IoT project files
 
-**DO NOT PUSH THE .JSON CRED FILES INTO GITHUB OR ANY OTHER LOCAL REPO**
+**DO NOT PUSH THE .JSON CRED FILES INTO NON PPRIVATE REPO**
 ```	
 5. Run master (server):
 ```
