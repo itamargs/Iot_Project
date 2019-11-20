@@ -21,6 +21,8 @@ from pathlib import Path
 
 class Device(device.device, microphone.microphone): #microphone is a placeholder.
 
+###### Declare here ALL methods from [sensor].py as it says on the "How to use" file ######
+
     # override from microphone
     def analyze(self):  #get settings from file
         # analyze data in sensor, insert values to class values
@@ -32,9 +34,9 @@ class Device(device.device, microphone.microphone): #microphone is a placeholder
         super(Device, self).getData()
 
     # override from microphone
-    def getSettings(self):  #get settings from file
+    def getSettings(self, deviceSettings):  #get settings from file
         # get data from sensor
-        super(Device, self).getSettings()
+        return super(Device, self).getSettings(deviceSettings)
 
     # override from microphone
     def compareData(self):
@@ -47,7 +49,7 @@ class Device(device.device, microphone.microphone): #microphone is a placeholder
 
 
 
-# The code below is generic. it works with all type of devices depends on the device type we imported
+# The code below is generic (Universal). it works with all type of devices depends on the device type we imported
 
 
 
@@ -68,8 +70,10 @@ while(True):
 
         if case('first start'):
             print("\ncase: first start")
-            # todo description cant include dots
-            myDevice = Device(1, "0011", "my Microphone IoT device", "10.0.2.15") #(self, interval, id, description, masterIP)create device instance to actually run in background and gather data
+            # todo description cant include dot
+            deviceSettings = {"INTERVAL": "", "MASTER_IP": "", "DEVICE_DESCRIPTION": "", "DEVICE_ID": ""}
+            myDevice.getSettings(deviceSettings)  # get settings for this device from the sensor
+            myDevice = Device(myDevice.DEVICE_INTERVAL, myDevice.DEVICE_ID, myDevice.DEVICE_DESCRIPTION, myDevice.MASTER_IP) #(self, interval, id, description, masterIP)create device instance to actually run in background and gather data
             myDevice_ = myDevice.save('saved') #saving the device values to another sessions
             myDevice.printDetails()
             option = None
@@ -90,7 +94,7 @@ while(True):
                 print("file name:" + original_file_name)
                 # reducing or compressing the files depends on their sensor settings
                 if myDevice.needReduction is True: # is the file need to go throw reduction process
-                    result = myDevice.dataReduction(files[0], "filesUnderProcess") # make reduction + save result in this path
+                    result = myDevice.dataReduction(files[0], "filesUnderProcess") # make sensor based reduction + save result in this path
                     if result is False: # result is false when there is error in reduction
                         os.remove(files[0]) # remove the file that cause the error so can keep program flow
                         option = "standBy" # go back to standby mode

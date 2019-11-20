@@ -1,31 +1,38 @@
 4#!/usr/bin/python
 #-*- coding: utf-8 -*-
 
-# Interface
-# import this to device to make the device support tensiometer sensor and behavior.
+# blueprint for sensor behavior
+# Interface for microphone devices for using by the "Device" class
+
+# copy part of this code (As it says on the "How to use" file) this to device to make the device support this sensor and behavior.
 # all methods with "@abstractmethod" decorators are MUST be implementer into the sub class of this.
 # please copy the comment "override from ***"  to the subclass to make the code more readable
+
 import datetime
 from abc import ABC, abstractmethod
-
 from pydub import AudioSegment
 
 
 class microphone(ABC):
 
-
+    ##### modify here settings for the device #####
     Type = "Microphone"
     dataType = "audio"
     fileExtension = "wav"
     needReduction = True
     needCompression = True
     save_original_file = False
+    INTERVAL = 1  # interval for device update in seconds
+    MASTER_IP = "10.0.2.15"  # set here the ip of the master device
+    DEVICE_DESCRIPTION = "My microphone device"  # give informative description to device
+    DEVICE_ID = 1234 # give unique id for each device
+    ###############      /SETINGS       ################
 
-    def getDataType(self):
-        return "audio"
-
-    def printMyType(self):
-        print("Device type: Microphone")
+    # override from microphone
+    @abstractmethod
+    def analyze(self):
+        print("microphone: analyze:")
+        pass
 
     @abstractmethod
     # override from microphone
@@ -36,15 +43,11 @@ class microphone(ABC):
 
     @abstractmethod
     #override from microphone
-    def getSettings(self):
+    def getSettings(self, deviceSettings):
         print("microphone: Get Settings:")
-        pass
+        deviceSettings = {"INTERVAL": "", "MASTER_IP": "", "DEVICE_DESCRIPTION": "", "DEVICE_ID": ""}
+        return deviceSettings
 
-    # override from microphone
-    @abstractmethod
-    def analyze(self):
-        print("microphone: analyze:")
-        pass
 
     # override from microphone
     @abstractmethod

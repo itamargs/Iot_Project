@@ -1,6 +1,9 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
-# interface
+
+# blueprint for device behavior
+# interface for using inside the Device class
+# Look at the "ClassDiagram.png", "README", "How to use" files for further understanding this platform
 
 import datetime
 import glob
@@ -22,8 +25,8 @@ class device(ABC):
         self.interval = interval
         self.ID = ID
         self.description = description
-        self.dataType = self.dataType
-        self.mode = "standBy"  #device state: standby= regular mode (waiting for something to happen)
+        self.dataType = self.dataType # place holder
+        self.mode = "standBy"  #device state: standby = regular mode (waiting for something to happen)
         self.masterIP = IP
         print("device: init device:", description)
 
@@ -167,8 +170,5 @@ class device(ABC):
 
     def isReady(self, false):  # is the device ready to send data and etc?
         pass
-
-
-
 
     #-----------------------------------------------------------------------------------------

@@ -1,3 +1,5 @@
+# The Master is controlling the "Device". Master send the devices data to the cloud
+
 import os
 import socket
 from datetime import datetime
